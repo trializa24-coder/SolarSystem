@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seasons | Tria Liza</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --space:#020818;--deep:#050d2a;
+  --accent:#7c3aed;--glow:#c4b5fd;--cyan:#67e8f9;
+  --text:#f8fafc;--muted:#94a3b8;
+  --spring:#86efac;--summer:#fcd34d;--autumn:#fb923c;--winter:#bfdbfe;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--space);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;cursor:none;font-size:17px;}
+
+/* CURSOR */
+.cursor{position:fixed;width:16px;height:16px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;box-shadow:0 0 20px var(--cyan);mix-blend-mode:screen;}
+.cursor-trail{position:fixed;width:40px;height:40px;border:1px solid var(--glow);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s ease;opacity:.5;}
+
+/* STARS */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(1px 1px at 8% 15%,white,transparent),radial-gradient(1px 1px at 22% 60%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 45% 8%,white,transparent),radial-gradient(1px 1px at 68% 42%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 83% 75%,white,transparent),radial-gradient(1px 1px at 33% 88%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 12% 52%,rgba(167,139,250,.5),transparent),radial-gradient(1px 1px at 88% 12%,rgba(255,255,255,.9),transparent),radial-gradient(1px 1px at 57% 28%,white,transparent),radial-gradient(1px 1px at 75% 55%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 3% 38%,rgba(34,211,238,.4),transparent),radial-gradient(1px 1px at 91% 65%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 62% 85%,rgba(167,139,250,.4),transparent);}
+.nebula{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.nb1{width:600px;height:600px;background:rgba(124,58,237,.07);top:-200px;right:-200px;}
+.nb2{width:500px;height:500px;background:rgba(34,211,238,.05);bottom:20%;left:-150px;}
+.nb3{width:400px;height:400px;background:rgba(245,158,11,.04);top:40%;right:15%;}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(2,8,24,0.9), transparent);
+  backdrop-filter: blur(10px);
+}
+.nav-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--glow);
+  text-shadow: 0 0 20px var(--accent);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--cyan);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--cyan); }
+.nav-links a:hover::after { width: 100%; }
+
+/* HERO */
+.hero{position:relative;z-index:1;padding:155px 60px 50px;text-align:center;}
+.hero-eyebrow{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:5px;color:var(--glow);text-transform:uppercase;margin-bottom:16px;display:block;opacity:0;animation:fadeUp .8s .2s ease forwards;}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;line-height:1.1;margin-bottom:20px;opacity:0;animation:fadeUp .8s .4s ease forwards;}
+.t-seasons{background:linear-gradient(90deg,var(--spring),var(--summer),var(--autumn),var(--winter));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1.15rem;line-height:1.85;color:#cbd5e1;max-width:640px;margin:0 auto;opacity:0;animation:fadeUp .8s .6s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTION NAV PILLS */
+.nav-pills{display:flex;justify-content:center;gap:10px;padding:28px 60px 0;position:relative;z-index:1;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .8s ease forwards;}
+.np{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;padding:9px 20px;border-radius:100px;text-decoration:none;transition:all .3s;border:1px solid rgba(255,255,255,.15);color:var(--muted);}
+.np:hover{border-color:rgba(255,255,255,.4);color:white;}
+.np.a{border-color:rgba(134,239,172,.4);color:var(--spring);}
+.np.b{border-color:rgba(252,211,77,.4);color:var(--summer);}
+.np.c{border-color:rgba(196,181,253,.4);color:var(--glow);}
+.np.d{border-color:rgba(191,219,254,.4);color:var(--winter);}
+
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--accent),var(--cyan),transparent);margin:28px 60px 0;opacity:.4;z-index:1;position:relative;}
+
+/* MAIN */
+main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 60px 120px;}
+.sec{margin-bottom:100px;padding-top:50px;}
+.sec-label{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;display:block;}
+.sec-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:700;margin-bottom:24px;line-height:1.3;}
+.sec-quote{font-size:1rem;line-height:1.9;color:#cbd5e1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--cyan);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:32px;font-style:italic;}
+.sec-quote strong{color:var(--cyan);font-style:normal;font-weight:600;}
+
+/* ─── SECTION A: Imaginary Lines ─── */
+.lines-layout{display:grid;grid-template-columns:400px 1fr;gap:50px;align-items:start;}
+.lines-svg-wrap svg{width:100%;height:auto;display:block;}
+.lines-list{display:flex;flex-direction:column;gap:14px;}
+.li-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--lc,var(--cyan));border-radius:12px;padding:18px 20px;transition:transform .28s,background .28s;}
+.li-card:hover{transform:translateX(6px);background:rgba(255,255,255,.055);}
+.li-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.li-name{font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:1.5px;color:var(--lc,var(--cyan));}
+.li-deg{font-family:'Orbitron',sans-serif;font-size:.7rem;color:var(--lc,var(--cyan));background:rgba(255,255,255,.06);border:1px solid currentColor;border-radius:4px;padding:3px 9px;}
+.li-text{font-size:.95rem;line-height:1.7;color:#cbd5e1;}
+.li-tag{display:inline-block;margin-top:10px;font-size:.82rem;color:white;background:rgba(255,255,255,.09);border-radius:6px;padding:4px 12px;}
+/* Earth spin */
+@keyframes eSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spin-grp{transform-box:fill-box;transform-origin:center;animation:eSpin 20s linear infinite;}
+
+/* ─── SECTION B: Orbit Interactive ─── */
+.orbit-wrap svg{width:100%;height:auto;display:block;}
+@keyframes sPulse{0%,100%{opacity:.65}50%{opacity:1}}
+.s-glow-anim{animation:sPulse 3s ease-in-out infinite;}
+.orb-node{cursor:none;transition:opacity .3s,filter .3s;}
+.orb-node:hover{filter:brightness(1.3);}
+
+.season-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:32px 0;}
+.s-btn{font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;padding:14px 28px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#94a3b8;cursor:none;transition:all .35s;}
+.s-btn:hover{border-color:rgba(255,255,255,.4);color:var(--text);}
+.s-btn.on[data-s="spring"]{background:rgba(134,239,172,.16);border-color:var(--spring);color:var(--spring);box-shadow:0 0 28px rgba(134,239,172,.22);}
+.s-btn.on[data-s="summer"]{background:rgba(252,211,77,.16);border-color:var(--summer);color:var(--summer);box-shadow:0 0 28px rgba(252,211,77,.22);}
+.s-btn.on[data-s="autumn"]{background:rgba(251,146,60,.16);border-color:var(--autumn);color:var(--autumn);box-shadow:0 0 28px rgba(251,146,60,.22);}
+.s-btn.on[data-s="winter"]{background:rgba(191,219,254,.16);border-color:var(--winter);color:var(--winter);box-shadow:0 0 28px rgba(191,219,254,.22);}
+
+.season-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.sc{border-radius:18px;padding:28px 24px;display:none;animation:cardIn .4s ease;}
+.sc.show{display:block;}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sc-hemi{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:3px;color:#94a3b8;margin-bottom:8px;}
+.sc-top{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.sc-icon{font-size:2.5rem;}
+.sc-name{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;letter-spacing:1.5px;line-height:1.35;}
+.sc-desc{font-size:.97rem;line-height:1.85;color:#e2e8f0;margin-bottom:14px;}
+.sc-facts{display:flex;flex-direction:column;gap:10px;}
+.sc-fact{display:flex;gap:10px;font-size:.9rem;color:#cbd5e1;align-items:flex-start;}
+.sc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:6px;}
+
+/* ─── SECTION C: 2 vs 4 seasons ─── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.cmp{border-radius:18px;padding:32px 28px;transition:transform .3s;}
+.cmp:hover{transform:translateY(-5px);}
+.cmp-eq{background:linear-gradient(135deg,rgba(103,232,249,.12),rgba(103,232,249,.02));border:1px solid rgba(103,232,249,.25);}
+.cmp-pol{background:linear-gradient(135deg,rgba(196,181,253,.12),rgba(196,181,253,.02));border:1px solid rgba(196,181,253,.25);}
+.cmp-title{font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+.cmp-sub{font-size:.82rem;color:#94a3b8;margin-bottom:18px;}
+.bubbles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.bubble{padding:7px 15px;border-radius:100px;font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:1.5px;border:1px solid currentColor;}
+.cmp-desc{font-size:.97rem;line-height:1.8;color:#cbd5e1;}
+.cmp-desc strong{color:white;}
+.cmp-foot{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:1.5px;color:#94a3b8;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);}
+
+/* ─── SECTION D: Axis Tilt ─── */
+.tilt-layout{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;}
+.tilt-svg-wrap svg{width:100%;height:auto;display:block;}
+.tilt-pts{display:flex;flex-direction:column;gap:16px;}
+.tp{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--glow);border-radius:12px;padding:18px 20px;transition:transform .25s,background .25s;}
+.tp:hover{transform:translateX(5px);background:rgba(255,255,255,.055);}
+.tp-num{font-family:'Orbitron',sans-serif;font-size:.72rem;color:var(--glow);letter-spacing:2px;flex-shrink:0;padding-top:2px;}
+.tp-title{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:1.5px;color:white;margin-bottom:6px;}
+.tp-text{font-size:.95rem;line-height:1.7;color:#cbd5e1;}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
+.revealed{opacity:1;transform:translateY(0);}
+
+/* FOOTER */
+footer{position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:#94a3b8;}
+footer span{color:var(--glow);}
+
+/* RESPONSIVE */
+@media(max-width:1000px){.lines-layout,.tilt-layout{grid-template-columns:1fr;}}
+@media(max-width:800px){.season-cards,.compare-grid{grid-template-columns:1fr;}}
+@media(max-width:768px){nav{padding:16px 24px;}.nav-links{display:none;}main{padding:0 24px 80px;}.hero{padding:120px 24px 40px;}.divider{margin:24px;}}
+
+/* DROPDOWN */
+.has-dropdown { position: relative; align-self: center; }
+.has-dropdown > a { display: flex; align-items: center; gap: 6px; }
+.arrow { display: inline-block; font-size: 0.7rem; transition: transform 0.3s ease; }
+.has-dropdown.open .arrow { transform: rotate(180deg); }
+.dropdown {
+  display: none; flex-direction: column;
+  position: absolute; top: calc(100% + 14px); left: 50%;
+  transform: translateX(-50%);
+  background: rgba(5,13,42,0.97);
+  border: 1px solid rgba(167,139,250,0.2);
+  border-radius: 14px; padding: 10px 0; list-style: none;
+  min-width: 180px; backdrop-filter: blur(16px);
+  box-shadow: 0 8px 40px rgba(124,58,237,0.25);
+  z-index: 200;
+}
+.has-dropdown.open .dropdown { display: flex; }
+.dropdown li a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem; letter-spacing: 1.5px;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.dropdown li a::after { display: none; }
+.dropdown li a:hover { color: var(--cyan); background: rgba(34,211,238,0.07); }
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+<div class="stars"></div>
+<div class="nebula nb1"></div><div class="nebula nb2"></div><div class="nebula nb3"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Tria Liza</a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#">Home <span class="arrow">▾</span></a>
+      <ul class="dropdown">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About Me</a></li>
+        <li><a href="index.html#sdgs">SDGs</a></li>
+      </ul>
+    </li>
+    <li><a href="solarsystem.html" class="nav-active">Solar System</a></li>
+    <li><a href="sun.html">The Sun</a></li>
+    <li class="has-dropdown">
+      <a href="earth&moon.html">Earth & Moon <span class="arrow">▾</span></a>
+      <ul class="dropdown">
+        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
+        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+      </ul>
+    </li>
+    <li><a href="seasons.html">Seasons</a></li>
+    <li><a href="Activity.html">Activity</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-eyebrow">Science Grade VII · Chapter 7 · Earth and Solar System</span>
+  <h1 class="hero-title"><span class="t-seasons">The Seasons</span></h1>
+  <p class="hero-sub">Earth's revolution around the Sun, combined with a 23° axial tilt, causes the seasons to change. The season experienced by any region depends entirely on its position on Earth.</p>
+</div>
+<div class="nav-pills">
+  <a class="np a" href="#sec-a">A · Earth's Imaginary Lines</a>
+  <a class="np b" href="#sec-b">B · Revolution & Orbit</a>
+  <a class="np c" href="#sec-c">C · 2 vs 4 Seasons</a>
+  <a class="np d" href="#sec-d">D · The 23° Tilt</a>
+</div>
+<div class="divider"></div>
+
+<main>
+
+<!-- ═══════════════════════════════════════
+     A — EARTH'S IMAGINARY LINES (Figure 7.36)
+═══════════════════════════════════════ -->
+<section class="sec" id="sec-a">
+  <span class="sec-label" style="color:var(--spring)">A · Core Concept</span>
+  <h2 class="sec-title">Earth's <span style="color:var(--spring)">Imaginary Lines</span></h2>
+  <p class="sec-quote">"To better understand the seasons, look at the illustration of Earth in <strong>Figure 7.36</strong>. These imaginary lines make it easier to identify the position of any region on Earth." — Science Textbook Grade VII</p>
+
+  <div class="lines-layout">
+    <!-- SVG Earth + garis khayal (rekonstruksi Gambar 7.36) -->
+    <div class="lines-svg-wrap">
+      <svg viewBox="0 0 380 490" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="eg" cx="36%" cy="30%" r="58%">
+            <stop offset="0%" stop-color="#93c5fd"/>
+            <stop offset="22%" stop-color="#3b82f6"/>
+            <stop offset="55%" stop-color="#1d4ed8"/>
+            <stop offset="82%" stop-color="#1e3a5f"/>
+            <stop offset="100%" stop-color="#0f172a"/>
+          </radialGradient>
+          <radialGradient id="egw" cx="50%" cy="50%" r="50%">
+            <stop offset="55%" stop-color="#3b82f6" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity=".26"/>
+          </radialGradient>
+          <clipPath id="ec"><ellipse cx="190" cy="245" rx="140" ry="140"/></clipPath>
+        </defs>
+
+        <!-- glow -->
+        <ellipse cx="190" cy="245" rx="160" ry="160" fill="url(#egw)"/>
+        <!-- earth -->
+        <ellipse cx="190" cy="245" rx="140" ry="140" fill="url(#eg)"/>
+        <!-- animated continents -->
+        <g clip-path="url(#ec)" class="spin-grp">
+          <ellipse cx="182" cy="218" rx="30" ry="22" fill="#16a34a" opacity=".72"/>
+          <ellipse cx="208" cy="236" rx="18" ry="28" fill="#16a34a" opacity=".64"/>
+          <ellipse cx="168" cy="244" rx="16" ry="14" fill="#16a34a" opacity=".54"/>
+          <ellipse cx="214" cy="210" rx="13" ry="9"  fill="#16a34a" opacity=".5"/>
+          <ellipse cx="160" cy="270" rx="23" ry="15" fill="#16a34a" opacity=".45"/>
+          <ellipse cx="216" cy="266" rx="11" ry="19" fill="#16a34a" opacity=".5"/>
+          <ellipse cx="190" cy="110" rx="96" ry="21" fill="white"   opacity=".33"/>
+          <ellipse cx="190" cy="380" rx="96" ry="21" fill="white"   opacity=".33"/>
+        </g>
+        <!-- atmosphere ring -->
+        <ellipse cx="190" cy="245" rx="142" ry="142" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-opacity=".2"/>
+
+        <!-- Tilt axis -->
+        <line x1="212" y1="90" x2="168" y2="400" stroke="rgba(167,139,250,.6)" stroke-width="1.8" stroke-dasharray="7 5"/>
+        <!-- tilt angle -->
+        <path d="M190,104 A22,22 0 0,1 211,96" fill="none" stroke="var(--glow)" stroke-width="1.6"/>
+        <text x="218" y="102" font-family="Orbitron,sans-serif" font-size="11" fill="var(--glow)" font-weight="700">23°</text>
+
+        <!-- ── GARIS LINTANG ── -->
+        <!-- 90° LU -->
+        <line x1="50" y1="105" x2="190" y2="105" stroke="#e2e8f0" stroke-width=".9" stroke-dasharray="3 3" opacity=".45"/>
+        <text x="44"  y="102" font-family="Orbitron,sans-serif" font-size="9" fill="#e2e8f0" text-anchor="end" opacity=".65">90°N</text>
+        <text x="335" y="101" font-family="Orbitron,sans-serif" font-size="8" fill="#e2e8f0" opacity=".55">NORTH POLE</text>
+
+        <!-- 66.5° Arctic Circle -->
+        <line x1="50" y1="148" x2="330" y2="148" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="5 4" opacity=".6"/>
+        <text x="44"  y="145" font-family="Orbitron,sans-serif" font-size="9" fill="#93c5fd" text-anchor="end">66.5°</text>
+        <text x="335" y="144" font-family="Orbitron,sans-serif" font-size="8" fill="#93c5fd" opacity=".75">ARCTIC CIRCLE</text>
+
+        <!-- 23.5° Garis Balik Utara -->
+        <line x1="50" y1="204" x2="330" y2="204" stroke="#fbbf24" stroke-width="1.8" opacity=".85"/>
+        <text x="44"  y="201" font-family="Orbitron,sans-serif" font-size="9" fill="#fbbf24" text-anchor="end">23.5°</text>
+        <text x="335" y="200" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24">TROPIC OF CANCER</text>
+
+        <!-- 0° Khatulistiwa -->
+        <line x1="38" y1="245" x2="342" y2="245" stroke="#67e8f9" stroke-width="2.5" opacity=".95"/>
+        <text x="32"  y="241" font-family="Orbitron,sans-serif" font-size="10" fill="#67e8f9" text-anchor="end" font-weight="700">0°</text>
+        <text x="347" y="241" font-family="Orbitron,sans-serif" font-size="9" fill="#67e8f9" font-weight="700">EQUATOR</text>
+
+        <!-- 23.5°S Garis Balik Selatan -->
+        <line x1="50" y1="286" x2="330" y2="286" stroke="#fbbf24" stroke-width="1.8" opacity=".85"/>
+        <text x="44"  y="283" font-family="Orbitron,sans-serif" font-size="9" fill="#fbbf24" text-anchor="end">23.5°S</text>
+        <text x="335" y="282" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24">TROPIC OF CAPRICORN</text>
+
+        <!-- 66.5°S Lingkar Antartika -->
+        <line x1="50" y1="342" x2="330" y2="342" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="5 4" opacity=".6"/>
+        <text x="44"  y="339" font-family="Orbitron,sans-serif" font-size="9" fill="#93c5fd" text-anchor="end">66.5°S</text>
+        <text x="335" y="338" font-family="Orbitron,sans-serif" font-size="8" fill="#93c5fd" opacity=".75">ANTARCTIC CIRCLE</text>
+
+        <!-- 90°LS -->
+        <line x1="50" y1="385" x2="190" y2="385" stroke="#e2e8f0" stroke-width=".9" stroke-dasharray="3 3" opacity=".45"/>
+        <text x="44"  y="382" font-family="Orbitron,sans-serif" font-size="9" fill="#e2e8f0" text-anchor="end" opacity=".65">90°S</text>
+        <text x="335" y="381" font-family="Orbitron,sans-serif" font-size="8" fill="#e2e8f0" opacity=".55">SOUTH POLE</text>
+
+        <!-- Belahan labels -->
+        <text x="18" y="183" font-family="Orbitron,sans-serif" font-size="7.5" fill="rgba(255,255,255,.3)" transform="rotate(-90 18 183)">N. HEMISPHERE</text>
+        <text x="18" y="316" font-family="Orbitron,sans-serif" font-size="7.5" fill="rgba(255,255,255,.35)" transform="rotate(-90 18 316)">S. HEMISPHERE</text>
+
+        <!-- Indonesia dot -->
+        <circle cx="200" cy="245" r="5" fill="#fb923c" opacity=".9"/>
+        <text x="208" y="243" font-family="Orbitron,sans-serif" font-size="7.5" fill="#fb923c">🇮🇩 INDONESIA</text>
+
+        <!-- caption -->
+        <text x="190" y="462" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle" letter-spacing="2">FIGURE 7.36 — EARTH'S IMAGINARY LINES</text>
+      </svg>
+    </div>
+
+    <!-- List info -->
+    <div class="lines-list">
+      <div class="li-card reveal" style="--lc:#e2e8f0">
+        <div class="li-head"><span class="li-name">North & South Poles</span><span class="li-deg">90°</span></div>
+        <div class="li-text">The tips of Earth's rotation axis. Always covered in ice and snow year-round. Located at 90° North and 90° South latitude.</div>
+        <span class="li-tag">North / South Latitude 90°</span>
+      </div>
+      <div class="li-card reveal" style="--lc:#bfdbfe">
+        <div class="li-head"><span class="li-name">Arctic & Antarctic Circles</span><span class="li-deg">66.5°</span></div>
+        <div class="li-text">The boundary of the polar regions. Above this line, the <em>"Midnight Sun"</em> can occur — the Sun stays above the horizon for 24 straight hours in summer!</div>
+        <span class="li-tag">Polar Night &amp; Midnight Sun</span>
+      </div>
+      <div class="li-card reveal" style="--lc:#fcd34d">
+        <div class="li-head"><span class="li-name">Tropic of Cancer & Capricorn</span><span class="li-deg">23.5°</span></div>
+        <div class="li-text">The farthest point where the Sun can shine directly overhead. During June Solstice the Sun is above Cancer; during December Solstice it's above Capricorn.</div>
+        <span class="li-tag">Tropic of Cancer / Capricorn</span>
+      </div>
+      <div class="li-card reveal" style="--lc:#67e8f9">
+        <div class="li-head"><span class="li-name">The Equator</span><span class="li-deg">0°</span></div>
+        <div class="li-text">The central line dividing Earth into the Northern and Southern Hemispheres. <strong style="color:white">Indonesia sits right on the equator</strong> — only experiencing 2 seasons: rainy and dry.</div>
+        <span class="li-tag">🇮🇩 Indonesia is here!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     B — REVOLUSI BUMI (Interactive Orbit)
+═══════════════════════════════════════ -->
+<section class="sec" id="sec-b">
+  <span class="sec-label" style="color:var(--summer)">B · Earth's Revolution</span>
+  <h2 class="sec-title">Earth's Orbit & <span style="color:var(--summer)">The Changing Seasons</span></h2>
+  <p class="sec-quote">"The change of seasons is greatly influenced by Earth's revolutionary movement around the Sun. When the Northern Hemisphere experiences winter, the Southern Hemisphere will experience summer." — Science Textbook Grade VII</p>
+
+  <!-- Interactive orbit SVG -->
+  <div class="orbit-wrap">
+    <svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="sg" cx="42%" cy="38%" r="56%">
+          <stop offset="0%"   stop-color="#fff9c4"/>
+          <stop offset="18%"  stop-color="#fbbf24"/>
+          <stop offset="52%"  stop-color="#f97316"/>
+          <stop offset="100%" stop-color="#7c2d12"/>
+        </radialGradient>
+        <radialGradient id="sgl" cx="50%" cy="50%" r="50%">
+          <stop offset="48%" stop-color="#f59e0b" stop-opacity="0"/>
+          <stop offset="78%" stop-color="#f59e0b" stop-opacity=".4"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="eg2" cx="36%" cy="30%" r="56%">
+          <stop offset="0%"   stop-color="#93c5fd"/>
+          <stop offset="28%"  stop-color="#3b82f6"/>
+          <stop offset="62%"  stop-color="#1d4ed8"/>
+          <stop offset="100%" stop-color="#0f172a"/>
+        </radialGradient>
+        <filter id="gf2"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <path d="M0,0 L7,3.5 L0,7Z" fill="rgba(148,163,184,.35)"/>
+        </marker>
+      </defs>
+
+      <!-- orbit ellipse -->
+      <ellipse cx="400" cy="260" rx="330" ry="210" fill="none" stroke="rgba(148,163,184,.18)" stroke-width="1.4" stroke-dasharray="7 5"/>
+      <!-- orbit direction arrow -->
+      <path d="M726,245 A334,213 0 0,0 710,228" fill="none" stroke="rgba(148,163,184,.28)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- SUN center -->
+      <circle cx="400" cy="260" r="82" fill="url(#sgl)" class="s-glow-anim"/>
+      <circle cx="400" cy="260" r="60" fill="url(#sg)" filter="url(#gf2)"/>
+      <!-- corona -->
+      <g opacity=".25">
+        <ellipse cx="400" cy="192" rx="5" ry="18" fill="#fef3c7" transform="rotate(0   400 260)"/>
+        <ellipse cx="400" cy="192" rx="4" ry="14" fill="#fbbf24" transform="rotate(45  400 260)"/>
+        <ellipse cx="400" cy="192" rx="5" ry="17" fill="#fef3c7" transform="rotate(90  400 260)"/>
+        <ellipse cx="400" cy="192" rx="4" ry="13" fill="#fbbf24" transform="rotate(135 400 260)"/>
+        <ellipse cx="400" cy="192" rx="5" ry="18" fill="#fef3c7" transform="rotate(180 400 260)"/>
+        <ellipse cx="400" cy="192" rx="4" ry="14" fill="#fbbf24" transform="rotate(225 400 260)"/>
+        <ellipse cx="400" cy="192" rx="5" ry="17" fill="#fef3c7" transform="rotate(270 400 260)"/>
+        <ellipse cx="400" cy="192" rx="4" ry="13" fill="#fbbf24" transform="rotate(315 400 260)"/>
+      </g>
+      <text x="400" y="338" font-family="Orbitron,sans-serif" font-size="10" fill="#fbbf24" text-anchor="middle" letter-spacing="2.5">SUN</text>
+
+      <!-- ── 4 POSISI BUMI ── -->
+
+      <!-- MARET EQUINOX — kanan -->
+      <g class="orb-node" id="osp" onclick="selectSeason('spring')" style="cursor:pointer;">
+        <circle cx="728" cy="260" r="28" fill="url(#eg2)" filter="url(#gf2)"/>
+        <line x1="728" y1="228" x2="728" y2="292" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+        <text x="728" y="218" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.7)" text-anchor="middle">↑ KU</text>
+        <text x="728" y="308" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.7)" text-anchor="middle">KS ↓</text>
+        <circle cx="728" cy="260" r="32" fill="none" stroke="var(--spring)" stroke-width="2.5" stroke-opacity="0" id="ring-spring" class="o-ring"/>
+        <text x="728" y="336" font-family="Orbitron,sans-serif" font-size="9.5" fill="var(--spring)" text-anchor="middle" letter-spacing="1.5">MARET</text>
+        <text x="728" y="350" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(134,239,172,.55)" text-anchor="middle">EQUINOX</text>
+      </g>
+
+      <!-- JUNI SOLSTICE — atas -->
+      <g class="orb-node" id="osu" onclick="selectSeason('summer')" style="cursor:pointer;">
+        <circle cx="400" cy="52" r="28" fill="url(#eg2)" filter="url(#gf2)"/>
+        <!-- axis tilted left = NH toward sun -->
+        <line x1="388" y1="22" x2="412" y2="82" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+        <text x="400" y="14" font-family="Orbitron,sans-serif" font-size="8" fill="var(--summer)" text-anchor="middle">☀ N. HEMISPHERE TOWARD SUN</text>
+        <circle cx="400" cy="52" r="32" fill="none" stroke="var(--summer)" stroke-width="2.5" stroke-opacity="0" id="ring-summer" class="o-ring"/>
+        <text x="400" y="102" font-family="Orbitron,sans-serif" font-size="9.5" fill="var(--summer)" text-anchor="middle" letter-spacing="1.5">JUNI</text>
+        <text x="400" y="116" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(251,191,36,.55)" text-anchor="middle">SOLSTICE</text>
+      </g>
+
+      <!-- SEPTEMBER EQUINOX — kiri -->
+      <g class="orb-node" id="oau" onclick="selectSeason('autumn')" style="cursor:pointer;">
+        <circle cx="72" cy="260" r="28" fill="url(#eg2)" filter="url(#gf2)"/>
+        <line x1="72" y1="228" x2="72" y2="292" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+        <text x="72" y="218" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.7)" text-anchor="middle">↑ KU</text>
+        <text x="72" y="308" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.7)" text-anchor="middle">KS ↓</text>
+        <circle cx="72" cy="260" r="32" fill="none" stroke="var(--autumn)" stroke-width="2.5" stroke-opacity="0" id="ring-autumn" class="o-ring"/>
+        <text x="72" y="336" font-family="Orbitron,sans-serif" font-size="9.5" fill="var(--autumn)" text-anchor="middle" letter-spacing="1.5">SEPTEMBER</text>
+        <text x="72" y="350" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(249,115,22,.55)" text-anchor="middle">EQUINOX</text>
+      </g>
+
+      <!-- DESEMBER SOLSTICE — bawah -->
+      <g class="orb-node" id="owi" onclick="selectSeason('winter')" style="cursor:pointer;">
+        <circle cx="400" cy="468" r="28" fill="url(#eg2)" filter="url(#gf2)"/>
+        <!-- axis tilted right = NH away from sun -->
+        <line x1="412" y1="438" x2="388" y2="498" stroke="rgba(255,255,255,.7)" stroke-width="2"/>
+        <text x="400" y="430" font-family="Orbitron,sans-serif" font-size="8" fill="var(--winter)" text-anchor="middle">❄ N. HEMISPHERE AWAY FROM SUN</text>
+        <circle cx="400" cy="468" r="32" fill="none" stroke="var(--winter)" stroke-width="2.5" stroke-opacity="0" id="ring-winter" class="o-ring"/>
+        <text x="400" y="510" font-family="Orbitron,sans-serif" font-size="9.5" fill="var(--winter)" text-anchor="middle" letter-spacing="1.5">DESEMBER</text>
+        <text x="400" y="522" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(147,197,253,.55)" text-anchor="middle">SOLSTICE</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Buttons -->
+  <div class="season-btns">
+    <button class="s-btn" data-s="spring" onclick="selectSeason('spring')">🌸 Spring</button>
+    <button class="s-btn" data-s="summer" onclick="selectSeason('summer')">☀️ Summer</button>
+    <button class="s-btn" data-s="autumn" onclick="selectSeason('autumn')">🍂 Autumn</button>
+    <button class="s-btn" data-s="winter" onclick="selectSeason('winter')">❄️ Winter</button>
+  </div>
+
+  <!-- Cards NH + SH -->
+  <div class="season-cards" id="seasonCards"></div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     C — 2 MUSIM VS 4 MUSIM
+═══════════════════════════════════════ -->
+<section class="sec" id="sec-c">
+  <span class="sec-label" style="color:var(--glow)">C · Geography & Seasons</span>
+  <h2 class="sec-title">2 Seasons <span style="color:var(--glow)">vs</span> 4 Seasons</h2>
+  <p class="sec-quote">"Regions on the equator only experience <strong>two seasons</strong>: dry season and rainy season. Whereas regions in the Northern and Southern Hemispheres both experience <strong>four seasons</strong>: summer, autumn, winter, and spring." — Science Textbook Grade VII p. 215</p>
+
+  <div class="compare-grid">
+    <div class="cmp cmp-eq reveal">
+      <div class="cmp-title" style="color:var(--cyan)">🌏 Daerah Khatulistiwa</div>
+      <div class="cmp-sub" style="color:rgba(34,211,238,.6)">INDONESIA · MALAYSIA · BRAZIL · KONGO</div>
+      <div class="bubbles">
+        <span class="bubble" style="color:#38bdf8;border-color:#38bdf8;background:rgba(56,189,248,.1)">🌧 Rainy Season</span>
+        <span class="bubble" style="color:#fbbf24;border-color:#fbbf24;background:rgba(251,191,36,.1)">☀️ Dry Season</span>
+      </div>
+      <div class="cmp-desc">Equatorial regions receive nearly vertical sunlight all year. The 23° axial tilt has minimal effect here, keeping temperatures stable — only <strong>2 seasons</strong> exist, determined by rainfall and monsoon patterns.</div>
+      <div class="cmp-foot">DAYLIGHT ≈ 12 HOURS YEAR-ROUND · STABLE TEMP 25–35°C</div>
+    </div>
+    <div class="cmp cmp-pol reveal">
+      <div class="cmp-title" style="color:var(--glow)">🌍 Northern & Southern Hemispheres</div>
+      <div class="cmp-sub" style="color:rgba(167,139,250,.6)">EROPA · ASIA TIMUR · AMERIKA · AUSTRALIA</div>
+      <div class="bubbles">
+        <span class="bubble" style="color:var(--spring);border-color:var(--spring);background:rgba(134,239,172,.1)">🌸 Spring</span>
+        <span class="bubble" style="color:var(--summer);border-color:var(--summer);background:rgba(251,191,36,.1)">☀️ Summer</span>
+        <span class="bubble" style="color:var(--autumn);border-color:var(--autumn);background:rgba(249,115,22,.1)">🍂 Autumn</span>
+        <span class="bubble" style="color:var(--winter);border-color:var(--winter);background:rgba(147,197,253,.1)">❄️ Winter</span>
+      </div>
+      <div class="cmp-desc">Regions outside the equator feel the full effect of Earth's axial tilt. <strong>When the Northern Hemisphere has winter, the Southern Hemisphere has summer</strong> — Australia celebrates Christmas at the beach!</div>
+      <div class="cmp-foot">DAYLIGHT VARIES 4–20 HOURS · TEMP RANGES FROM -30°C TO 40°C</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     D — THE 23° AXIAL TILT (Figure 7.37)
+═══════════════════════════════════════ -->
+<section class="sec" id="sec-d">
+  <span class="sec-label" style="color:var(--winter)">D · The Main Cause</span>
+  <h2 class="sec-title">The 23° Axial <span style="color:var(--winter)">Tilt</span> — Figure 7.37</h2>
+  <p class="sec-quote">"Earth rotates with a 23° tilt relative to its rotational axis. This tilt is what causes the duration of day and night to vary across different regions." — Science Textbook Grade VII pp. 215–216</p>
+
+  <div class="tilt-layout">
+    <!-- SVG rekonstruksi Gambar 7.37 -->
+    <div class="tilt-svg-wrap">
+      <svg viewBox="0 0 480 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="eg3" cx="36%" cy="30%" r="56%">
+            <stop offset="0%"   stop-color="#93c5fd"/>
+            <stop offset="28%"  stop-color="#3b82f6"/>
+            <stop offset="62%"  stop-color="#1d4ed8"/>
+            <stop offset="100%" stop-color="#0f172a"/>
+          </radialGradient>
+        </defs>
+
+        <!-- ── KIRI: JUNI SOLSTICE — BB Utara → Matahari ── -->
+        <text x="110" y="20" font-family="Orbitron,sans-serif" font-size="9" fill="var(--summer)" text-anchor="middle" letter-spacing="1.5">JUNE SOLSTICE</text>
+        <text x="110" y="34" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(252,211,77,.65)" text-anchor="middle">N. Hemisphere = Summer</text>
+        <!-- Sinar matahari dari kanan -->
+        <g opacity=".65">
+          <line x1="198" y1="98"  x2="166" y2="106" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="198" y1="123" x2="166" y2="125" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="198" y1="148" x2="166" y2="146" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="198" y1="173" x2="166" y2="167" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="198" y1="198" x2="166" y2="188" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="198" y1="223" x2="166" y2="209" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="215" y="163" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24" opacity=".7">Sinar</text>
+          <text x="210" y="176" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24" opacity=".7">Sun</text>
+          <text x="218" y="189" font-family="Orbitron,sans-serif" font-size="9" fill="#fbbf24" opacity=".8">→</text>
+        </g>
+        <!-- Earth kiri -->
+        <circle cx="110" cy="168" r="62" fill="url(#eg3)"/>
+        <ellipse cx="102" cy="154" rx="18" ry="13" fill="#16a34a" opacity=".62"/>
+        <ellipse cx="120" cy="167" rx="12" ry="17" fill="#16a34a" opacity=".52"/>
+        <ellipse cx="98"  cy="174" rx="13" ry="10" fill="#16a34a" opacity=".46"/>
+        <ellipse cx="110" cy="108" rx="50" ry="11" fill="white" opacity=".3"/>
+        <ellipse cx="110" cy="228" rx="50" ry="11" fill="white" opacity=".3"/>
+        <!-- Axis miring kiri (KU condong ke Matahari) -->
+        <line x1="98"  y1="100" x2="122" y2="236" stroke="rgba(255,255,255,.75)" stroke-width="2.2" stroke-dasharray="5 4"/>
+        <!-- Garis vertikal referensi -->
+        <line x1="110" y1="100" x2="110" y2="236" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="3 4"/>
+        <!-- Sudut 23° -->
+        <path d="M110,112 A20,20 0 0,0 98,118" fill="none" stroke="var(--glow)" stroke-width="1.8"/>
+        <text x="73" y="123" font-family="Orbitron,sans-serif" font-size="11" fill="var(--glow)" font-weight="700">23°</text>
+        <!-- Khatulistiwa -->
+        <line x1="48" y1="168" x2="172" y2="168" stroke="#22d3ee" stroke-width="1.5" opacity=".5"/>
+        <text x="36" y="172" font-family="Orbitron,sans-serif" font-size="7.5" fill="#22d3ee" text-anchor="end" opacity=".7">EQ</text>
+        <!-- NH/SH label -->
+        <text x="110" y="144" font-family="Orbitron,sans-serif" font-size="9" fill="var(--summer)" text-anchor="middle">☀ N. HEMI.</text>
+        <text x="110" y="197" font-family="Orbitron,sans-serif" font-size="9" fill="var(--winter)" text-anchor="middle">❄ S. HEMI.</text>
+        <text x="126" y="96"  font-family="Orbitron,sans-serif" font-size="7" fill="rgba(255,255,255,.45)">N. POLE</text>
+        <text x="124" y="242" font-family="Orbitron,sans-serif" font-size="7" fill="rgba(255,255,255,.45)">S. POLE</text>
+
+        <!-- ── DIVIDER ── -->
+        <line x1="240" y1="55" x2="240" y2="430" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="5 5"/>
+
+        <!-- ── KANAN: DESEMBER SOLSTICE — BB Utara ↑ menjauhi Matahari ── -->
+        <text x="370" y="20" font-family="Orbitron,sans-serif" font-size="9" fill="var(--winter)" text-anchor="middle" letter-spacing="1.5">DECEMBER SOLSTICE</text>
+        <text x="370" y="34" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(191,219,254,.65)" text-anchor="middle">N. Hemisphere = Winter</text>
+        <!-- Sinar matahari dari kiri -->
+        <g opacity=".65">
+          <line x1="282" y1="98"  x2="314" y2="106" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="282" y1="123" x2="314" y2="125" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="282" y1="148" x2="314" y2="146" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="282" y1="173" x2="314" y2="167" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="282" y1="198" x2="314" y2="188" stroke="#fbbf24" stroke-width="1.5"/>
+          <line x1="282" y1="223" x2="314" y2="209" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="258" y="163" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24" opacity=".7" text-anchor="end">Sinar</text>
+          <text x="262" y="176" font-family="Orbitron,sans-serif" font-size="8" fill="#fbbf24" opacity=".7" text-anchor="end">Sun</text>
+          <text x="256" y="189" font-family="Orbitron,sans-serif" font-size="9" fill="#fbbf24" opacity=".8" text-anchor="end">←</text>
+        </g>
+        <!-- Earth kanan -->
+        <circle cx="370" cy="168" r="62" fill="url(#eg3)"/>
+        <ellipse cx="362" cy="154" rx="18" ry="13" fill="#16a34a" opacity=".62"/>
+        <ellipse cx="380" cy="167" rx="12" ry="17" fill="#16a34a" opacity=".52"/>
+        <ellipse cx="358" cy="174" rx="13" ry="10" fill="#16a34a" opacity=".46"/>
+        <ellipse cx="370" cy="108" rx="50" ry="11" fill="white" opacity=".3"/>
+        <ellipse cx="370" cy="228" rx="50" ry="11" fill="white" opacity=".3"/>
+        <!-- Axis miring kanan (KU menjauhi Matahari) -->
+        <line x1="382" y1="100" x2="358" y2="236" stroke="rgba(255,255,255,.75)" stroke-width="2.2" stroke-dasharray="5 4"/>
+        <line x1="370" y1="100" x2="370" y2="236" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="3 4"/>
+        <path d="M370,112 A20,20 0 0,1 382,118" fill="none" stroke="var(--glow)" stroke-width="1.8"/>
+        <text x="390" y="123" font-family="Orbitron,sans-serif" font-size="11" fill="var(--glow)" font-weight="700">23°</text>
+        <line x1="308" y1="168" x2="432" y2="168" stroke="#22d3ee" stroke-width="1.5" opacity=".5"/>
+        <text x="296" y="172" font-family="Orbitron,sans-serif" font-size="7.5" fill="#22d3ee" text-anchor="end" opacity=".7">EQ</text>
+        <text x="370" y="144" font-family="Orbitron,sans-serif" font-size="9" fill="var(--winter)" text-anchor="middle">❄ N. HEMI.</text>
+        <text x="370" y="197" font-family="Orbitron,sans-serif" font-size="9" fill="var(--summer)" text-anchor="middle">☀ S. HEMI.</text>
+        <text x="386" y="96"  font-family="Orbitron,sans-serif" font-size="7" fill="rgba(255,255,255,.45)">N. POLE</text>
+        <text x="384" y="242" font-family="Orbitron,sans-serif" font-size="7" fill="rgba(255,255,255,.45)">S. POLE</text>
+
+        <!-- ── INSIGHT BOX ── -->
+        <rect x="18" y="282" width="444" height="74" rx="14" fill="rgba(255,255,255,.03)" stroke="rgba(167,139,250,.22)" stroke-width="1"/>
+        <text x="240" y="305" font-family="Orbitron,sans-serif" font-size="9" fill="var(--glow)" text-anchor="middle" letter-spacing="2">AXIS ALWAYS TILTED 23° IN THE SAME DIRECTION</text>
+        <text x="240" y="326" font-family="Orbitron,sans-serif" font-size="8.5" fill="#94a3b8" text-anchor="middle">N. Hemisphere tilts toward Sun → Summer in North, Winter in South</text>
+        <text x="240" y="343" font-family="Orbitron,sans-serif" font-size="8.5" fill="#94a3b8" text-anchor="middle">N. Hemisphere tilts away → Winter in North, Summer in South</text>
+
+        <!-- CAPTION -->
+        <text x="240" y="398" font-family="Orbitron,sans-serif" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle" letter-spacing="2">FIGURE 7.37 — EARTH'S POSITION &amp; SUNLIGHT</text>
+
+        <!-- AKTIVITAS 7.11 box -->
+        <rect x="18" y="412" width="444" height="70" rx="12" fill="rgba(147,197,253,.06)" stroke="rgba(147,197,253,.2)" stroke-width="1"/>
+        <text x="36" y="432" font-family="Orbitron,sans-serif" font-size="9" fill="var(--winter)" letter-spacing="1.5">❄ THINK & PREDICT! — Activity 7.11</text>
+        <text x="36" y="450" font-family="Orbitron,sans-serif" font-size="8" fill="#94a3b8">What happens at the Poles when the Sun shines for 24 hours straight?</text>
+        <text x="36" y="466" font-family="Orbitron,sans-serif" font-size="8" fill="#94a3b8">What do people at the poles do when summer arrives?</text>
+      </svg>
+    </div>
+
+    <!-- Key points -->
+    <div class="tilt-pts">
+      <div class="tp reveal"><span class="tp-num">01</span><div><div class="tp-title">23° Tilt Stays Constant All Year</div><div class="tp-text">Earth's rotation axis is always tilted 23° relative to its orbital plane. The direction never changes — it always points near the North Star (Polaris).</div></div></div>
+      <div class="tp reveal"><span class="tp-num">02</span><div><div class="tp-title">June Solstice (±June 21)</div><div class="tp-text">N. Hemisphere tilts closest to the Sun → <strong style="color:var(--summer)">Summer in the North</strong>, Winter in the South. This is the longest day in the Northern Hemisphere.</div></div></div>
+      <div class="tp reveal"><span class="tp-num">03</span><div><div class="tp-title">December Solstice (±Dec 21)</div><div class="tp-text">N. Hemisphere tilts farthest from the Sun → <strong style="color:var(--winter)">Winter in the North</strong>, Summer in the South. Australia has summer on Christmas!</div></div></div>
+      <div class="tp reveal"><span class="tp-num">04</span><div><div class="tp-title">Equinox — Day ≈ Night</div><div class="tp-text">Occurs in March and September. Earth's axis is perpendicular to the Sun. Day and night are nearly equal (±12 hours) everywhere on Earth.</div></div></div>
+      <div class="tp reveal"><span class="tp-num">05</span><div><div class="tp-title">Only the Equator Stays Stable</div><div class="tp-text">"Only regions on the equator tend to have balanced day and night duration throughout the year." — Science Textbook Grade VII p. 215</div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><span>Tria Liza</span> · Universitas Pendidikan Indonesia · Science Grade VII Ch. 7 — The Seasons 🌍</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px';
+  setTimeout(() => { trail.style.left = e.clientX+'px'; trail.style.top = e.clientY+'px'; }, 80);
+});
+document.querySelectorAll('a,button,.li-card,.tp,.cmp,.orb-node').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='24px'; cursor.style.height='24px'; cursor.style.background='var(--glow)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--cyan)'; });
+});
+
+// SEASON DATA (sesuai buku IPA Kelas VII)
+const SD = {
+  spring:{
+    color:'#86efac',
+    nh:{ icon:'🌸', name:'Spring', hemi:'Northern Hemisphere',
+      desc:'The Northern Hemisphere starts tilting back toward the Sun after winter. Temperatures rise, ice melts, and plants begin to bud and bloom. Day and night are nearly equal during the March Equinox.',
+      facts:['Sunrise gets earlier, sunset gets later','Temperatures rise slowly after winter','Animals emerge from hibernation, flowers bloom again','Occurs around March–May in the N. Hemisphere'] },
+    sh:{ icon:'🍂', name:'Autumn', hemi:'Southern Hemisphere',
+      desc:'While the N. Hemisphere enters spring, the S. Hemisphere enters autumn. Temperatures drop, days shorten, and leaves begin to fall.',
+      facts:['Days grow shorter heading toward winter','Leaves change color: orange, red, yellow','Temperatures drop gradually','Occurs around March–May in the S. Hemisphere'] }
+  },
+  summer:{
+    color:'#fbbf24',
+    nh:{ icon:'☀️', name:'Summer', hemi:'Northern Hemisphere',
+      desc:'The N. Hemisphere tilts closest to the Sun during June Solstice. This is the longest day of the year. Above the Arctic Circle (66.5°), the Sun stays up for 24 hours — the "Midnight Sun" phenomenon!',
+      facts:['Longest day of the year (around June 21)','North Pole: Sun shines for 24 hours','Hottest temperatures of the year','Occurs around June–August in the N. Hemisphere'] },
+    sh:{ icon:'❄️', name:'Winter', hemi:'Southern Hemisphere',
+      desc:'While the N. Hemisphere enjoys summer, the S. Hemisphere experiences its coldest winter. Antarctica enters "Polar Night" — total darkness without the Sun.',
+      facts:['Shortest day of the year in the S. Hemisphere','South Pole: total darkness (Polar Night)','Coldest temperatures of the year','Occurs around June–August in the S. Hemisphere'] }
+  },
+  autumn:{
+    color:'#f97316',
+    nh:{ icon:'🍂', name:'Autumn', hemi:'Northern Hemisphere',
+      desc:'The N. Hemisphere starts tilting away from the Sun. Temperatures drop, days shorten, and leaves fall. The September Equinox makes day and night nearly equal worldwide.',
+      facts:['Leaves fall — red, orange, yellow','Days grow shorter toward winter','Equinox: day ≈ night (±12 hours)','Occurs around September–November in the N. Hemisphere'] },
+    sh:{ icon:'🌸', name:'Spring', hemi:'Southern Hemisphere',
+      desc:'In the S. Hemisphere, September marks the start of a beautiful spring! Temperatures warm up, snow melts, and nature blooms again after the long winter.',
+      facts:['Temperatures warm up quickly','Ice and snow melt','Flowers bloom everywhere','Occurs around September–November in the S. Hemisphere'] }
+  },
+  winter:{
+    color:'#93c5fd',
+    nh:{ icon:'❄️', name:'Winter', hemi:'Northern Hemisphere',
+      desc:'The N. Hemisphere is farthest from the Sun during December Solstice. This is the shortest day of the year. At the poles, total darkness lasts for weeks. Temperatures can reach -50°C!',
+      facts:['Shortest day of the year (around Dec 21)','North Pole: Polar Night (total darkness)','Snow and ice cover the land','Occurs around December–February in the N. Hemisphere'] },
+    sh:{ icon:'☀️', name:'Summer', hemi:'Southern Hemisphere',
+      desc:'The S. Hemisphere tilts toward the Sun — Australia and South America enjoy summer during Christmas! Australian beaches are packed with visitors in December.',
+      facts:['Australia: it\'s summer at Christmas!','South Pole: Sun shines 24 hours','Longest day in the S. Hemisphere','Occurs around December–February in the S. Hemisphere'] }
+  }
+};
+
+function selectSeason(s) {
+  // buttons
+  document.querySelectorAll('.s-btn').forEach(b => b.classList.toggle('on', b.dataset.s === s));
+  // orbit rings
+  document.querySelectorAll('.o-ring').forEach(r => r.setAttribute('stroke-opacity','0'));
+  const ring = document.getElementById('ring-'+s);
+  if(ring) ring.setAttribute('stroke-opacity','.9');
+  // node opacity
+  const nodeMap = {spring:'osp',summer:'osu',autumn:'oau',winter:'owi'};
+  Object.entries(nodeMap).forEach(([k,id]) => {
+    const el = document.getElementById(id);
+    if(el) el.style.opacity = k===s ? '1' : '0.3';
+  });
+  // render cards
+  const d = SD[s];
+  document.getElementById('seasonCards').innerHTML = ['nh','sh'].map(h => {
+    const hd = d[h];
+    return `<div class="sc show" style="background:linear-gradient(135deg,${d.color}12,${d.color}03);border:1px solid ${d.color}28;">
+      <div class="sc-hemi">${hd.hemi}</div>
+      <div class="sc-top">
+        <span class="sc-icon">${hd.icon}</span>
+        <div class="sc-name" style="color:${d.color}">${hd.name}</div>
+      </div>
+      <div class="sc-desc">${hd.desc}</div>
+      <div class="sc-facts">${hd.facts.map(f=>`<div class="sc-fact"><div class="sc-dot" style="background:${d.color}"></div>${f}</div>`).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+selectSeason('spring');
+
+// SCROLL REVEAL
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('revealed'), +e.target.dataset.delay||0);
+      revObs.unobserve(e.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.dataset.delay = (i%4)*90;
+  revObs.observe(el);
+});
+// DROPDOWN
+document.querySelectorAll('.has-dropdown').forEach(function(item) {
+  item.addEventListener('click', function(e) { 
+    e.stopPropagation(); 
+    this.classList.toggle('open'); 
+  });
+});
+document.addEventListener('click', function() {
+  document.querySelectorAll('.has-dropdown').forEach(function(item) { 
+    item.classList.remove('open'); 
+  });
+});
+
+document.querySelectorAll('.has-dropdown > a').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    e.preventDefault(); // cegah scroll ke atas
+    e.stopPropagation();
+    this.parentElement.classList.toggle('open');
+  });
+});
+
+document.addEventListener('click', function() {
+  document.querySelectorAll('.has-dropdown').forEach(function(item) {
+    item.classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>

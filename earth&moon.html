@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earth & Moon | Tria Liza</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="earth&moon.css">
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+<div class="stars"></div>
+<div class="nebula nb1"></div>
+<div class="nebula nb2"></div>
+<div class="nebula nb3"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Tria Liza</a>
+  <ul class="nav-links">
+    <li class="has-dropdown">
+      <a href="#">Home <span class="arrow">▾</span></a>
+      <ul class="dropdown">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about">About Me</a></li>
+        <li><a href="SDGs.html">SDGs</a></li>
+      </ul>
+    </li>
+    <li><a href="solarsystem.html" class="nav-active">Solar System</a></li>
+    <li><a href="sun.html">The Sun</a></li>
+    <li class="has-dropdown">
+      <a href="earth&moon.html">Earth & Moon <span class="arrow">▾</span></a>
+      <ul class="dropdown">
+        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
+        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+      </ul>
+    </li>
+    <li><a href="seasons.html">Seasons</a></li>
+    <li><a href="Activity.html">Activity</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-eyebrow">🌍 Third Planet · 🌕 Natural Satellite</span>
+  <h1 class="hero-title">
+    <span class="t-earth">Earth</span>
+    <span class="t-amp">&amp;</span>
+    <span class="t-moon">Moon</span>
+  </h1>
+  <p class="hero-sub">Explore our home planet and its only natural satellite — from Earth's rotation and seasons to the Moon's phases and eclipses.</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn tab-earth on" id="btn-earth" onclick="switchTab('earth')">🌍 &nbsp;Earth</button>
+  <button class="tab-btn tab-moon"    id="btn-moon"  onclick="switchTab('moon')">🌕 &nbsp;Moon</button>
+</div>
+<div class="divider"></div>
+
+<main>
+
+<!-- ═══════════════════════ EARTH PANEL ═══════════════════════ -->
+<div class="panel on" id="panel-earth">
+
+  <!-- Physical Data -->
+  <section class="sec">
+    <span class="sec-label lbl-earth">Physical Data</span>
+    <h2 class="sec-title">Earth <span class="acc-earth">Characteristics</span></h2>
+    <div class="stat-grid">
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">⚖️</span><div class="sl">Mass</div><div class="sv">5.98 × 10²⁴ kg</div><div class="ss">1 Earth mass (reference)</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">📏</span><div class="sl">Diameter</div><div class="sv">12,756 km</div><div class="ss">Equatorial diameter</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🌀</span><div class="sl">Gravity</div><div class="sv">9.807 m/s²</div><div class="ss">Surface gravity</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🌡️</span><div class="sl">Avg Temperature</div><div class="sv">~22°C</div><div class="ss">Surface average</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🔄</span><div class="sl">Rotation Period</div><div class="sv">24 hours</div><div class="ss">1 Earth day</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🌐</span><div class="sl">Revolution Period</div><div class="sv">365.25 days</div><div class="ss">1 Earth year</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🌬️</span><div class="sl">Atmosphere</div><div class="sv">78% N₂, 21% O₂</div><div class="ss">+ CO₂, Argon, water vapor</div></div>
+      <div class="stat-card" style="--sc:#22d3ee"><span class="si">🌙</span><div class="sl">Satellites</div><div class="sv">1 (The Moon)</div><div class="ss">Natural satellite</div></div>
+    </div>
+  </section>
+
+  <!-- Conditions for Life -->
+  <section class="sec">
+    <span class="sec-label lbl-earth">What Makes Earth Special</span>
+    <h2 class="sec-title">Conditions for <span class="acc-earth">Life</span></h2>
+    <div class="info-grid">
+      <div class="info-card" style="--ic:#22d3ee"><span class="ic-emoji">💧</span><div class="ic-title">Liquid Water</div><div class="ic-text">Earth is the only known planet with liquid water on its surface — a key requirement for life as we know it.</div></div>
+      <div class="info-card" style="--ic:#38bdf8"><span class="ic-emoji">🌬️</span><div class="ic-title">Perfect Atmosphere</div><div class="ic-text">The right mix of nitrogen, oxygen, and other gases sustains breathing, regulates temperature, and shields from radiation.</div></div>
+      <div class="info-card" style="--ic:#22d3ee"><span class="ic-emoji">🌡️</span><div class="ic-title">Ideal Temperature</div><div class="ic-text">Earth's distance from the Sun keeps temperatures in a range that allows water to remain liquid and organisms to thrive.</div></div>
+      <div class="info-card" style="--ic:#67e8f9"><span class="ic-emoji">🧲</span><div class="ic-title">Magnetic Field</div><div class="ic-text">Earth's magnetic field deflects harmful solar wind particles, protecting the atmosphere and all life on the surface.</div></div>
+      <div class="info-card" style="--ic:#22d3ee"><span class="ic-emoji">🌿</span><div class="ic-title">Nutrients Available</div><div class="ic-text">Carbon, nitrogen, phosphorus, and other essential elements cycle through Earth's systems, fueling all forms of life.</div></div>
+      <div class="info-card" style="--ic:#38bdf8"><span class="ic-emoji">⬇️</span><div class="ic-title">Stable Gravity</div><div class="ic-text">Earth's gravity is strong enough to hold the atmosphere and allow organisms to grow, walk, and function normally.</div></div>
+    </div>
+  </section>
+
+  <!-- Rotation & Revolution — UNIFIED animated section -->
+  <section class="sec">
+    <span class="sec-label lbl-earth">Earth's Motion</span>
+    <h2 class="sec-title">Rotation &amp; <span class="acc-earth">Revolution</span></h2>
+
+    <div class="earth-motion-wrap">
+
+      <!-- LEFT: canvas + toggle -->
+      <div class="earth-canvas-side">
+        <div class="motion-toggle">
+          <button class="motion-btn rot-on" id="btn-rot" onclick="setMode('rotation')">⟳ &nbsp;Rotation</button>
+          <button class="motion-btn"        id="btn-rev" onclick="setMode('revolution')">⊙ &nbsp;Revolution</button>
+        </div>
+        <div class="canvas-shell">
+          <canvas id="earthCanvas" width="420" height="420"></canvas>
+          <div class="canvas-badge rot-badge" id="canvasBadge">ROTATION — DAY &amp; NIGHT</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: info panels swapped by JS -->
+      <div class="earth-info-side">
+        <div class="mode-intro show" id="infoRot"></div>
+        <div class="mode-intro"      id="infoRev"></div>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /panel-earth -->
+
+
+<!-- ═══════════════════════ MOON PANEL ═══════════════════════ -->
+<div class="panel" id="panel-moon">
+
+  <!-- Physical Data -->
+  <section class="sec">
+    <span class="sec-label lbl-moon">Physical Data</span>
+    <h2 class="sec-title">Moon <span class="acc-moon">Characteristics</span></h2>
+    <div class="stat-grid">
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">⚖️</span><div class="sl">Mass</div><div class="sv">0.012×</div><div class="ss">Earth's mass</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">📏</span><div class="sl">Diameter</div><div class="sv">3,476 km</div><div class="ss">~0.27× Earth's diameter</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">🌀</span><div class="sl">Gravity</div><div class="sv">0.16×</div><div class="ss">Earth's gravity</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">🌡️</span><div class="sl">Temperature</div><div class="sv">-230°C to 123°C</div><div class="ss">No atmosphere = extreme range</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">🔄</span><div class="sl">Rotation Period</div><div class="sv">27.3 days</div><div class="ss">Same as revolution period</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">🌐</span><div class="sl">Revolution Period</div><div class="sv">29.5 days</div><div class="ss">Around Earth</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">🌬️</span><div class="sl">Atmosphere</div><div class="sv">None</div><div class="ss">No atmospheric protection</div></div>
+      <div class="stat-card" style="--sc:#94a3b8"><span class="si">💡</span><div class="sl">Light Source</div><div class="sv">Reflected sunlight</div><div class="ss">Does not emit its own light</div></div>
+    </div>
+    <div class="fact" style="--fb:rgba(148,163,184,.07);--fb-b:rgba(148,163,184,.22)">
+      <span class="fact-ico">💡</span>
+      <div class="fact-txt">Because the Moon's rotation and revolution periods are nearly equal (~27.3 days), the <strong>same side always faces Earth</strong>. The "dark side of the Moon" was only revealed after the Apollo missions explored it.</div>
+    </div>
+  </section>
+
+  <!-- Moon Phases -->
+  <section class="sec">
+    <span class="sec-label lbl-moon">Lunar Cycle</span>
+    <h2 class="sec-title">8 Phases of <span class="acc-moon">the Moon</span></h2>
+    <p class="sec-note">The Moon's appearance changes as it orbits Earth — depending on how much of its sunlit side we can see. One complete cycle ≈ 29.5 days. <strong style="color:#94a3b8">Click each phase</strong> for details.</p>
+
+    <div class="phases-wrap">
+      <div class="phase-svg-wrap">
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="svgbg" cx="50%" cy="50%" r="55%">
+              <stop offset="0%"   stop-color="#0d1a36"/>
+              <stop offset="100%" stop-color="#020818"/>
+            </radialGradient>
+            <radialGradient id="egr" cx="36%" cy="30%" r="58%">
+              <stop offset="0%"   stop-color="#93c5fd"/>
+              <stop offset="22%"  stop-color="#3b82f6"/>
+              <stop offset="52%"  stop-color="#1d4ed8"/>
+              <stop offset="82%"  stop-color="#1e3a5f"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </radialGradient>
+            <radialGradient id="egl" cx="50%" cy="50%" r="50%">
+              <stop offset="55%"  stop-color="#3b82f6" stop-opacity="0"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity=".3"/>
+            </radialGradient>
+            <radialGradient id="mlit" cx="36%" cy="32%" r="56%">
+              <stop offset="0%"   stop-color="#e2e8f0"/>
+              <stop offset="45%"  stop-color="#94a3b8"/>
+              <stop offset="100%" stop-color="#334155"/>
+            </radialGradient>
+            <radialGradient id="sfx" cx="100%" cy="50%" r="70%">
+              <stop offset="0%"   stop-color="#fbbf24" stop-opacity=".15"/>
+              <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="gfx">
+              <feGaussianBlur stdDeviation="2.5" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <rect width="500" height="500" fill="url(#svgbg)"/>
+          <rect width="500" height="500" fill="url(#sfx)"/>
+
+          <!-- Stars -->
+          <circle cx="30"  cy="25"  r="1"   fill="white" opacity=".5"/>
+          <circle cx="90"  cy="460" r="1"   fill="white" opacity=".4"/>
+          <circle cx="460" cy="40"  r="1.2" fill="white" opacity=".6"/>
+          <circle cx="480" cy="460" r="1"   fill="white" opacity=".4"/>
+          <circle cx="15"  cy="240" r="1"   fill="white" opacity=".3"/>
+          <circle cx="250" cy="12"  r="1"   fill="white" opacity=".4"/>
+          <circle cx="250" cy="488" r="1"   fill="white" opacity=".4"/>
+
+          <!-- Sun label -->
+          <text x="480" y="30" font-family="Orbitron,sans-serif" font-size="10" fill="#fbbf24" text-anchor="middle" opacity=".8">☀</text>
+          <text x="480" y="44" font-family="Orbitron,sans-serif" font-size="7"  fill="#fbbf24" text-anchor="middle" letter-spacing="1.5" opacity=".5">SUN</text>
+
+          <!-- Orbit ring -->
+          <circle cx="250" cy="250" r="190" fill="none" stroke="rgba(148,163,184,.2)" stroke-width="1" stroke-dasharray="6 5"/>
+
+          <!-- Earth -->
+          <circle cx="250" cy="250" r="55" fill="url(#egl)"/>
+          <g style="transform-origin:250px 250px;animation:espin 20s linear infinite;">
+            <circle cx="250" cy="250" r="36" fill="url(#egr)"/>
+            <ellipse cx="244" cy="238" rx="11" ry="9"  fill="#16a34a" opacity=".75"/>
+            <ellipse cx="258" cy="252" rx="8"  ry="12" fill="#16a34a" opacity=".65"/>
+            <ellipse cx="238" cy="259" rx="7"  ry="6"  fill="#16a34a" opacity=".55"/>
+            <ellipse cx="262" cy="240" rx="5"  ry="4"  fill="#16a34a" opacity=".5"/>
+          </g>
+          <circle cx="250" cy="250" r="38" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-opacity=".25"/>
+          <text x="250" y="304" font-family="Orbitron,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle" letter-spacing="2">EARTH</text>
+
+          <!-- Orbit arrow -->
+          <path d="M250,248 m0,-197 a197,197 0 0,1 22,6" fill="none" stroke="rgba(148,163,184,.3)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="rgba(148,163,184,.3)"/>
+            </marker>
+          </defs>
+          <style>@keyframes espin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
+
+          <!-- ══ 8 MOON PHASES ══
+               Sun from RIGHT. lit circle base + dark shadow path.
+               Shadow: arc on shadow side + inner ellipse → correct shape.
+          -->
+
+          <!-- 1. NEW MOON  cx=250 cy=57 -->
+          <g class="pm-node" data-id="new" style="cursor:pointer;" onclick="selectPhase('new')">
+            <circle cx="250" cy="57" r="26" fill="transparent"/>
+            <circle cx="250" cy="57" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="250" cy="57" r="18" fill="#1e293b" opacity=".3"/>
+            <circle cx="250" cy="57" r="18" fill="#060e1f"/>
+            <circle cx="244" cy="52" r="2.5" fill="#0d1a2e"/>
+            <circle cx="256" cy="61" r="2"   fill="#0d1a2e"/>
+            <text x="250" y="88" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="middle" letter-spacing="1" class="pm-lbl">NEW MOON</text>
+          </g>
+
+          <!-- 2. WAXING CRESCENT  cx=384 cy=116 -->
+          <g class="pm-node" data-id="waxc" style="cursor:pointer;" onclick="selectPhase('waxc')">
+            <circle cx="384" cy="116" r="26" fill="transparent"/>
+            <circle cx="384" cy="116" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="384" cy="116" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 384,98 A 18,18 0 0,0 384,134 A 10,18 0 0,1 384,98 Z" fill="#060e1f"/>
+            <text x="412" y="106" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="start" letter-spacing="1" class="pm-lbl">WAX. CRESCENT</text>
+          </g>
+
+          <!-- 3. FIRST QUARTER  cx=443 cy=250 -->
+          <g class="pm-node" data-id="fq" style="cursor:pointer;" onclick="selectPhase('fq')">
+            <circle cx="443" cy="250" r="26" fill="transparent"/>
+            <circle cx="443" cy="250" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="443" cy="250" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 443,232 A 18,18 0 0,0 443,268 Z" fill="#060e1f"/>
+            <text x="470" y="254" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="start" letter-spacing="1" class="pm-lbl">FIRST QTR</text>
+          </g>
+
+          <!-- 4. WAXING GIBBOUS  cx=384 cy=384 -->
+          <g class="pm-node" data-id="waxg" style="cursor:pointer;" onclick="selectPhase('waxg')">
+            <circle cx="384" cy="384" r="26" fill="transparent"/>
+            <circle cx="384" cy="384" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="384" cy="384" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 384,366 A 18,18 0 0,0 384,402 A 10,18 0 0,0 384,366 Z" fill="#060e1f"/>
+            <text x="410" y="396" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="start" letter-spacing="1" class="pm-lbl">WAX. GIBBOUS</text>
+          </g>
+
+          <!-- 5. FULL MOON  cx=250 cy=443 -->
+          <g class="pm-node" data-id="full" style="cursor:pointer;" onclick="selectPhase('full')">
+            <circle cx="250" cy="443" r="26" fill="transparent"/>
+            <circle cx="250" cy="443" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="250" cy="443" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <circle cx="244" cy="438" r="2.8" fill="rgba(0,0,0,.13)"/>
+            <circle cx="255" cy="447" r="2"   fill="rgba(0,0,0,.1)"/>
+            <circle cx="248" cy="451" r="1.5" fill="rgba(0,0,0,.08)"/>
+            <text x="250" y="474" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="middle" letter-spacing="1" class="pm-lbl">FULL MOON</text>
+          </g>
+
+          <!-- 6. WANING GIBBOUS  cx=116 cy=384 -->
+          <g class="pm-node" data-id="wang" style="cursor:pointer;" onclick="selectPhase('wang')">
+            <circle cx="116" cy="384" r="26" fill="transparent"/>
+            <circle cx="116" cy="384" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="116" cy="384" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 116,366 A 18,18 0 0,1 116,402 A 10,18 0 0,1 116,366 Z" fill="#060e1f"/>
+            <text x="88"  y="396" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="end" letter-spacing="1" class="pm-lbl">WAN. GIBBOUS</text>
+          </g>
+
+          <!-- 7. LAST QUARTER  cx=57 cy=250 -->
+          <g class="pm-node" data-id="lq" style="cursor:pointer;" onclick="selectPhase('lq')">
+            <circle cx="57"  cy="250" r="26" fill="transparent"/>
+            <circle cx="57"  cy="250" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="57"  cy="250" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 57,232 A 18,18 0 0,1 57,268 Z" fill="#060e1f"/>
+            <text x="30"  y="254" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="end" letter-spacing="1" class="pm-lbl">LAST QTR</text>
+          </g>
+
+          <!-- 8. WANING CRESCENT  cx=116 cy=116 -->
+          <g class="pm-node" data-id="wanc" style="cursor:pointer;" onclick="selectPhase('wanc')">
+            <circle cx="116" cy="116" r="26" fill="transparent"/>
+            <circle cx="116" cy="116" r="22" fill="none" stroke="rgba(148,163,184,.6)" stroke-width="2" class="pm-aring" opacity="0"/>
+            <circle cx="116" cy="116" r="18" fill="url(#mlit)" filter="url(#gfx)"/>
+            <path d="M 116,98 A 18,18 0 0,1 116,134 A 10,18 0 0,0 116,98 Z" fill="#060e1f"/>
+            <text x="88"  y="106" font-family="Orbitron,sans-serif" font-size="7.5" fill="#64748b" text-anchor="end" letter-spacing="1" class="pm-lbl">WAN. CRESCENT</text>
+          </g>
+
+        </svg>
+      </div>
+
+      <!-- Phase info panel -->
+      <div class="phase-info-panel" id="phasePanel">
+        <div class="phase-default" id="phaseDefault">
+          <div class="phase-default-icon">🌕</div>
+          <div>Click a Moon phase on the diagram to see full details.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lunar Eclipse -->
+  <section class="sec">
+    <span class="sec-label lbl-moon">Celestial Event</span>
+    <h2 class="sec-title">Lunar <span class="acc-moon">Eclipse</span></h2>
+    <p class="sec-note">A lunar eclipse occurs when Earth comes between the Sun and the Moon. Select a type to see its diagram.</p>
+
+    <div class="ecl-btns">
+      <button class="ecl-btn on" data-type="total"     onclick="setEclipse('total')">🌑 Total</button>
+      <button class="ecl-btn"    data-type="partial"   onclick="setEclipse('partial')">🌗 Partial</button>
+      <button class="ecl-btn"    data-type="penumbral" onclick="setEclipse('penumbral')">🌕 Penumbral</button>
+    </div>
+
+    <div class="ecl-diagram-wrap">
+      <svg id="eclipseSVG" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <radialGradient id="ebg"  cx="50%" cy="50%" r="60%"><stop offset="0%"   stop-color="#0a1628"/><stop offset="100%" stop-color="#020818"/></radialGradient>
+          <radialGradient id="esg"  cx="40%" cy="38%" r="55%"><stop offset="0%"   stop-color="#fff9c4"/><stop offset="18%"  stop-color="#fbbf24"/><stop offset="48%"  stop-color="#f97316"/><stop offset="100%" stop-color="#7c2d12"/></radialGradient>
+          <radialGradient id="esgw" cx="50%" cy="50%" r="50%"><stop offset="55%"  stop-color="#f59e0b" stop-opacity="0"/><stop offset="80%"  stop-color="#f59e0b" stop-opacity=".35"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+          <radialGradient id="eeg"  cx="38%" cy="32%" r="58%"><stop offset="0%"   stop-color="#93c5fd"/><stop offset="25%"  stop-color="#3b82f6"/><stop offset="55%"  stop-color="#1d4ed8"/><stop offset="100%" stop-color="#0f172a"/></radialGradient>
+          <radialGradient id="eegw" cx="50%" cy="50%" r="50%"><stop offset="55%"  stop-color="#3b82f6" stop-opacity="0"/><stop offset="80%"  stop-color="#3b82f6" stop-opacity=".3"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+          <radialGradient id="emn"  cx="38%" cy="35%" r="55%"><stop offset="0%"   stop-color="#e2e8f0"/><stop offset="45%"  stop-color="#94a3b8"/><stop offset="100%" stop-color="#334155"/></radialGradient>
+          <radialGradient id="emb"  cx="38%" cy="35%" r="55%"><stop offset="0%"   stop-color="#fca5a5"/><stop offset="40%"  stop-color="#dc2626"/><stop offset="100%" stop-color="#450a0a"/></radialGradient>
+          <linearGradient id="eumb" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%"   stop-color="#000" stop-opacity="0"/><stop offset="30%"  stop-color="#000" stop-opacity=".55"/><stop offset="60%"  stop-color="#000" stop-opacity=".75"/><stop offset="100%" stop-color="#000" stop-opacity=".5"/></linearGradient>
+          <linearGradient id="epnb" x1="0%" y1="50%" x2="100%" y2="50%"><stop offset="0%"   stop-color="#1e3a5f" stop-opacity="0"/><stop offset="30%"  stop-color="#1e3a5f" stop-opacity=".2"/><stop offset="60%"  stop-color="#1e3a5f" stop-opacity=".35"/><stop offset="100%" stop-color="#1e3a5f" stop-opacity=".15"/></linearGradient>
+          <clipPath id="mclipR"><rect x="0" y="-30" width="22" height="60"/></clipPath>
+        </defs>
+
+        <rect width="900" height="320" fill="url(#ebg)"/>
+        <circle cx="50"  cy="30"  r="1"   fill="white" opacity=".6"/>
+        <circle cx="200" cy="15"  r="1.5" fill="white" opacity=".8"/>
+        <circle cx="400" cy="40"  r="1"   fill="white" opacity=".5"/>
+        <circle cx="600" cy="20"  r="1.5" fill="white" opacity=".7"/>
+        <circle cx="820" cy="35"  r="1"   fill="white" opacity=".6"/>
+        <circle cx="750" cy="280" r="1.5" fill="white" opacity=".5"/>
+
+        <polygon id="penUp"   points="120,90 530,80 530,110 120,90"   fill="url(#epnb)" opacity="0"/>
+        <polygon id="penLow"  points="120,230 530,240 530,210 120,230" fill="url(#epnb)" opacity="0"/>
+        <polygon id="penUp2"  points="530,80 900,40 900,100 530,110"  fill="url(#epnb)" opacity="0"/>
+        <polygon id="penLow2" points="530,240 900,280 900,220 530,210" fill="url(#epnb)" opacity="0"/>
+        <polygon id="umbraL"  points="120,105 530,148 530,172 120,215" fill="url(#eumb)" opacity=".75"/>
+        <polygon id="umbraR"  points="530,148 900,110 900,210 530,172" fill="url(#eumb)" opacity=".6"/>
+
+        <!-- Sun -->
+        <circle cx="120" cy="160" r="75" fill="url(#esgw)"/>
+        <circle cx="120" cy="160" r="58" fill="url(#esg)"/>
+        <ellipse cx="120" cy="97" rx="5" ry="16" fill="#fef3c7" opacity=".35" transform="rotate(0   120 160)"/>
+        <ellipse cx="120" cy="97" rx="4" ry="12" fill="#fbbf24" opacity=".45" transform="rotate(45  120 160)"/>
+        <ellipse cx="120" cy="97" rx="5" ry="14" fill="#fef3c7" opacity=".3"  transform="rotate(90  120 160)"/>
+        <ellipse cx="120" cy="97" rx="3" ry="10" fill="#fbbf24" opacity=".4"  transform="rotate(135 120 160)"/>
+        <ellipse cx="120" cy="97" rx="5" ry="15" fill="#fef3c7" opacity=".35" transform="rotate(180 120 160)"/>
+        <ellipse cx="120" cy="97" rx="4" ry="12" fill="#fbbf24" opacity=".45" transform="rotate(225 120 160)"/>
+        <ellipse cx="120" cy="97" rx="5" ry="16" fill="#fef3c7" opacity=".3"  transform="rotate(270 120 160)"/>
+        <ellipse cx="120" cy="97" rx="3" ry="11" fill="#fbbf24" opacity=".4"  transform="rotate(315 120 160)"/>
+        <text x="120" y="255" font-family="Orbitron,sans-serif" font-size="9" fill="#fbbf24" text-anchor="middle" letter-spacing="2">SUN</text>
+
+        <!-- Earth -->
+        <circle cx="530" cy="160" r="40" fill="url(#eegw)"/>
+        <circle cx="530" cy="160" r="34" fill="url(#eeg)"/>
+        <ellipse cx="526" cy="148" rx="10" ry="8"  fill="#16a34a" opacity=".7"/>
+        <ellipse cx="538" cy="160" rx="7"  ry="10" fill="#16a34a" opacity=".6"/>
+        <ellipse cx="520" cy="165" rx="6"  ry="5"  fill="#16a34a" opacity=".5"/>
+        <circle cx="530" cy="160" r="110" fill="none" stroke="#a3e635" stroke-width="1.2" stroke-dasharray="6 5" opacity=".5"/>
+        <text x="530" y="285" font-family="Orbitron,sans-serif" font-size="8" fill="#60a5fa" text-anchor="middle" letter-spacing="2">EARTH</text>
+
+        <!-- Moon -->
+        <g id="moonGroup" transform="translate(770,160)">
+          <circle id="moonBody" cx="0" cy="0" r="22" fill="url(#emn)"/>
+          <circle id="moonDark" cx="0" cy="0" r="22" fill="#000" opacity="0"/>
+          <circle cx="-6" cy="-5" r="3.5" fill="rgba(0,0,0,.15)"/>
+          <circle cx="7"  cy="6"  r="2.5" fill="rgba(0,0,0,.12)"/>
+          <circle cx="-3" cy="9"  r="2"   fill="rgba(0,0,0,.1)"/>
+        </g>
+        <text id="moonLabel"   x="770" y="192" font-family="Orbitron,sans-serif" font-size="8"   fill="#e2e8f0"           text-anchor="middle" letter-spacing="1.5">FULL MOON</text>
+        <text id="umbraLabel"  x="690" y="168" font-family="Orbitron,sans-serif" font-size="7.5" fill="rgba(255,255,255,.5)" text-anchor="middle" letter-spacing="1">UMBRA</text>
+        <text id="penumbraLbl" x="690" y="148" font-family="Orbitron,sans-serif" font-size="7"   fill="rgba(255,255,255,.3)" text-anchor="middle" letter-spacing="1" opacity="0">PENUMBRA</text>
+        <text id="eclTitle"    x="450" y="22"  font-family="Orbitron,sans-serif" font-size="13"  fill="#e2e8f0" text-anchor="middle" font-weight="700" letter-spacing="3">TOTAL LUNAR ECLIPSE</text>
+      </svg>
+    </div>
+
+    <div class="ecl-info-card">
+      <div class="ecl-info-icon" id="eclIcon">🌑</div>
+      <div>
+        <div class="ecl-info-name" id="eclName">Total Lunar Eclipse — Blood Moon</div>
+        <div class="ecl-info-text" id="eclDesc">The Moon enters completely into Earth's <strong>umbra</strong> (dark inner shadow). Sunlight bending through Earth's atmosphere casts red light onto the Moon's surface — creating the dramatic <strong>Blood Moon</strong>. Totality can last up to 100 minutes.</div>
+      </div>
+    </div>
+
+    <div class="fact" style="--fb:rgba(167,139,250,.07);--fb-b:rgba(167,139,250,.22);margin-top:24px;">
+      <span class="fact-ico">🔭</span>
+      <div class="fact-txt">A lunar eclipse is <strong>safe to watch with the naked eye</strong> and visible from everywhere on Earth where it's nighttime — unlike a solar eclipse which is only visible along a narrow path.</div>
+    </div>
+  </section>
+
+  <!-- Moon's Role -->
+  <section class="sec">
+    <span class="sec-label lbl-moon">Moon's Influence</span>
+    <h2 class="sec-title">Moon's <span class="acc-moon">Role in Life</span></h2>
+    <div class="info-grid">
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">🌊</span><div class="ic-title">Ocean Tides</div><div class="ic-text">The Moon's gravity pulls Earth's oceans, creating high and low tides. Fishermen and salt farmers rely on tide patterns.</div></div>
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">📅</span><div class="ic-title">Islamic Calendar</div><div class="ic-text">The Hijri calendar is based on Moon phases. Ramadan, Eid, and Islamic events are determined by the crescent Moon sighting.</div></div>
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">🐣</span><div class="ic-title">Easter (Christian)</div><div class="ic-text">Easter is the first Sunday after the first full Moon on or after March 21 — directly tied to the lunar cycle.</div></div>
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">🕉️</span><div class="ic-title">Hindu Purnama &amp; Tilem</div><div class="ic-text">Full Moon (Purnama) and New Moon (Tilem) are sacred days in Hinduism for prayers and offerings.</div></div>
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">🐟</span><div class="ic-title">Fishing &amp; Salt Farming</div><div class="ic-text">High tides bring fish to the surface. Salt farmers harvest when tidal water fills their ponds after high tide.</div></div>
+      <div class="info-card" style="--ic:#94a3b8"><span class="ic-emoji">⚖️</span><div class="ic-title">Earth's Stability</div><div class="ic-text">The Moon's gravity stabilizes Earth's axial tilt, preventing extreme climate swings that would make life much harder.</div></div>
+    </div>
+  </section>
+
+</div><!-- /panel-moon -->
+
+</main>
+
+<footer><span>Tria Liza</span> · Universitas Pendidikan Indonesia · Earth 🌍 &amp; Moon 🌕</footer>
+
+<script src="earth&moon.js"></script>
+</body>
+</html>
