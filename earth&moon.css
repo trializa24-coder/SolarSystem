@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════
    EARTH & MOON PAGE — earth-moon.css
+   Font sizes updated for better readability
 ═══════════════════════════════════════ */
 
 :root {
@@ -19,6 +20,8 @@ body {
   background: var(--space);
   color: var(--text);
   font-family: 'Exo 2', sans-serif;
+  font-size: 18px;          /* updated: was 16px */
+  line-height: 1.8;         /* updated: was 1.5 */
   overflow-x: hidden;
   cursor: none;
 }
@@ -165,8 +168,9 @@ nav {
   background-clip: text;
 }
 .hero-sub {
-  font-size: 1rem; line-height: 1.8; color: var(--muted);
-  max-width: 540px; margin: 0 auto;
+  font-size: 1.15rem;        /* updated: was 1rem */
+  line-height: 1.8; color: var(--muted);
+  max-width: 560px; margin: 0 auto;
   opacity: 0; animation: fadeUp .8s .6s ease forwards;
 }
 @keyframes fadeUp {
@@ -218,7 +222,8 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 .lbl-moon  { color: #94a3b8; }
 .sec-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);  /* updated: was clamp(1.3rem, 2.5vw, 1.9rem) */
+  font-weight: 700;
   margin-bottom: 32px; line-height: 1.3;
 }
 .acc-earth { color: var(--cyan); }
@@ -228,7 +233,8 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
   background-clip: text;
 }
 .sec-note {
-  font-size: .88rem; line-height: 1.8; color: var(--muted);
+  font-size: 1rem;           /* updated: was 0.88rem */
+  line-height: 1.8; color: var(--muted);
   margin-bottom: 28px; margin-top: -18px;
 }
 
@@ -255,16 +261,16 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 .stat-card:hover::after  { opacity: 1; }
 .si { font-size: 2rem; margin-bottom: 12px; display: block; position: relative; z-index: 1; }
 .sl {
-  font-family: 'Orbitron', sans-serif; font-size: .58rem;
+  font-family: 'Orbitron', sans-serif; font-size: .85rem;  /* updated: was .58rem / 0.72rem */
   letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
   margin-bottom: 6px; position: relative; z-index: 1;
 }
 .sv {
-  font-family: 'Orbitron', sans-serif; font-size: .95rem;
+  font-family: 'Orbitron', sans-serif; font-size: 1rem;    /* updated: was .95rem */
   font-weight: 700; color: var(--sc, var(--cyan));
   line-height: 1.3; position: relative; z-index: 1;
 }
-.ss { font-size: .72rem; color: var(--muted); margin-top: 4px; position: relative; z-index: 1; }
+.ss { font-size: .82rem; color: var(--muted); margin-top: 4px; position: relative; z-index: 1; line-height: 1.6; }
 
 /* ── FACT BOX ── */
 .fact {
@@ -274,7 +280,7 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
   border-radius: 16px; padding: 24px 26px; margin-top: 24px;
 }
 .fact-ico { font-size: 1.8rem; flex-shrink: 0; }
-.fact-txt { font-size: .86rem; line-height: 1.8; color: #cbd5e1; }
+.fact-txt { font-size: 1rem; line-height: 1.8; color: #cbd5e1; }  /* updated: was .86rem */
 .fact-txt strong { color: white; font-weight: 600; }
 
 /* ── INFO GRID ── */
@@ -298,10 +304,10 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 .info-card:hover::after { opacity: 1; }
 .ic-emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
 .ic-title {
-  font-family: 'Orbitron', sans-serif; font-size: .78rem;
+  font-family: 'Orbitron', sans-serif; font-size: 1.1rem; /* updated: was 1rem / .78rem */
   font-weight: 700; letter-spacing: 2px; color: var(--ic, var(--cyan)); margin-bottom: 10px;
 }
-.ic-text { font-size: .82rem; line-height: 1.75; color: var(--muted); }
+.ic-text { font-size: .95rem; line-height: 1.8; color: var(--muted); }  /* updated: was .82rem */
 
 /* ── EFFECT LIST ── */
 .concept-p { font-size: .9rem; line-height: 1.85; color: #cbd5e1; }
@@ -378,7 +384,7 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 /* Right: info panel */
 .earth-info-side {
   display: flex; flex-direction: column; gap: 20px;
-  padding-top: 58px; /* align with canvas top roughly */
+  padding-top: 58px;
 }
 
 /* Mode intro header */
@@ -404,12 +410,33 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
   line-height: 1.3;
 }
 .mode-desc {
-  font-size: .88rem; line-height: 1.85; color: #cbd5e1;
+  font-size: 1.05rem;    /* updated: was .88rem / 0.95rem (modal description) */
+  line-height: 1.85; color: #cbd5e1;
 }
 .mode-desc strong { color: white; font-weight: 600; }
 
 /* Effect list inside info side */
 .mode-effects { display: flex; flex-direction: column; gap: 12px; }
+.mode-eff {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px; padding: 16px 18px;
+}
+.mode-eff-title {
+  font-family: 'Orbitron', sans-serif; font-size: .72rem;
+  font-weight: 700; letter-spacing: 1.5px; color: white; margin-bottom: 5px;
+}
+.mode-eff-text {
+  font-size: 1rem;       /* updated: was .80rem (modal facts) */
+  line-height: 1.7; color: var(--muted);
+}
+
+/* Modal stat value (used in canvas info panels) */
+.mode-stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;       /* updated: was .9rem */
+  font-weight: 700; color: var(--cyan);
+}
 
 /* ── MOON PHASES ── */
 .phases-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 36px; align-items: start; }
@@ -424,7 +451,7 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 }
 .phase-info-panel.active { border-color: rgba(148,163,184,.35); }
 .phase-default {
-  text-align: center; color: var(--muted); font-size: .85rem;
+  text-align: center; color: var(--muted); font-size: .95rem;  /* updated: was .85rem */
   line-height: 1.7; display: flex; flex-direction: column; align-items: center; gap: 14px;
 }
 .phase-default-icon { font-size: 2.6rem; }
@@ -435,13 +462,13 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
   to   { opacity: 1; transform: translateY(0); }
 }
 .pd-num  { font-family: 'Orbitron', sans-serif; font-size: .55rem; letter-spacing: 3px; color: var(--muted); }
-.pd-name { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: white; line-height: 1.3; }
+.pd-name { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; color: white; line-height: 1.3; }  /* updated: was 1rem */
 .pd-row  { display: flex; align-items: center; gap: 16px; }
 .pd-moon-big { width: 72px; height: 72px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
 .pd-moon-big svg { width: 100%; height: 100%; }
-.pd-text { font-size: .83rem; line-height: 1.8; color: #cbd5e1; }
+.pd-text { font-size: 1.05rem; line-height: 1.8; color: #cbd5e1; }  /* updated: was .83rem */
 .pd-text strong { color: white; font-weight: 600; }
-.pd-sub  { font-size: .78rem; line-height: 1.75; color: var(--muted); }
+.pd-sub  { font-size: .9rem; line-height: 1.75; color: var(--muted); }  /* updated slightly */
 
 /* ── ECLIPSE ── */
 .ecl-btns { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
@@ -474,7 +501,7 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
   font-family: 'Orbitron', sans-serif; font-size: .82rem;
   font-weight: 700; letter-spacing: 2px; color: var(--glow); margin-bottom: 10px;
 }
-.ecl-info-text { font-size: .84rem; line-height: 1.8; color: var(--muted); }
+.ecl-info-text { font-size: 1rem; line-height: 1.8; color: var(--muted); }  /* updated: was .84rem */
 .ecl-info-text strong { color: white; }
 
 /* ── FOOTER ── */

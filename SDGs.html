@@ -3,107 +3,292 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SDGs Section — Tria Liza</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<title>SDGs | Tria Liza</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
   --space:#020818;--deep:#050d2a;
-  --accent:#7c3aed;--glow:#c4b5fd;--cyan:#67e8f9;
-  --text:#f8fafc;--muted:#94a3b8;
-  --sdg4:#F87171;--sdg7:#FCC30B;--sdg13:#56C277;
-  --sdg14:#22d3ee;--sdg15:#7CDE4E;--sdg17:#a78bfa;
+  --accent:#7c3aed;--glow:#a78bfa;--cyan:#22d3ee;
+  --text:#e2e8f0;--muted:#94a3b8;
+  --sdg4:#F87171;--sdg13:#56C277;--sdg14:#22d3ee;--sdg15:#7CDE4E;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--space);color:var(--text);font-family:'Exo 2',sans-serif;overflow-x:hidden;cursor:none;font-size:17px;}
+body{
+  background:var(--space);color:var(--text);
+  font-family:'Exo 2',sans-serif;
+  font-size:18px;
+  line-height:1.85;
+  overflow-x:hidden;cursor:none;
+}
+
+/* CURSOR */
 .cursor{position:fixed;width:16px;height:16px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;box-shadow:0 0 20px var(--cyan);mix-blend-mode:screen;}
 .cursor-trail{position:fixed;width:40px;height:40px;border:1px solid var(--glow);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s ease;opacity:.5;}
-.stars{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(1px 1px at 8% 15%,white,transparent),radial-gradient(1px 1px at 22% 60%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 45% 8%,white,transparent),radial-gradient(1px 1px at 68% 42%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 83% 75%,white,transparent),radial-gradient(1px 1px at 33% 88%,rgba(255,255,255,.8),transparent),radial-gradient(2px 2px at 12% 52%,rgba(167,139,250,.5),transparent),radial-gradient(1px 1px at 88% 12%,rgba(255,255,255,.9),transparent),radial-gradient(1px 1px at 57% 28%,white,transparent),radial-gradient(1px 1px at 75% 55%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 3% 38%,rgba(34,211,238,.4),transparent),radial-gradient(1px 1px at 91% 65%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 62% 85%,rgba(167,139,250,.4),transparent);}
+
+/* STARS */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 8% 15%,white,transparent),
+    radial-gradient(1px 1px at 22% 60%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1.5px 1.5px at 45% 8%,white,transparent),
+    radial-gradient(1px 1px at 68% 42%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1px 1px at 83% 75%,white,transparent),
+    radial-gradient(1px 1px at 33% 88%,rgba(255,255,255,.8),transparent),
+    radial-gradient(2px 2px at 12% 52%,rgba(167,139,250,.5),transparent),
+    radial-gradient(1px 1px at 88% 12%,rgba(255,255,255,.9),transparent),
+    radial-gradient(1px 1px at 57% 28%,white,transparent),
+    radial-gradient(1px 1px at 75% 55%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1.5px 1.5px at 3% 38%,rgba(34,211,238,.4),transparent),
+    radial-gradient(1px 1px at 91% 65%,rgba(255,255,255,.6),transparent);
+}
 .nebula{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
 .nb1{width:600px;height:600px;background:rgba(124,58,237,.07);top:-200px;right:-200px;}
 .nb2{width:500px;height:500px;background:rgba(34,211,238,.05);bottom:20%;left:-150px;}
 .nb3{width:400px;height:400px;background:rgba(245,158,11,.04);top:40%;right:15%;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);backdrop-filter:blur(10px);}
+
+/* ══════════════════════════════
+   NAV — same as sun.html
+══════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 60px;display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);
+  backdrop-filter:blur(10px);
+}
 .nav-logo{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none;}
 .nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
-.nav-links a{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
+.nav-links a{font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
 .nav-links a:hover{color:var(--cyan);}
 .nav-links a:hover::after{width:100%;}
+.nav-active{color:var(--cyan)!important;}
+.nav-active::after{width:100%!important;}
 .has-dropdown{position:relative;align-self:center;}
 .has-dropdown>a{display:flex;align-items:center;gap:6px;}
 .arrow{display:inline-block;font-size:.7rem;transition:transform .3s ease;}
 .has-dropdown.open .arrow{transform:rotate(180deg);}
-.dropdown{display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:10px 0;list-style:none;min-width:180px;backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,.25);z-index:200;}
+.dropdown{display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:10px 0;list-style:none;min-width:180px;backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,.25);z-index:200;animation:dropFade .25s ease forwards;}
+@keyframes dropFade{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .has-dropdown.open .dropdown{display:flex;}
 .dropdown li a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap;}
 .dropdown li a::after{display:none;}
 .dropdown li a:hover{color:var(--cyan);background:rgba(34,211,238,.07);}
-.hero{position:relative;z-index:1;padding:155px 60px 50px;text-align:center;}
-.hero-eyebrow{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:5px;color:var(--glow);text-transform:uppercase;margin-bottom:16px;display:block;opacity:0;animation:fadeUp .8s .2s ease forwards;}
-.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;line-height:1.1;margin-bottom:20px;opacity:0;animation:fadeUp .8s .4s ease forwards;}
-.t-sdgs{background:linear-gradient(90deg,var(--sdg4),var(--sdg7),var(--sdg13),var(--sdg14),var(--sdg15),var(--sdg17));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:1.15rem;line-height:1.85;color:#cbd5e1;max-width:640px;margin:0 auto;opacity:0;animation:fadeUp .8s .6s ease forwards;}
+
+/* ══════════════════════════════
+   HERO — text-only, no image
+══════════════════════════════ */
+.page-hero{
+  position:relative;z-index:1;
+  padding:160px 60px 60px;text-align:center;
+}
+.page-eyebrow{
+  font-family:'Orbitron',sans-serif;font-size:.78rem;
+  letter-spacing:5px;color:var(--glow);text-transform:uppercase;
+  margin-bottom:14px;display:block;
+  opacity:0;animation:fadeUp .8s .2s ease forwards;
+}
+.page-title{
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:18px;
+  opacity:0;animation:fadeUp .8s .4s ease forwards;
+}
+.page-title span{
+  background:linear-gradient(90deg,var(--glow),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.page-sub{
+  font-size:1.15rem;font-weight:300;line-height:1.9;
+  color:var(--muted);max-width:640px;margin:0 auto;
+  opacity:0;animation:fadeUp .8s .6s ease forwards;
+}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.nav-pills{display:flex;justify-content:center;gap:10px;padding:28px 60px 0;position:relative;z-index:1;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .8s ease forwards;}
-.np{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;padding:9px 20px;border-radius:100px;text-decoration:none;transition:all .3s;border:1px solid rgba(255,255,255,.15);color:var(--muted);}
-.np:hover{border-color:rgba(255,255,255,.4);color:white;}
-.np.sdg4{border-color:rgba(248,113,113,.4);color:var(--sdg4);}
-.np.sdg7{border-color:rgba(252,195,11,.4);color:var(--sdg7);}
-.np.sdg13{border-color:rgba(86,194,119,.4);color:var(--sdg13);}
-.np.sdg14{border-color:rgba(34,211,238,.4);color:var(--sdg14);}
-.np.sdg15{border-color:rgba(124,222,78,.4);color:var(--sdg15);}
-.np.sdg17{border-color:rgba(167,139,250,.4);color:var(--sdg17);}
-.divider{height:1px;background:linear-gradient(to right,transparent,var(--accent),var(--cyan),transparent);margin:28px 60px 0;opacity:.4;z-index:1;position:relative;}
-main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 60px 120px;}
-.sec{margin-bottom:100px;padding-top:50px;}
-.sec-label{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:5px;text-transform:uppercase;margin-bottom:12px;display:block;}
-.sec-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:700;margin-bottom:24px;line-height:1.3;}
-.sec-quote{font-size:1rem;line-height:1.9;color:#cbd5e1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--cyan);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:36px;font-style:italic;}
-.sec-quote strong{color:var(--cyan);font-style:normal;font-weight:600;}
-.sdg-list{display:flex;flex-direction:column;gap:14px;}
-.sdg-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--lc,var(--cyan));border-radius:12px;padding:22px 24px;transition:transform .28s,background .28s;}
-.sdg-card:hover{transform:translateX(6px);background:rgba(255,255,255,.055);}
-.sdg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px;}
-.sdg-name{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:1.5px;color:var(--lc,var(--cyan));display:flex;align-items:center;gap:10px;}
-.sdg-num-badge{font-family:'Orbitron',sans-serif;font-size:.68rem;padding:3px 10px;background:rgba(255,255,255,.06);border:1px solid currentColor;border-radius:4px;letter-spacing:1px;}
-.sdg-tags{display:flex;gap:8px;flex-wrap:wrap;}
-.sdg-tag{display:inline-block;font-size:.78rem;color:white;background:rgba(255,255,255,.08);border-radius:6px;padding:4px 11px;}
-.sdg-text{font-size:.97rem;line-height:1.8;color:#cbd5e1;margin-bottom:12px;}
-.sdg-text strong{color:white;}
-.sdg-fact{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:11px 14px;font-size:.88rem;color:#94a3b8;line-height:1.6;}
-.flow-wrap{margin-top:60px;background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(34,211,238,.04));border:1px solid rgba(167,139,250,.15);border-radius:18px;padding:36px 32px;}
-.flow-title-row{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:4px;text-transform:uppercase;color:var(--cyan);text-align:center;margin-bottom:28px;}
+
+/* NAV PILLS */
+.nav-pills{
+  display:flex;justify-content:center;gap:10px;
+  padding:28px 60px 0;position:relative;z-index:1;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s .75s ease forwards;
+}
+.np{
+  font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;
+  padding:9px 20px;border-radius:100px;text-decoration:none;
+  transition:all .3s;border:1px solid rgba(255,255,255,.15);color:var(--muted);
+}
+.np.sdg4 {border-color:rgba(248,113,113,.5);color:var(--sdg4);}
+.np.sdg13{border-color:rgba(86,194,119,.5);color:var(--sdg13);}
+.np.sdg14{border-color:rgba(34,211,238,.5); color:var(--sdg14);}
+.np.sdg15{border-color:rgba(124,222,78,.5); color:var(--sdg15);}
+.np:hover{opacity:.8;transform:translateY(-2px);}
+
+.divider-line{
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(167,139,250,.3),rgba(34,211,238,.3),transparent);
+  margin:28px 60px 0;position:relative;z-index:1;
+}
+
+/* ══════════════════════════════
+   MAIN
+══════════════════════════════ */
+main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 60px 120px;}
+
+.section-label{font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:5px;text-transform:uppercase;margin-bottom:10px;display:block;}
+.section-heading{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;margin-bottom:10px;}
+
+/* ══════════════════════════════
+   INTRO BLOCK
+══════════════════════════════ */
+.intro-block{
+  margin:60px 0 80px;
+  padding:28px 32px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.1);
+  border-left:4px solid var(--cyan);
+  border-radius:0 16px 16px 0;
+  font-size:1.05rem;line-height:1.9;color:#cbd5e1;
+  font-style:italic;
+}
+.intro-block strong{color:var(--cyan);font-style:normal;}
+
+/* ══════════════════════════════
+   SDG SECTION
+══════════════════════════════ */
+.sdg-section{
+  margin-bottom:90px;padding-top:52px;
+  opacity:0;transform:translateY(28px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.sdg-section.revealed{opacity:1;transform:translateY(0);}
+
+.sdg-header{
+  display:flex;align-items:flex-start;gap:28px;margin-bottom:32px;
+}
+.sdg-tile-img{
+  width:130px;height:130px;flex-shrink:0;
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(0,0,0,.5);
+  transition:transform .3s;
+}
+.sdg-tile-img:hover{transform:scale(1.05);}
+.sdg-tile-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.sdg-header-text{flex:1;}
+.sdg-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.sdg-tag{
+  font-family:'Orbitron',sans-serif;
+  font-size:.65rem;letter-spacing:1.5px;
+  color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;padding:4px 12px;
+}
+.sdg-body{
+  font-size:1rem;line-height:1.9;color:#cbd5e1;margin-bottom:18px;
+}
+.sdg-body strong{color:white;}
+
+/* TOPIC CONNECTIONS GRID */
+.topic-connections{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;margin-bottom:20px;
+}
+.topic-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px 18px;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.topic-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:2px;
+  background:var(--tc-color,var(--glow));
+  transform:scaleX(0);transition:transform .4s;transform-origin:left;
+}
+.topic-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);}
+.topic-card:hover::before{transform:scaleX(1);}
+.topic-page{
+  font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;
+  color:var(--tc-color,var(--glow));text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.topic-page-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--tc-color,var(--glow));flex-shrink:0;
+}
+.topic-connection-title{
+  font-weight:700;font-size:1rem;color:white;margin-bottom:6px;
+}
+.topic-connection-text{
+  font-size:.92rem;line-height:1.75;color:#94a3b8;
+}
+
+.sdg-fact{
+  display:flex;gap:12px;align-items:flex-start;
+  background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:14px 18px;
+  font-size:.95rem;color:#94a3b8;line-height:1.7;
+}
+.sdg-fact span:first-child{font-size:1.3rem;flex-shrink:0;margin-top:2px;}
+
+/* DIVIDER between SDG sections */
+.sdg-divider{
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(167,139,250,.2),rgba(34,211,238,.2),transparent);
+  margin-bottom:0;
+}
+
+/* ══════════════════════════════
+   FLOW DIAGRAM
+══════════════════════════════ */
+.flow-wrap{
+  margin-top:20px;
+  background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(34,211,238,.04));
+  border:1px solid rgba(167,139,250,.15);border-radius:18px;padding:36px 32px;
+  opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;
+}
+.flow-wrap.revealed{opacity:1;transform:translateY(0);}
+.flow-title-row{
+  font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:4px;
+  text-transform:uppercase;color:var(--cyan);text-align:center;margin-bottom:30px;
+}
 .flow-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;}
 .flow-node{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 8px;}
-.flow-circle{width:74px;height:74px;border-radius:50%;border:1px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:transform .25s;}
+.flow-img{width:64px;height:64px;border-radius:50%;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:transform .25s;border:2px solid rgba(255,255,255,.15);}
+.flow-img:hover{transform:scale(1.12);}
+.flow-img img{width:100%;height:100%;object-fit:cover;}
+.flow-circle{width:64px;height:64px;border-radius:50%;border:1px solid rgba(167,139,250,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:transform .25s;background:rgba(124,58,237,.12);}
 .flow-circle:hover{transform:scale(1.1);}
 .fc-icon{font-size:1.5rem;}
-.fc-num{font-family:'Orbitron',sans-serif;font-size:.44rem;letter-spacing:1px;opacity:.65;}
-.flow-label{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:.8px;color:var(--muted);text-align:center;max-width:76px;line-height:1.3;}
-.flow-arrow{font-size:1.1rem;color:rgba(167,139,250,.4);padding:0 4px;}
-.fn-pur{background:rgba(124,58,237,.12);border-color:rgba(167,139,250,.3);}
-.fn-red{background:rgba(197,25,45,.09);border-color:rgba(248,113,113,.3);}
-.fn-yel{background:rgba(252,195,11,.09);border-color:rgba(252,195,11,.3);}
-.fn-grn{background:rgba(63,126,68,.09);border-color:rgba(86,194,119,.3);}
-.fn-blu{background:rgba(10,151,217,.09);border-color:rgba(34,211,238,.3);}
-.fn-grn2{background:rgba(86,192,43,.09);border-color:rgba(124,222,78,.3);}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease;}
-.revealed{opacity:1;transform:translateY(0);}
-footer{position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:#94a3b8;}
+.fc-num{font-family:'Orbitron',sans-serif;font-size:.42rem;letter-spacing:1px;opacity:.65;}
+.flow-label{font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:.8px;color:var(--muted);text-align:center;max-width:72px;line-height:1.4;}
+.flow-arrow{font-size:1.1rem;color:rgba(167,139,250,.4);padding:0 2px;}
+
+footer{position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:var(--muted);}
 footer span{color:var(--glow);}
-@media(max-width:768px){nav{padding:16px 24px;}.nav-links{display:none;}main{padding:0 24px 80px;}.hero{padding:120px 24px 40px;}.divider{margin:24px;}.nav-pills{padding:24px 24px 0;}}
+
+@media(max-width:900px){
+  nav{padding:20px 24px;}
+  .nav-links{gap:16px;}
+  .nav-links a{font-size:.65rem;}
+  main{padding:0 24px 80px;}
+  .page-hero{padding:130px 24px 40px;}
+  .nav-pills,.divider-line{margin-left:24px;margin-right:24px;padding-left:0;padding-right:0;}
+  .sdg-header{flex-direction:column;}
+  .sdg-tile-img{width:100%;height:90px;}
+  .sdg-tile-img img{object-position:center top;}
+  .topic-connections{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="cursorTrail"></div>
-<div class="stars"></div>
 <div class="nebula nb1"></div>
 <div class="nebula nb2"></div>
 <div class="nebula nb3"></div>
 
+<!-- NAV — identical to sun.html -->
 <nav>
   <a class="nav-logo" href="index.html">Tria Liza</a>
   <ul class="nav-links">
@@ -112,7 +297,7 @@ footer span{color:var(--glow);}
       <ul class="dropdown">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="index.html#about">About Me</a></li>
-        <li><a href="SDGs.html">SDGs</a></li>
+        <li><a href="SDGs.html" class="nav-active">SDGs</a></li>
       </ul>
     </li>
     <li><a href="solarsystem.html">Solar System</a></li>
@@ -125,178 +310,345 @@ footer span{color:var(--glow);}
       </ul>
     </li>
     <li><a href="seasons.html">Seasons</a></li>
-    <li><a href="Activity.html">Activity</a></li>
+    <li><a href="Activity.html">Quiz</a></li>
   </ul>
 </nav>
 
-<div class="hero">
-  <span class="hero-eyebrow">🌐 Global Goals · Science &amp; Sustainability</span>
-  <h1 class="hero-title"><span class="t-sdgs">SDGs &amp; Space</span></h1>
-  <p class="hero-sub">When I first started learning about the solar system, I never expected it to connect this deeply to the SDGs. But the more I looked, the more links I found.</p>
-</div>
+<!-- HERO — text only, no image -->
+<header class="page-hero">
+  <span class="page-eyebrow">🌐 Global Goals · Science &amp; Sustainability</span>
+  <h1 class="page-title">SDGs &amp; <span>Our Solar System</span></h1>
+  <p class="page-sub">The topics we study in this website — the Sun, the Moon, Earth, and the Seasons — are all connected to the United Nations' goals for a better planet. Here's how.</p>
+</header>
 
+<!-- PILLS -->
 <div class="nav-pills">
   <a class="np sdg4"  href="#sdg4">SDG 4 · Education</a>
-  <a class="np sdg7"  href="#sdg7">SDG 7 · Energy</a>
   <a class="np sdg13" href="#sdg13">SDG 13 · Climate</a>
   <a class="np sdg14" href="#sdg14">SDG 14 · Oceans</a>
   <a class="np sdg15" href="#sdg15">SDG 15 · Land Life</a>
-  <a class="np sdg17" href="#sdg17">SDG 17 · Partnership</a>
 </div>
-<div class="divider"></div>
+<div class="divider-line"></div>
 
 <main>
 
-  <section class="sec" id="intro">
-    <span class="sec-label" style="color:var(--glow)">Why It Matters</span>
-    <h2 class="sec-title">From Outer Space, <span style="color:var(--glow)">For Our Planet</span></h2>
-    <p class="sec-quote">"Earth is not just floating out there on its own. The climate, the oceans, the seasons, and even the energy we use are all connected to the Sun, the Moon, and the way Earth moves through space. So when the UN talks about the future of our planet through the SDGs, <strong>solar system science is quietly behind many of those goals</strong> — even if it doesn't always get mentioned by name."</p>
-  </section>
+  <!-- INTRO -->
+  <div class="intro-block">
+    Earth is not just floating out there on its own. The climate, the oceans, the seasons, and the energy we use are all connected to the Sun, the Moon, and the way Earth moves through space. So when the United Nations talks about the future of our planet through the SDGs, <strong>solar system science is quietly behind many of those goals</strong> — even if it doesn't always get mentioned by name. On this page, you will see exactly which topics connect to which SDG.
+  </div>
 
-  <section class="sec" id="sdg4">
-    <span class="sec-label" style="color:var(--sdg4)">A · Goal 4</span>
-    <h2 class="sec-title">Quality <span style="color:var(--sdg4)">Education</span></h2>
-    <p class="sec-quote">"Honestly, this one feels the most personal to me. SDG 4 is about making <strong>quality education accessible to everyone</strong> — and science, especially astronomy, still feels out of reach for a lot of students."</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg4)">
-        <div class="sdg-head">
-          <span class="sdg-name">📚 Quality Education <span class="sdg-num-badge">SDG 4</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Science Literacy</span><span class="sdg-tag">Digital Learning</span><span class="sdg-tag">STEM Access</span></div>
-        </div>
-        <p class="sdg-text">When astronomy is taught in a way that is visual and engaging, even junior high schoolers can fall in love with it. <strong>That is exactly what this website is trying to do</strong> — make solar system science feel accessible to everyone, not just students with the best resources.</p>
-        <div class="sdg-fact"><span>📖</span><span>Curiosity about space is often what pulls young people into science in the first place — and that curiosity can grow into a career in research, engineering, or education.</span></div>
+  <!-- ═══════════════════════════
+       SDG 4 — EDUCATION
+  ═══════════════════════════ -->
+  <section class="sdg-section" id="sdg4">
+    <div class="sdg-header">
+      <div class="sdg-tile-img">
+        <img src="images/preview.webp" alt="SDG 4 Quality Education">
       </div>
+      <div class="sdg-header-text">
+        <span class="section-label" style="color:var(--sdg4)">Goal 4</span>
+        <h2 class="section-heading">Quality <span style="color:var(--sdg4)">Education</span></h2>
+        <div class="sdg-tags">
+          <span class="sdg-tag">Science Literacy</span>
+          <span class="sdg-tag">STEM Access</span>
+          <span class="sdg-tag">Digital Learning</span>
+          <span class="sdg-tag">Curiosity</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sdg-body">
+      SDG 4 says that every person in the world deserves access to <strong>quality education</strong>. Science — especially space science — can feel difficult or out of reach for many students. But when it is taught in a clear, visual, and interactive way, <strong>anyone can understand it and fall in love with it</strong>. This entire website is a response to SDG 4 — making solar system science feel like it belongs to every student, no matter where they study.
+    </p>
+
+    <p style="font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:3px;color:var(--sdg4);text-transform:uppercase;margin-bottom:16px;">🔗 Connected to these topics on this website:</p>
+    <div class="topic-connections">
+
+      <div class="topic-card" style="--tc-color:#818cf8;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🪐 Solar System</div>
+        <div class="topic-connection-title">Interactive Planet Data</div>
+        <div class="topic-connection-text">The Solar System page lets students click on each planet and explore real NASA data — making science feel hands-on and accessible, not just a page in a textbook.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#fbbf24;">
+        <div class="topic-page"><div class="topic-page-dot"></div>☀️ The Sun</div>
+        <div class="topic-connection-title">Simple Explanations of Complex Ideas</div>
+        <div class="topic-connection-text">Concepts like nuclear fusion, the corona, and solar flares are explained in plain, simple English with vocabulary boxes — so students at any level can understand them.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#22d3ee;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌍 Earth &amp; Moon</div>
+        <div class="topic-connection-title">Visual Learning Tools</div>
+        <div class="topic-connection-text">Diagrams of Moon phases, eclipse types, and Earth's rotation help students who learn better through visuals rather than reading long paragraphs.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#4ade80;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌦️ Seasons</div>
+        <div class="topic-connection-title">Local Context (Indonesia)</div>
+        <div class="topic-connection-text">The Seasons page connects global science to Indonesian students' own experience — why Indonesia only has 2 seasons while Europe has 4, explained clearly.</div>
+      </div>
+
+    </div>
+    <div class="sdg-fact">
+      <span>📖</span>
+      <span>Curiosity about space is often what first pulls young people into science — and that curiosity can grow into a real career in research, engineering, medicine, or education. SDG 4 is about making sure every student gets that chance.</span>
     </div>
   </section>
 
-  <section class="sec" id="sdg7">
-    <span class="sec-label" style="color:var(--sdg7)">B · Goal 7</span>
-    <h2 class="sec-title">Affordable &amp; <span style="color:var(--sdg7)">Clean Energy</span></h2>
-    <p class="sec-quote">"Think about it — every form of energy on Earth traces back to the Sun. Solar panels, wind turbines, even fossil fuels are just <strong>stored solar energy in different forms</strong>. Understanding how the Sun actually works matters a lot when we talk about building cleaner energy systems."</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg7)">
-        <div class="sdg-head">
-          <span class="sdg-name">☀️ Affordable &amp; Clean Energy <span class="sdg-num-badge">SDG 7</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Solar Energy</span><span class="sdg-tag">Renewable Power</span><span class="sdg-tag">Space Weather</span></div>
-        </div>
-        <p class="sdg-text">Solar panels capture sunlight directly. Wind blows because the Sun heats the atmosphere unevenly. Even fossil fuels are just millions of years of stored sunlight. <strong>Understanding how the Sun works is the foundation</strong> of building a cleaner and more efficient energy future for the planet.</p>
-        <div class="sdg-fact"><span>☀️</span><span>In just one hour, the Sun sends enough energy to Earth to power all of human civilization for an entire year.</span></div>
+  <div class="sdg-divider"></div>
+
+  <!-- ═══════════════════════════
+       SDG 13 — CLIMATE ACTION
+  ═══════════════════════════ -->
+  <section class="sdg-section" id="sdg13">
+    <div class="sdg-header">
+      <div class="sdg-tile-img">
+        <img src="images/preview (1).webp" alt="SDG 13 Climate Action">
       </div>
+      <div class="sdg-header-text">
+        <span class="section-label" style="color:var(--sdg13)">Goal 13</span>
+        <h2 class="section-heading">Climate <span style="color:var(--sdg13)">Action</span></h2>
+        <div class="sdg-tags">
+          <span class="sdg-tag">Climate Modeling</span>
+          <span class="sdg-tag">Earth's Orbit</span>
+          <span class="sdg-tag">Axial Tilt</span>
+          <span class="sdg-tag">Solar Energy</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sdg-body">
+      SDG 13 calls for <strong>urgent action to fight climate change</strong>. To understand climate change, you first need to understand how Earth's climate works naturally — and that is 100% a solar system topic. The seasons, temperature zones, and weather patterns on Earth all come from <strong>how Earth moves around the Sun</strong>. On top of that, almost all of the data scientists use to track climate change comes from <strong>satellites orbiting Earth</strong> — technology that came directly from space exploration.
+    </p>
+
+    <p style="font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:3px;color:var(--sdg13);text-transform:uppercase;margin-bottom:16px;">🔗 Connected to these topics on this website:</p>
+    <div class="topic-connections">
+
+      <div class="topic-card" style="--tc-color:#fbbf24;">
+        <div class="topic-page"><div class="topic-page-dot"></div>☀️ The Sun</div>
+        <div class="topic-connection-title">The Sun Drives Earth's Climate</div>
+        <div class="topic-connection-text">Everything we call "climate" — temperature, wind, rain, ocean currents — is powered by the Sun's energy. The Sun page explains how solar energy reaches Earth and drives the water cycle and weather systems.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#4ade80;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌦️ Seasons</div>
+        <div class="topic-connection-title">Earth's Tilt Creates Climate Zones</div>
+        <div class="topic-connection-text">Earth's 23.5° axial tilt is the reason different parts of the world have completely different climates. The Seasons page explains exactly how this works — and why it matters for understanding climate change.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#22d3ee;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌍 Earth</div>
+        <div class="topic-connection-title">Earth's Atmosphere &amp; Greenhouse Effect</div>
+        <div class="topic-connection-text">Earth's atmosphere traps heat from the Sun — this is the greenhouse effect. Without it, Earth would be frozen. But too much trapping causes global warming. Understanding Earth's atmosphere is the first step to understanding climate change.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#818cf8;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🪐 Solar System</div>
+        <div class="topic-connection-title">Venus as a Warning</div>
+        <div class="topic-connection-text">Venus shows us what a runaway greenhouse effect looks like — 465°C on the surface. Comparing Earth and Venus teaches us exactly why controlling our own greenhouse gases is so important.</div>
+      </div>
+
+    </div>
+    <div class="sdg-fact">
+      <span>🌡️</span>
+      <span>Without weather satellites — born from space science — we would barely be able to predict storms, measure sea level rise, or track changes in global temperature. Climate action depends on space technology.</span>
     </div>
   </section>
 
-  <section class="sec" id="sdg13">
-    <span class="sec-label" style="color:var(--sdg13)">C · Goal 13</span>
-    <h2 class="sec-title">Climate <span style="color:var(--sdg13)">Action</span></h2>
-    <p class="sec-quote">"The seasons we feel every year don't happen randomly — they are a direct result of <strong>Earth tilting on its axis as it orbits the Sun</strong>. And most of the climate change monitoring data the world relies on comes from satellites orbiting Earth."</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg13)">
-        <div class="sdg-head">
-          <span class="sdg-name">🌍 Climate Action <span class="sdg-num-badge">SDG 13</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Climate Modeling</span><span class="sdg-tag">Earth Orbit</span><span class="sdg-tag">Seasons &amp; Tilt</span></div>
-        </div>
-        <p class="sdg-text">Earth's 23.5° axial tilt is the reason seasons exist. Without it, there would be no variation in temperature or rainfall, and the diverse ecosystems we have today simply would not exist. On top of that, <strong>climate change monitoring relies entirely on satellites</strong> — a direct product of space science and technology.</p>
-        <div class="sdg-fact"><span>🌡️</span><span>Weather and climate satellites orbit Earth every single day. Without them, we would barely be able to predict storms or measure changes in global temperature.</span></div>
+  <div class="sdg-divider"></div>
+
+  <!-- ═══════════════════════════
+       SDG 14 — LIFE BELOW WATER
+  ═══════════════════════════ -->
+  <section class="sdg-section" id="sdg14">
+    <div class="sdg-header">
+      <div class="sdg-tile-img">
+        <img src="images/preview (2).webp" alt="SDG 14 Life Below Water">
       </div>
+      <div class="sdg-header-text">
+        <span class="section-label" style="color:var(--sdg14)">Goal 14</span>
+        <h2 class="section-heading">Life <span style="color:var(--sdg14)">Below Water</span></h2>
+        <div class="sdg-tags">
+          <span class="sdg-tag">Tidal Forces</span>
+          <span class="sdg-tag">Ocean Cycles</span>
+          <span class="sdg-tag">Marine Ecosystems</span>
+          <span class="sdg-tag">Moon's Gravity</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sdg-body">
+      SDG 14 is about protecting the oceans and the life inside them. The Moon — which we study in detail on this website — has a <strong>direct physical effect on Earth's oceans every single day</strong>. The Moon's gravity pulls on Earth's oceans and creates tides. These tides are not just interesting to watch — they <strong>shape entire coastal ecosystems</strong>, control where fish swim, and support the lives of millions of people who fish and farm along coastlines.
+    </p>
+
+    <p style="font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:3px;color:var(--sdg14);text-transform:uppercase;margin-bottom:16px;">🔗 Connected to these topics on this website:</p>
+    <div class="topic-connections">
+
+      <div class="topic-card" style="--tc-color:#a78bfa;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌕 Moon</div>
+        <div class="topic-connection-title">The Moon Creates Ocean Tides</div>
+        <div class="topic-connection-text">The Moon page explains how the Moon's gravitational pull creates high and low tides. These tidal rhythms oxygenate coastal waters, move nutrients around, and create the habitats that thousands of marine species depend on.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#22d3ee;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌍 Earth</div>
+        <div class="topic-connection-title">Earth's Water &amp; Ocean Coverage</div>
+        <div class="topic-connection-text">71% of Earth's surface is ocean — and the Earth page explains why liquid water exists here at all (the Goldilocks Zone). Understanding Earth's unique position in the Solar System is what makes ocean conservation meaningful.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#fbbf24;">
+        <div class="topic-page"><div class="topic-page-dot"></div>☀️ The Sun</div>
+        <div class="topic-connection-title">The Sun Powers the Water Cycle</div>
+        <div class="topic-connection-text">The Sun page explains how solar energy evaporates ocean water, driving the water cycle that brings rain to land and returns nutrients to the sea. Without the Sun, the ocean would be a dead, motionless body of water.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#4ade80;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌦️ Seasons</div>
+        <div class="topic-connection-title">Seasons Affect Ocean Temperature</div>
+        <div class="topic-connection-text">The change of seasons — caused by Earth's axial tilt — affects ocean temperatures around the world. These temperature changes drive fish migration patterns and coral reef health throughout the year.</div>
+      </div>
+
+    </div>
+    <div class="sdg-fact">
+      <span>🌊</span>
+      <span>Moon-driven tides oxygenate coastal waters and create essential habitats for thousands of marine species that wouldn't survive without that constant daily rhythm. Fishermen in Indonesia time their work around the tides caused by the Moon.</span>
     </div>
   </section>
 
-  <section class="sec" id="sdg14">
-    <span class="sec-label" style="color:var(--sdg14)">D · Goal 14</span>
-    <h2 class="sec-title">Life <span style="color:var(--sdg14)">Below Water</span></h2>
-    <p class="sec-quote">"This one surprised me the most. The Moon looks like it is just sitting quietly up there — but it has a massive effect on Earth's oceans. <strong>Tides happen because of the Moon's gravitational pull</strong>, and those tidal movements shape coastal ecosystems and millions of lives."</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg14)">
-        <div class="sdg-head">
-          <span class="sdg-name">🌊 Life Below Water <span class="sdg-num-badge">SDG 14</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Tidal Forces</span><span class="sdg-tag">Ocean Cycles</span><span class="sdg-tag">Marine Ecosystems</span></div>
-        </div>
-        <p class="sdg-text">The Moon's gravity pulls Earth's oceans, creating high and low tides. Those tidal movements <strong>shape coastal ecosystems, fish migration routes, and the daily lives</strong> of millions of people — fishermen, salt farmers, and coastal communities — who depend on the sea every day.</p>
-        <div class="sdg-fact"><span>🌊</span><span>Moon-driven tides oxygenate coastal waters and create essential habitats for thousands of marine species that would not survive without that constant rhythm.</span></div>
+  <div class="sdg-divider"></div>
+
+  <!-- ═══════════════════════════
+       SDG 15 — LIFE ON LAND
+  ═══════════════════════════ -->
+  <section class="sdg-section" id="sdg15">
+    <div class="sdg-header">
+      <div class="sdg-tile-img">
+        <img src="images/preview (3).webp" alt="SDG 15 Life on Land">
       </div>
+      <div class="sdg-header-text">
+        <span class="section-label" style="color:var(--sdg15)">Goal 15</span>
+        <h2 class="section-heading">Life <span style="color:var(--sdg15)">on Land</span></h2>
+        <div class="sdg-tags">
+          <span class="sdg-tag">Seasons &amp; Biomes</span>
+          <span class="sdg-tag">Magnetic Shield</span>
+          <span class="sdg-tag">Solar Radiation</span>
+          <span class="sdg-tag">Axial Tilt</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="sdg-body">
+      SDG 15 is about protecting life on land — forests, grasslands, deserts, and all the animals and plants that live in them. But here's something many people don't realize: <strong>these ecosystems only exist because of how Earth is positioned and tilted in space</strong>. The diversity of life on Earth — from rainforests near the equator to frozen tundra near the poles — is a direct result of solar system science.
+    </p>
+
+    <p style="font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:3px;color:var(--sdg15);text-transform:uppercase;margin-bottom:16px;">🔗 Connected to these topics on this website:</p>
+    <div class="topic-connections">
+
+      <div class="topic-card" style="--tc-color:#4ade80;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌦️ Seasons</div>
+        <div class="topic-connection-title">Axial Tilt Creates Different Ecosystems</div>
+        <div class="topic-connection-text">Earth's 23.5° tilt creates completely different climate zones — tropical, temperate, and polar. The Seasons page shows how this works. Without this tilt, tropical rainforests, grasslands, and arctic tundra simply would not exist.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#fbbf24;">
+        <div class="topic-page"><div class="topic-page-dot"></div>☀️ The Sun</div>
+        <div class="topic-connection-title">Photosynthesis — The Basis of All Life</div>
+        <div class="topic-connection-text">The Sun page explains how plants use sunlight to make food and oxygen through photosynthesis. Every food chain on land — from insects to elephants to humans — starts with a plant absorbing sunlight. No Sun = no land life.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#22d3ee;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌍 Earth</div>
+        <div class="topic-connection-title">Earth's Magnetic Field Protects All Life</div>
+        <div class="topic-connection-text">The Earth page explains how Earth's magnetic field acts like a giant shield, blocking harmful radiation from the Sun. Without this shield, the solar wind would strip away our atmosphere and all life on land would be impossible.</div>
+      </div>
+
+      <div class="topic-card" style="--tc-color:#a78bfa;">
+        <div class="topic-page"><div class="topic-page-dot"></div>🌕 Moon</div>
+        <div class="topic-connection-title">The Moon Stabilizes Earth's Tilt</div>
+        <div class="topic-connection-text">The Moon page explains that the Moon's gravity stabilizes Earth's axial tilt. Without the Moon, Earth's tilt could wobble wildly — causing extreme climate swings that would wipe out most land ecosystems as we know them.</div>
+      </div>
+
+    </div>
+    <div class="sdg-fact">
+      <span>🌿</span>
+      <span>Without Earth's 23.5° axial tilt, tropical rainforests, grasslands, and tundra simply wouldn't exist — every land ecosystem owes something to that lean. And without the Moon keeping that tilt stable, Earth's climate could swing wildly for millions of years.</span>
     </div>
   </section>
 
-  <section class="sec" id="sdg15">
-    <span class="sec-label" style="color:var(--sdg15)">E · Goal 15</span>
-    <h2 class="sec-title">Life <span style="color:var(--sdg15)">on Land</span></h2>
-    <p class="sec-quote">"Imagine if Earth did not have its 23.5° axial tilt. No seasons would mean no variation in temperature or rainfall — and the diverse ecosystems we have today simply would not exist. On top of that, <strong>Earth's magnetic field protects all land life from the Sun's harmful radiation.</strong>"</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg15)">
-        <div class="sdg-head">
-          <span class="sdg-name">🌿 Life on Land <span class="sdg-num-badge">SDG 15</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Seasons &amp; Biomes</span><span class="sdg-tag">Magnetic Shield</span><span class="sdg-tag">Solar Radiation</span></div>
-        </div>
-        <p class="sdg-text">Tropical rainforests, grasslands, tundra — every one of these ecosystems exists because Earth's axial tilt creates different climate zones at different latitudes. And above all of that, <strong>Earth's magnetic field acts as a planetary shield</strong>, deflecting harmful solar particles and protecting the atmosphere that makes all land life possible.</p>
-        <div class="sdg-fact"><span>🌿</span><span>Without Earth's 23.5° axial tilt, tropical rainforests, grasslands, and tundra would not exist as we know them. Every terrestrial ecosystem owes something to that lean.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="sdg17">
-    <span class="sec-label" style="color:var(--sdg17)">F · Goal 17</span>
-    <h2 class="sec-title">Partnerships <span style="color:var(--sdg17)">for the Goals</span></h2>
-    <p class="sec-quote">"Space exploration is something no single country can do alone — and honestly, I think that is one of the most beautiful things about it. <strong>That kind of international cooperation is exactly what SDG 17 is asking for</strong>, and outer space is already one of the best examples of it in action."</p>
-    <div class="sdg-list">
-      <div class="sdg-card reveal" style="--lc:var(--sdg17)">
-        <div class="sdg-head">
-          <span class="sdg-name">🤝 Partnerships for the Goals <span class="sdg-num-badge">SDG 17</span></span>
-          <div class="sdg-tags"><span class="sdg-tag">Global Cooperation</span><span class="sdg-tag">Open Science</span><span class="sdg-tag">Space Agencies</span></div>
-        </div>
-        <p class="sdg-text">NASA, ESA, JAXA, and space agencies around the world constantly share data, resources, and research across borders. <strong>Space exploration is already a working model</strong> of what SDG 17 hopes to achieve — and if countries can collaborate to build a space station together, they can collaborate to protect our planet too.</p>
-        <div class="sdg-fact"><span>🛸</span><span>The International Space Station is a joint effort between 15 nations — proof that when countries work together toward something bigger than politics, extraordinary things happen.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="flow-wrap reveal">
-    <div class="flow-title-row">From Outer Space, For Our Planet</div>
+  <!-- FLOW DIAGRAM -->
+  <div class="flow-wrap">
+    <div class="flow-title-row">🔗 From Outer Space — For Our Planet</div>
     <div class="flow-row">
-      <div class="flow-node"><div class="flow-circle fn-pur"><span class="fc-icon">🔭</span><span class="fc-num">SPACE SCIENCE</span></div><div class="flow-label">Starting Point</div></div>
+      <div class="flow-node">
+        <div class="flow-circle"><span class="fc-icon">🔭</span><span class="fc-num">SPACE</span></div>
+        <div class="flow-label">Science Starts Here</div>
+      </div>
       <span class="flow-arrow">→</span>
-      <div class="flow-node"><div class="flow-circle fn-red"><span class="fc-icon">📚</span><span class="fc-num">SDG 4</span></div><div class="flow-label">Education</div></div>
+      <div class="flow-node">
+        <div class="flow-img"><img src="images/preview.webp" alt="SDG 4"></div>
+        <div class="flow-label">SDG 4 Education</div>
+      </div>
       <span class="flow-arrow">+</span>
-      <div class="flow-node"><div class="flow-circle fn-yel"><span class="fc-icon">☀️</span><span class="fc-num">SDG 7</span></div><div class="flow-label">Clean Energy</div></div>
+      <div class="flow-node">
+        <div class="flow-img"><img src="images/preview (1).webp" alt="SDG 13"></div>
+        <div class="flow-label">SDG 13 Climate</div>
+      </div>
       <span class="flow-arrow">+</span>
-      <div class="flow-node"><div class="flow-circle fn-grn"><span class="fc-icon">🌍</span><span class="fc-num">SDG 13</span></div><div class="flow-label">Climate Action</div></div>
+      <div class="flow-node">
+        <div class="flow-img"><img src="images/preview (2).webp" alt="SDG 14"></div>
+        <div class="flow-label">SDG 14 Oceans</div>
+      </div>
       <span class="flow-arrow">+</span>
-      <div class="flow-node"><div class="flow-circle fn-blu"><span class="fc-icon">🌊</span><span class="fc-num">SDG 14</span></div><div class="flow-label">Ocean Life</div></div>
-      <span class="flow-arrow">+</span>
-      <div class="flow-node"><div class="flow-circle fn-grn2"><span class="fc-icon">🌿</span><span class="fc-num">SDG 15</span></div><div class="flow-label">Life on Land</div></div>
-      <span class="flow-arrow">+</span>
-      <div class="flow-node"><div class="flow-circle fn-pur"><span class="fc-icon">🤝</span><span class="fc-num">SDG 17</span></div><div class="flow-label">Partnerships</div></div>
+      <div class="flow-node">
+        <div class="flow-img"><img src="images/preview (3).webp" alt="SDG 15"></div>
+        <div class="flow-label">SDG 15 Land Life</div>
+      </div>
       <span class="flow-arrow">→</span>
-      <div class="flow-node"><div class="flow-circle fn-pur"><span class="fc-icon">🌐</span><span class="fc-num">IMPACT</span></div><div class="flow-label">A Better Future</div></div>
+      <div class="flow-node">
+        <div class="flow-circle"><span class="fc-icon">🌐</span><span class="fc-num">IMPACT</span></div>
+        <div class="flow-label">Better Future</div>
+      </div>
     </div>
   </div>
 
 </main>
 
-<footer><span>Tria Liza</span> · Universitas Pendidikan Indonesia · SDGs &amp; Solar System 🌍</footer>
+<footer><span>Tria Liza</span> &middot; Universitas Pendidikan Indonesia &middot; SDGs &amp; Solar System 🌍</footer>
 
 <script>
+// CURSOR
 const cursor = document.getElementById('cursor');
 const trail  = document.getElementById('cursorTrail');
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px';
-  setTimeout(() => { trail.style.left = e.clientX+'px'; trail.style.top = e.clientY+'px'; }, 80);
+  setTimeout(()=>{ trail.style.left=e.clientX+'px'; trail.style.top=e.clientY+'px'; }, 80);
 });
-document.querySelectorAll('a,button,.sdg-card,.flow-circle').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.width='24px'; cursor.style.height='24px'; cursor.style.background='var(--glow)'; });
-  el.addEventListener('mouseleave', () => { cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--cyan)'; });
+document.querySelectorAll('a,button,.sdg-tile-img,.flow-img,.flow-circle,.topic-card').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ cursor.style.width='24px'; cursor.style.height='24px'; cursor.style.background='var(--glow)'; });
+  el.addEventListener('mouseleave',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--cyan)'; });
 });
+
+// DROPDOWN
 document.querySelectorAll('.has-dropdown > a').forEach(a => {
   a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); });
 });
-document.addEventListener('click', () => {
+document.addEventListener('click', ()=>{
   document.querySelectorAll('.has-dropdown').forEach(el => el.classList.remove('open'));
 });
+
+// SCROLL REVEAL
 const revObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('revealed'), +e.target.dataset.delay||0); revObs.unobserve(e.target); }
+    if (e.isIntersecting) {
+      setTimeout(()=> e.target.classList.add('revealed'), +e.target.dataset.delay||0);
+      revObs.unobserve(e.target);
+    }
   });
-}, {threshold:.12});
-document.querySelectorAll('.reveal').forEach((el,i) => { el.dataset.delay=(i%4)*90; revObs.observe(el); });
+}, { threshold: .08 });
+document.querySelectorAll('.sdg-section, .flow-wrap').forEach((el,i) => {
+  el.dataset.delay = (i % 3) * 100;
+  revObs.observe(el);
+});
 </script>
 </body>
 </html>
