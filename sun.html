@@ -11,96 +11,89 @@
   --accent: #7c3aed; --glow: #a78bfa;
   --gold: #f59e0b; --orange: #f97316;
   --cyan: #22d3ee; --text: #e2e8f0; --muted: #94a3b8;
-  --green: #4ade80;
+  --green: #4ade80; --pink: #f472b6; --red: #f87171;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--space); color: var(--text);
   font-family: 'Exo 2', sans-serif;
-  font-size: 18px;        /* ↑ BASE SIZE */
-  line-height: 1.85;      /* ↑ MORE BREATHING ROOM */
+  font-size: 18px; line-height: 1.85;
   min-height: 100vh; overflow-x: hidden;
+  cursor: none;
 }
+
+/* CURSOR */
+.cursor { position:fixed;width:16px;height:16px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;box-shadow:0 0 20px var(--cyan);mix-blend-mode:screen; }
+.cursor-trail { position:fixed;width:40px;height:40px;border:1px solid var(--glow);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s ease;opacity:.5; }
 
 /* STARFIELD */
 body::before {
-  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:
-    radial-gradient(1px 1px at 10% 20%, white, transparent),
-    radial-gradient(1px 1px at 25% 65%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1.5px 1.5px at 50% 10%, white, transparent),
-    radial-gradient(1px 1px at 70% 45%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1px 1px at 85% 80%, white, transparent),
-    radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1px 1px at 60% 30%, white, transparent),
-    radial-gradient(1px 1px at 15% 55%, rgba(167,139,250,0.6), transparent),
-    radial-gradient(1px 1px at 90% 15%, rgba(255,255,255,0.9), transparent),
-    radial-gradient(1px 1px at 45% 75%, white, transparent),
-    radial-gradient(1px 1px at 78% 60%, rgba(255,255,255,0.5), transparent);
+    radial-gradient(1px 1px at 10% 20%,white,transparent),
+    radial-gradient(1px 1px at 25% 65%,rgba(255,255,255,0.7),transparent),
+    radial-gradient(1.5px 1.5px at 50% 10%,white,transparent),
+    radial-gradient(1px 1px at 70% 45%,rgba(255,255,255,0.6),transparent),
+    radial-gradient(1px 1px at 85% 80%,white,transparent),
+    radial-gradient(1px 1px at 35% 90%,rgba(255,255,255,0.8),transparent),
+    radial-gradient(1px 1px at 60% 30%,white,transparent),
+    radial-gradient(1px 1px at 15% 55%,rgba(167,139,250,0.6),transparent),
+    radial-gradient(1px 1px at 90% 15%,rgba(255,255,255,0.9),transparent),
+    radial-gradient(1px 1px at 45% 75%,white,transparent),
+    radial-gradient(1px 1px at 78% 60%,rgba(255,255,255,0.5),transparent);
 }
 
 /* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 20px 60px; display: flex; justify-content: space-between; align-items: center;
-  background: linear-gradient(to bottom, rgba(2,8,24,0.9), transparent);
-  backdrop-filter: blur(10px);
-}
-.nav-logo { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 2px; color: var(--glow); text-shadow: 0 0 20px var(--accent); text-decoration: none; }
-.nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
-.nav-links a { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; position: relative; }
-.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--cyan); transition: width 0.3s; }
-.nav-links a:hover { color: var(--cyan); }
-.nav-links a:hover::after { width: 100%; }
-.nav-active { color: var(--cyan) !important; }
-
-/* DROPDOWN */
-.has-dropdown { position: relative; align-self: center; }
-.has-dropdown > a { display: flex; align-items: center; gap: 6px; }
-.arrow { display: inline-block; font-size: 0.7rem; transition: transform 0.3s ease; }
-.has-dropdown.open .arrow { transform: rotate(180deg); }
-.dropdown { display: none; flex-direction: column; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: rgba(5,13,42,0.97); border: 1px solid rgba(167,139,250,0.2); border-radius: 14px; padding: 10px 0; list-style: none; min-width: 180px; backdrop-filter: blur(16px); box-shadow: 0 8px 40px rgba(124,58,237,0.25); z-index: 200; animation: dropFade 0.25s ease forwards; }
-@keyframes dropFade { from{opacity:0;transform:translateX(-50%) translateY(-8px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
-.has-dropdown.open .dropdown { display: flex; }
-.dropdown li a { display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--muted); text-decoration: none; transition: color 0.2s, background 0.2s; white-space: nowrap; }
-.dropdown li a::after { display: none; }
-.dropdown li a:hover { color: var(--cyan); background: rgba(34,211,238,0.07); }
+nav { position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);backdrop-filter:blur(10px); }
+.nav-logo { font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none; }
+.nav-links { display:flex;gap:40px;list-style:none;align-items:center; }
+.nav-links a { font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative; }
+.nav-links a::after { content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s; }
+.nav-links a:hover { color:var(--cyan); }
+.nav-links a:hover::after { width:100%; }
+.nav-active { color:var(--gold) !important; }
+.nav-active::after { background:var(--gold) !important; width:100% !important; }
+.has-dropdown { position:relative;align-self:center; }
+.has-dropdown>a { display:flex;align-items:center;gap:6px; }
+.arrow { display:inline-block;font-size:0.7rem;transition:transform .3s ease; }
+.has-dropdown.open .arrow { transform:rotate(180deg); }
+.dropdown { display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,0.2);border-radius:14px;padding:10px 0;list-style:none;min-width:180px;backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,0.25);z-index:200; }
+.has-dropdown.open .dropdown { display:flex; }
+.dropdown li a { display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap; }
+.dropdown li a::after { display:none; }
+.dropdown li a:hover { color:var(--cyan);background:rgba(34,211,238,0.07); }
 
 /* HERO */
-.page-hero { position: relative; z-index: 1; padding: 160px 60px 60px; text-align: center; }
-.page-eyebrow { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; /* ↑ */ letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; display: block; opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards; }
-.page-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem, 5vw, 3.8rem); /* ↑ */ font-weight: 900; line-height: 1.1; margin-bottom: 18px; opacity: 0; animation: fadeUp 0.8s 0.4s ease forwards; }
-.page-title span { background: linear-gradient(90deg, var(--gold), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.page-sub { font-size: 1.15rem; /* ↑ */ font-weight: 300; line-height: 1.9; color: var(--muted); max-width: 620px; margin: 0 auto; opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; }
+.page-hero { position:relative;z-index:1;padding:160px 60px 60px;text-align:center; }
+.page-eyebrow { font-family:'Orbitron',sans-serif;font-size:0.78rem;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:block;opacity:0;animation:fadeUp .8s .2s ease forwards; }
+.page-title { font-family:'Orbitron',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:18px;opacity:0;animation:fadeUp .8s .4s ease forwards; }
+.page-title span { background:linear-gradient(90deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.page-sub { font-size:1.15rem;font-weight:300;line-height:1.9;color:var(--muted);max-width:620px;margin:0 auto;opacity:0;animation:fadeUp .8s .6s ease forwards; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 20px 60px 100px; }
+main { position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:20px 60px 100px; }
+.section-label { font-family:'Orbitron',sans-serif;font-size:0.78rem;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:block; }
+.section-heading { font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;margin-bottom:30px; }
+.section-heading span { color:var(--gold); }
+.sun-divider-line { height:1px;background:linear-gradient(to right,transparent,rgba(245,158,11,0.4),transparent);margin:0 0 70px; }
 
-.section-label { font-family: 'Orbitron', sans-serif; font-size: 0.78rem; /* ↑ */ letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; display: block; }
-.section-heading { font-family: 'Orbitron', sans-serif; font-size: clamp(1.5rem, 2.5vw, 2rem); /* ↑ */ font-weight: 700; margin-bottom: 30px; }
-.section-heading span { color: var(--gold); }
-
-.sun-divider-line { height: 1px; background: linear-gradient(to right, transparent, rgba(245,158,11,0.4), transparent); margin: 0 0 70px; }
-
-/* ══════════════════════════════
-   SUN ANIMATION
-══════════════════════════════ */
-.sun-hero-section { margin-bottom: 80px; display: flex; flex-direction: column; align-items: center; }
-.sun-stage { position: relative; width: min(460px,88vw); height: min(460px,88vw); margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; }
-.glow-ring { position: absolute; border-radius: 50%; animation: glowPulse var(--dur,5s) ease-in-out infinite var(--del,0s); }
+/* SUN ANIMATION */
+.sun-hero-section { margin-bottom:80px;display:flex;flex-direction:column;align-items:center; }
+.sun-stage { position:relative;width:min(460px,88vw);height:min(460px,88vw);margin:0 auto 30px;display:flex;align-items:center;justify-content:center; }
+.glow-ring { position:absolute;border-radius:50%;animation:glowPulse var(--dur,5s) ease-in-out infinite var(--del,0s); }
 .glow-ring-1{inset:-22%;--dur:5s;--del:0s;background:radial-gradient(circle,transparent 41%,rgba(249,115,22,0.13) 54%,transparent 70%)}
 .glow-ring-2{inset:-42%;--dur:7s;--del:1.5s;background:radial-gradient(circle,transparent 44%,rgba(245,158,11,0.07) 54%,transparent 68%)}
 .glow-ring-3{inset:-62%;--dur:9s;--del:3s;background:radial-gradient(circle,transparent 47%,rgba(249,115,22,0.04) 54%,transparent 65%)}
 @keyframes glowPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
-.sun-body { position: relative; width: 72%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%,rgba(255,255,200,1) 0%,rgba(255,240,80,1) 8%,rgba(255,200,40,.95) 20%,rgba(255,150,20,.92) 38%,rgba(249,115,22,.95) 56%,rgba(220,80,5,.95) 72%,rgba(180,50,0,.9) 88%,rgba(140,30,0,.85) 100%); box-shadow: 0 0 40px rgba(255,200,50,.9),0 0 80px rgba(249,115,22,.7),0 0 140px rgba(249,115,22,.4),0 0 220px rgba(245,158,11,.2),inset 0 0 30px rgba(255,255,150,.3); animation: sunBreath 8s ease-in-out infinite; }
+.sun-body { position:relative;width:72%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,200,1) 0%,rgba(255,240,80,1) 8%,rgba(255,200,40,.95) 20%,rgba(255,150,20,.92) 38%,rgba(249,115,22,.95) 56%,rgba(220,80,5,.95) 72%,rgba(180,50,0,.9) 88%,rgba(140,30,0,.85) 100%);box-shadow:0 0 40px rgba(255,200,50,.9),0 0 80px rgba(249,115,22,.7),0 0 140px rgba(249,115,22,.4),0 0 220px rgba(245,158,11,.2),inset 0 0 30px rgba(255,255,150,.3);animation:sunBreath 8s ease-in-out infinite; }
 @keyframes sunBreath{0%,100%{box-shadow:0 0 40px rgba(255,200,50,.9),0 0 80px rgba(249,115,22,.7),0 0 140px rgba(249,115,22,.4),0 0 220px rgba(245,158,11,.2),inset 0 0 30px rgba(255,255,150,.3);transform:scale(1)}50%{box-shadow:0 0 65px rgba(255,220,80,1),0 0 130px rgba(249,115,22,.9),0 0 220px rgba(249,115,22,.55),0 0 320px rgba(245,158,11,.25),inset 0 0 55px rgba(255,255,200,.5);transform:scale(1.03)}}
 .sun-texture{position:absolute;inset:0;border-radius:50%;overflow:hidden}
 .sun-texture::before{content:"";position:absolute;width:60%;height:60%;top:10%;left:15%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,100,.18) 0%,rgba(255,180,20,.08) 40%,transparent 70%);animation:blobMove1 12s ease-in-out infinite}
 .sun-texture::after{content:"";position:absolute;width:45%;height:45%;bottom:15%;right:10%;border-radius:50%;background:radial-gradient(ellipse,rgba(200,60,0,.22) 0%,transparent 70%);animation:blobMove2 16s ease-in-out infinite}
 @keyframes blobMove1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(15%,10%) scale(1.12)}66%{transform:translate(-5%,15%) scale(.88)}}
 @keyframes blobMove2{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(-20%,-10%) scale(1.16)}70%{transform:translate(10%,-15%) scale(.84)}}
-.sun-granules{position:absolute;inset:0;border-radius:50%;overflow:hidden;background-image:radial-gradient(ellipse 20px 14px at 25% 30%,rgba(255,220,80,.28) 0%,transparent 100%),radial-gradient(ellipse 14px 18px at 60% 20%,rgba(255,200,50,.22) 0%,transparent 100%),radial-gradient(ellipse 22px 14px at 70% 55%,rgba(200,80,10,.22) 0%,transparent 100%),radial-gradient(ellipse 16px 20px at 35% 70%,rgba(255,160,30,.28) 0%,transparent 100%),radial-gradient(ellipse 18px 12px at 80% 75%,rgba(180,50,5,.22) 0%,transparent 100%),radial-gradient(ellipse 12px 16px at 15% 60%,rgba(255,200,60,.22) 0%,transparent 100%);animation:granuleSpin 45s linear infinite}
+.sun-granules{position:absolute;inset:0;border-radius:50%;overflow:hidden;background-image:radial-gradient(ellipse 20px 14px at 25% 30%,rgba(255,220,80,.28) 0%,transparent 100%),radial-gradient(ellipse 14px 18px at 60% 20%,rgba(255,200,50,.22) 0%,transparent 100%),radial-gradient(ellipse 22px 14px at 70% 55%,rgba(200,80,10,.22) 0%,transparent 100%),radial-gradient(ellipse 16px 20px at 35% 70%,rgba(255,160,30,.28) 0%,transparent 100%),radial-gradient(ellipse 18px 12px at 80% 75%,rgba(180,50,5,.22) 0%,transparent 100%);animation:granuleSpin 45s linear infinite}
 @keyframes granuleSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .corona-wisp{position:absolute;top:50%;left:50%;transform-origin:0 0;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;filter:blur(3px);animation:wispAnim var(--wd,8s) ease-in-out infinite var(--wdel,0s);pointer-events:none}
 @keyframes wispAnim{0%,100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--wr,0deg)) scaleY(.4) translateY(-52%)}30%,70%{opacity:.65;transform:translate(-50%,-50%) rotate(var(--wr,0deg)) scaleY(1) translateY(-58%)}50%{opacity:.9;transform:translate(-50%,-50%) rotate(var(--wr,0deg)) scaleY(1.2) translateY(-62%)}}
@@ -115,132 +108,409 @@ main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; paddin
 .wisp-9{width:12px;height:44px;background:radial-gradient(ellipse,rgba(245,158,11,.65),transparent 70%);--wr:306deg;--wd:6.5s;--wdel:1s}
 .wisp-10{width:17px;height:54px;background:radial-gradient(ellipse,rgba(255,180,50,.7),transparent 70%);--wr:340deg;--wd:12s;--wdel:3.5s}
 
-/* ══════════════════════════════
-   CHARACTERISTICS CARDS
-══════════════════════════════ */
-.char-section { margin-bottom: 70px; }
-.char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px,1fr)); gap: 16px; }
-.char-card { background: linear-gradient(135deg,rgba(249,115,22,.06),rgba(245,158,11,.03)); border: 1px solid rgba(249,115,22,.15); border-radius: 16px; padding: 26px 22px; transition: all .3s; position: relative; overflow: hidden; }
-.char-card::before { content:""; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,var(--gold),var(--orange)); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
-.char-card:hover { transform:translateY(-4px); border-color:rgba(249,115,22,.3); }
+/* CHARACTERISTICS */
+.char-section { margin-bottom:70px; }
+.char-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:16px; }
+.char-card { background:linear-gradient(135deg,rgba(249,115,22,.06),rgba(245,158,11,.03));border:1px solid rgba(249,115,22,.15);border-radius:16px;padding:26px 22px;transition:all .3s;position:relative;overflow:hidden; }
+.char-card::before { content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),var(--orange));transform:scaleX(0);transition:transform .4s;transform-origin:left; }
+.char-card:hover { transform:translateY(-4px);border-color:rgba(249,115,22,.3); }
 .char-card:hover::before { transform:scaleX(1); }
-.char-icon { font-size: 2rem; margin-bottom: 12px; }   /* ↑ */
-.char-label { font-family:'Orbitron',sans-serif; font-size:.68rem; /* ↑ */ letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
-.char-value { font-family:'Orbitron',sans-serif; font-size:1.05rem; /* ↑ */ font-weight:700; color:var(--gold); line-height:1.3; }
-.char-sub { font-size:.85rem; /* ↑ */ color:var(--muted); margin-top:5px; }
+.char-icon { font-size:2rem;margin-bottom:12px; }
+.char-label { font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px; }
+.char-value { font-family:'Orbitron',sans-serif;font-size:1.05rem;font-weight:700;color:var(--gold);line-height:1.3; }
+.char-sub { font-size:.85rem;color:var(--muted);margin-top:5px; }
 
-/* ══════════════════════════════
-   LAYERS DIAGRAM
-══════════════════════════════ */
-.layers-section { margin-bottom: 70px; }
-.layers-hint { font-size:.95rem; /* ↑ */ color:var(--muted); font-style:italic; margin-bottom:30px; margin-top:-16px; }
-.sun-cutaway-wrap { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
-.sun-cutaway { position:relative; aspect-ratio:1; border-radius:20px; overflow:hidden; background:radial-gradient(ellipse 80% 80% at 55% 55%,#0d0500,#020818 75%); border:1px solid rgba(249,115,22,.15); box-shadow:0 0 60px rgba(249,115,22,.08); cursor:pointer; }
-.sun-cutaway svg { width:100%; height:100%; display:block; }
-.sun-cutaway[data-hover="korona"]    #svg-korona    { filter:brightness(1.5); }
+/* LAYERS */
+.layers-section { margin-bottom:70px; }
+.layers-hint { font-size:.95rem;color:var(--muted);font-style:italic;margin-bottom:30px;margin-top:-16px; }
+.sun-cutaway-wrap { display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start; }
+.sun-cutaway { position:relative;aspect-ratio:1;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse 80% 80% at 55% 55%,#0d0500,#020818 75%);border:1px solid rgba(249,115,22,.15);box-shadow:0 0 60px rgba(249,115,22,.08);cursor:pointer; }
+.sun-cutaway svg { width:100%;height:100%;display:block; }
+.sun-cutaway[data-hover="korona"] #svg-korona { filter:brightness(1.5); }
 .sun-cutaway[data-hover="kromosfer"] #svg-kromosfer { filter:brightness(1.5); }
-.sun-cutaway[data-hover="fotosfer"]  #svg-fotosfer  { filter:brightness(1.5); }
-.sun-cutaway[data-hover="konveksi"]  #svg-konveksi  { filter:brightness(1.5); }
-.sun-cutaway[data-hover="radiatif"]  #svg-radiatif  { filter:brightness(1.5); }
-.sun-cutaway[data-hover="inti"]      #svg-inti      { filter:brightness(1.3); }
-.sun-cutaway[data-active="korona"]    #svg-korona    { filter:brightness(1.8); }
+.sun-cutaway[data-hover="fotosfer"] #svg-fotosfer { filter:brightness(1.5); }
+.sun-cutaway[data-hover="konveksi"] #svg-konveksi { filter:brightness(1.5); }
+.sun-cutaway[data-hover="radiatif"] #svg-radiatif { filter:brightness(1.5); }
+.sun-cutaway[data-hover="inti"] #svg-inti { filter:brightness(1.3); }
+.sun-cutaway[data-active="korona"] #svg-korona { filter:brightness(1.8); }
 .sun-cutaway[data-active="kromosfer"] #svg-kromosfer { filter:brightness(1.8); }
-.sun-cutaway[data-active="fotosfer"]  #svg-fotosfer  { filter:brightness(1.8); }
-.sun-cutaway[data-active="konveksi"]  #svg-konveksi  { filter:brightness(1.8); }
-.sun-cutaway[data-active="radiatif"]  #svg-radiatif  { filter:brightness(1.8); }
-.sun-cutaway[data-active="inti"]      #svg-inti      { filter:brightness(1.6); }
-.diag-labels { position:absolute; inset:0; z-index:25; pointer-events:none; }
-.diag-label { position:absolute; display:flex; align-items:center; gap:6px; pointer-events:all; cursor:pointer; transition:all .3s; }
-.diag-label-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; transition:transform .2s; }
-.diag-label:hover .diag-label-dot, .diag-label.active .diag-label-dot { transform:scale(1.5); }
-.diag-label-line { width:22px; height:1px; opacity:.4; flex-shrink:0; }
-.diag-label-text { font-family:'Orbitron',sans-serif; font-size:.58rem; /* ↑ */ letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; background:rgba(2,8,24,.9); border:1px solid currentColor; border-radius:5px; padding:4px 9px; opacity:.55; transition:opacity .3s,box-shadow .3s; }
-.diag-label:hover .diag-label-text, .diag-label.active .diag-label-text { opacity:1; box-shadow:0 0 8px currentColor; }
+.sun-cutaway[data-active="fotosfer"] #svg-fotosfer { filter:brightness(1.8); }
+.sun-cutaway[data-active="konveksi"] #svg-konveksi { filter:brightness(1.8); }
+.sun-cutaway[data-active="radiatif"] #svg-radiatif { filter:brightness(1.8); }
+.sun-cutaway[data-active="inti"] #svg-inti { filter:brightness(1.6); }
+.diag-labels { position:absolute;inset:0;z-index:25;pointer-events:none; }
+.diag-label { position:absolute;display:flex;align-items:center;gap:6px;pointer-events:all;cursor:pointer;transition:all .3s; }
+.diag-label-dot { width:10px;height:10px;border-radius:50%;flex-shrink:0;transition:transform .2s; }
+.diag-label:hover .diag-label-dot,.diag-label.active .diag-label-dot { transform:scale(1.5); }
+.diag-label-line { width:22px;height:1px;opacity:.4;flex-shrink:0; }
+.diag-label-text { font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;background:rgba(2,8,24,.9);border:1px solid currentColor;border-radius:5px;padding:4px 9px;opacity:.55;transition:opacity .3s,box-shadow .3s; }
+.diag-label:hover .diag-label-text,.diag-label.active .diag-label-text { opacity:1;box-shadow:0 0 8px currentColor; }
 .color-inti{color:#fffde0} .color-radiatif{color:#ffd060} .color-konveksi{color:#f5a020}
 .color-fotosfer{color:#f97316} .color-kromosfer{color:#ef4444} .color-korona{color:#fbbf24}
-
-.layers-info-panel { position:sticky; top:100px; background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:20px; padding:32px; min-height:340px; display:flex; align-items:center; transition:border-color .4s; }
+.layers-info-panel { position:sticky;top:100px;background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px;min-height:340px;display:flex;align-items:center;transition:border-color .4s; }
 .layers-info-panel.active { border-color:rgba(245,158,11,.35); }
-.layer-info { display:none; flex-direction:column; gap:16px; width:100%; animation:fadeIn .35s ease; }
+.layer-info { display:none;flex-direction:column;gap:16px;width:100%;animation:fadeIn .35s ease; }
 .layer-info.active { display:flex; }
-.layer-info-default { display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center; color:var(--muted); font-size:.95rem; /* ↑ */ line-height:1.8; }
+.layer-info-default { display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;color:var(--muted);font-size:.95rem;line-height:1.8; }
 .layer-info-default.hidden { display:none; }
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.info-icon { font-size: 2.6rem; } /* ↑ */
-.info-name { font-family:'Orbitron',sans-serif; font-size:1.15rem; /* ↑ */ font-weight:700; letter-spacing:2px; }
-.info-tag { display:inline-block; font-family:'Orbitron',sans-serif; font-size:.65rem; /* ↑ */ letter-spacing:2px; text-transform:uppercase; border:1px solid currentColor; border-radius:4px; padding:3px 10px; opacity:.65; align-self:flex-start; }
-.info-desc { font-size:1rem; /* ↑ */ line-height:1.9; color:#cbd5e1; font-weight:300; }
-.info-desc strong { color:white; font-weight:600; }
-.info-stat { display:flex; gap:14px; flex-wrap:wrap; margin-top:4px; }
-.stat-item { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:12px 16px; } /* ↑ */
-.stat-label { font-family:'Orbitron',sans-serif; font-size:.6rem; /* ↑ */ letter-spacing:1.5px; color:var(--muted); margin-bottom:5px; }
-.stat-val { font-family:'Orbitron',sans-serif; font-size:.92rem; /* ↑ */ font-weight:700; }
-
-/* VOCAB BOX */
-.vocab-box { background:rgba(34,211,238,0.05); border:1px solid rgba(34,211,238,0.2); border-radius:12px; padding:16px 20px; margin-top:8px; }
-.vocab-title { font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:2px; color:var(--cyan); margin-bottom:10px; text-transform:uppercase; }
-.vocab-list { display:flex; flex-direction:column; gap:7px; }
-.vocab-item { font-size:.9rem; line-height:1.65; color:#94a3b8; }
+.info-icon { font-size:2.6rem; }
+.info-name { font-family:'Orbitron',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:2px; }
+.info-tag { display:inline-block;font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;border:1px solid currentColor;border-radius:4px;padding:3px 10px;opacity:.65;align-self:flex-start; }
+.info-desc { font-size:1rem;line-height:1.9;color:#cbd5e1;font-weight:300; }
+.info-desc strong { color:white;font-weight:600; }
+.info-stat { display:flex;gap:14px;flex-wrap:wrap;margin-top:4px; }
+.stat-item { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px 16px; }
+.stat-label { font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:1.5px;color:var(--muted);margin-bottom:5px; }
+.stat-val { font-family:'Orbitron',sans-serif;font-size:.92rem;font-weight:700; }
+.vocab-box { background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:16px 20px;margin-top:8px; }
+.vocab-title { font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;color:var(--cyan);margin-bottom:10px;text-transform:uppercase; }
+.vocab-list { display:flex;flex-direction:column;gap:7px; }
+.vocab-item { font-size:.9rem;line-height:1.65;color:#94a3b8; }
 .vocab-item strong { color:var(--text); }
 
-/* ══════════════════════════════
-   PHENOMENA
-══════════════════════════════ */
-.phenomena-section { margin-bottom: 70px; }
-.phenom-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; }
-.phenom-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:30px 24px; transition:all .4s; position:relative; overflow:hidden; }
-.phenom-card::after { content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 120%,var(--pc,rgba(249,115,22,.1)),transparent 70%); opacity:0; transition:opacity .4s; }
-.phenom-card:hover { transform:translateY(-6px); border-color:rgba(249,115,22,.25); }
+/* PHENOMENA */
+.phenomena-section { margin-bottom:70px; }
+.phenom-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px; }
+.phenom-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:30px 24px;transition:all .4s;position:relative;overflow:hidden; }
+.phenom-card::after { content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 120%,var(--pc,rgba(249,115,22,.1)),transparent 70%);opacity:0;transition:opacity .4s; }
+.phenom-card:hover { transform:translateY(-6px);border-color:rgba(249,115,22,.25); }
 .phenom-card:hover::after { opacity:1; }
-.phenom-emoji { font-size: 2.4rem; margin-bottom: 14px; display: block; } /* ↑ */
-.phenom-title { font-family:'Orbitron',sans-serif; font-size:.88rem; /* ↑ */ font-weight:700; letter-spacing:2px; color:white; margin-bottom:12px; }
-.phenom-text { font-size:1rem; /* ↑ */ line-height:1.85; color:var(--muted); font-weight:300; }
+.phenom-emoji { font-size:2.4rem;margin-bottom:14px;display:block; }
+.phenom-title { font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:2px;color:white;margin-bottom:12px; }
+.phenom-text { font-size:1rem;line-height:1.85;color:var(--muted);font-weight:300; }
 
-/* ══════════════════════════════
-   ECLIPSE
-══════════════════════════════ */
-.eclipse-section { margin-bottom: 70px; }
-.eclipse-intro { font-size:1rem; /* ↑ */ color:var(--muted); margin-bottom:34px; margin-top:-16px; font-style:italic; line-height:1.8; }
-.eclipse-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; }
-.eclipse-card { background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.07); border-radius:20px; padding:32px 26px; transition:all .4s; display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
-.eclipse-card:hover { transform:translateY(-6px); border-color:rgba(245,158,11,.25); }
-.eclipse-visual { width:160px; height:160px; flex-shrink:0; }
-.eclipse-tag { font-family:'Orbitron',sans-serif; font-size:.62rem; /* ↑ */ letter-spacing:2px; text-transform:uppercase; border:1px solid var(--gold); border-radius:4px; padding:4px 12px; color:var(--gold); opacity:.8; }
-.eclipse-type { font-family:'Orbitron',sans-serif; font-size:.92rem; /* ↑ */ font-weight:700; letter-spacing:2px; color:white; }
-.eclipse-desc { font-size:1rem; /* ↑ */ line-height:1.85; color:var(--muted); font-weight:300; }
+/* ECLIPSE */
+.eclipse-section { margin-bottom:70px; }
+.eclipse-intro { font-size:1rem;color:var(--muted);margin-bottom:34px;margin-top:-16px;font-style:italic;line-height:1.8; }
+.eclipse-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px; }
+.eclipse-card { background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:32px 26px;transition:all .4s;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center; }
+.eclipse-card:hover { transform:translateY(-6px);border-color:rgba(245,158,11,.25); }
+.eclipse-visual { width:160px;height:160px;flex-shrink:0; }
+.eclipse-tag { font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--gold);border-radius:4px;padding:4px 12px;color:var(--gold);opacity:.8; }
+.eclipse-type { font-family:'Orbitron',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:2px;color:white; }
+.eclipse-desc { font-size:1rem;line-height:1.85;color:var(--muted);font-weight:300; }
 
-/* ══════════════════════════════
-   ROLE IN LIFE
-══════════════════════════════ */
-.role-section { margin-bottom: 70px; }
-.role-intro { font-size:1rem; color:var(--muted); margin-bottom:34px; margin-top:-16px; font-style:italic; line-height:1.8; }
-.role-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
-.role-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:30px 24px; transition:all .4s; position:relative; overflow:hidden; }
-.role-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,var(--gold),var(--orange)); transform:scaleX(0); transition:transform .4s; transform-origin:left; }
-.role-card:hover { transform:translateY(-5px); border-color:rgba(245,158,11,.2); }
+/* ROLE */
+.role-section { margin-bottom:70px; }
+.role-intro { font-size:1rem;color:var(--muted);margin-bottom:34px;margin-top:-16px;font-style:italic;line-height:1.8; }
+.role-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px; }
+.role-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:30px 24px;transition:all .4s;position:relative;overflow:hidden; }
+.role-card::before { content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),var(--orange));transform:scaleX(0);transition:transform .4s;transform-origin:left; }
+.role-card:hover { transform:translateY(-5px);border-color:rgba(245,158,11,.2); }
 .role-card:hover::before { transform:scaleX(1); }
-.role-icon { font-size: 2.4rem; margin-bottom: 14px; display: block; } /* ↑ */
-.role-title { font-family:'Orbitron',sans-serif; font-size:.88rem; /* ↑ */ font-weight:700; letter-spacing:2px; color:white; margin-bottom:12px; }
-.role-text { font-size:1rem; /* ↑ */ line-height:1.85; color:var(--muted); font-weight:300; }
+.role-icon { font-size:2.4rem;margin-bottom:14px;display:block; }
+.role-title { font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:2px;color:white;margin-bottom:12px; }
+.role-text { font-size:1rem;line-height:1.85;color:var(--muted);font-weight:300; }
 
-footer { position:relative; z-index:1; text-align:center; padding:40px; font-family:'Orbitron',sans-serif; font-size:.72rem; letter-spacing:2px; color:var(--muted); }
+footer { position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:var(--muted); }
 footer span { color:var(--glow); }
 
+/* ══════════════════════════════════════════════
+   MINI INQUIRY ACTIVITY COMPONENTS
+══════════════════════════════════════════════ */
+
+/* Activity banner strip */
+.activity-strip {
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(135deg, rgba(34,211,238,.07), rgba(124,58,237,.05));
+  border: 1px solid rgba(34,211,238,.25);
+  border-left: 4px solid var(--cyan);
+  border-radius: 14px; padding: 16px 22px;
+  margin: 40px 0 0; position: relative; overflow: hidden;
+}
+.activity-strip::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+}
+.activity-strip-icon { font-size: 1.6rem; flex-shrink: 0; }
+.activity-strip-label {
+  font-family: 'Orbitron', sans-serif; font-size: .55rem;
+  letter-spacing: 3px; color: var(--cyan); text-transform: uppercase; margin-bottom: 4px;
+}
+.activity-strip-text { font-size: .92rem; color: #cbd5e1; font-weight: 300; line-height: 1.6; }
+.activity-strip-text strong { color: white; }
+
+/* ── THINK & PREDICT box ── */
+.think-box {
+  background: linear-gradient(135deg, rgba(245,158,11,.07), rgba(249,115,22,.04));
+  border: 1px solid rgba(245,158,11,.22);
+  border-radius: 20px; padding: 32px 36px; margin: 48px 0;
+  position: relative; overflow: hidden;
+}
+.think-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--orange), transparent);
+}
+.think-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+}
+.think-icon { font-size: 2rem; }
+.think-label {
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 4px; color: var(--gold); text-transform: uppercase;
+}
+.think-q {
+  font-size: 1.05rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 20px; font-weight: 300;
+}
+.think-q strong { color: white; font-weight: 600; }
+.think-input {
+  width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(245,158,11,.25);
+  border-radius: 12px; padding: 14px 18px; color: var(--text);
+  font-family: 'Exo 2', sans-serif; font-size: .95rem; resize: vertical; min-height: 80px;
+  transition: border-color .3s; line-height: 1.6;
+}
+.think-input:focus { outline: none; border-color: rgba(245,158,11,.6); }
+.think-input::placeholder { color: rgba(148,163,184,.4); }
+.think-reveal-btn {
+  margin-top: 14px; padding: 10px 22px;
+  background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.35);
+  border-radius: 100px; color: var(--gold); font-family: 'Orbitron', sans-serif;
+  font-size: .6rem; letter-spacing: 2px; cursor: pointer; transition: all .3s;
+  text-transform: uppercase;
+}
+.think-reveal-btn:hover { background: rgba(245,158,11,.25); color: white; }
+.think-answer {
+  display: none; margin-top: 16px; padding: 16px 20px;
+  background: rgba(74,222,128,.06); border: 1px solid rgba(74,222,128,.2);
+  border-radius: 12px; font-size: .95rem; line-height: 1.8;
+  color: #cbd5e1; animation: fadeIn .4s ease;
+}
+.think-answer.visible { display: block; }
+.think-answer strong { color: var(--green); }
+
+/* ── SORT / CLASSIFY drag activity ── */
+.sort-activity {
+  background: linear-gradient(135deg, rgba(167,139,250,.06), rgba(124,58,237,.04));
+  border: 1px solid rgba(167,139,250,.2);
+  border-radius: 20px; padding: 32px 36px; margin: 48px 0;
+  position: relative; overflow: hidden;
+}
+.sort-activity::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--glow), transparent);
+}
+.sort-header { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.sort-icon { font-size: 2rem; }
+.sort-label {
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 4px; color: var(--glow); text-transform: uppercase;
+}
+.sort-instruction { font-size: .95rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+.sort-instruction strong { color: var(--text); }
+.sort-chips {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px;
+  min-height: 52px; padding: 10px; background: rgba(255,255,255,.02);
+  border: 1px dashed rgba(167,139,250,.25); border-radius: 12px;
+}
+.sort-chip {
+  padding: 8px 18px; border-radius: 100px;
+  background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.3);
+  color: var(--glow); font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 1px; cursor: pointer; transition: all .25s; user-select: none;
+  white-space: nowrap;
+}
+.sort-chip:hover { background: rgba(167,139,250,.25); transform: translateY(-2px); }
+.sort-chip.placed { opacity: .35; pointer-events: none; }
+.sort-zones { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.sort-zone {
+  min-height: 90px; border-radius: 14px; padding: 14px;
+  border: 2px dashed rgba(255,255,255,.1);
+  transition: border-color .3s, background .3s;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sort-zone.drag-over { border-color: var(--cyan); background: rgba(34,211,238,.05); }
+.sort-zone-label {
+  font-family: 'Orbitron', sans-serif; font-size: .58rem; letter-spacing: 2px;
+  text-transform: uppercase; margin-bottom: 6px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.sort-zone-label.hot-label { color: var(--gold); }
+.sort-zone-label.cold-label { color: var(--cyan); }
+.sort-placed {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.sort-placed-chip {
+  padding: 5px 12px; border-radius: 100px;
+  font-family: 'Orbitron', sans-serif; font-size: .55rem; letter-spacing: 1px;
+  cursor: pointer; transition: all .2s;
+}
+.hot-chip { background: rgba(249,115,22,.15); border: 1px solid rgba(249,115,22,.35); color: var(--orange); }
+.cold-chip { background: rgba(34,211,238,.12); border: 1px solid rgba(34,211,238,.3); color: var(--cyan); }
+.sort-placed-chip:hover { opacity: .6; }
+.sort-check-btn {
+  padding: 10px 24px; background: rgba(167,139,250,.15);
+  border: 1px solid rgba(167,139,250,.35); border-radius: 100px;
+  color: var(--glow); font-family: 'Orbitron', sans-serif;
+  font-size: .6rem; letter-spacing: 2px; cursor: pointer; transition: all .3s;
+}
+.sort-check-btn:hover { background: rgba(167,139,250,.3); color: white; }
+.sort-result {
+  display: none; margin-top: 14px; padding: 14px 18px; border-radius: 12px;
+  font-size: .9rem; line-height: 1.7; animation: fadeIn .4s ease;
+}
+.sort-result.correct { display: block; background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.25); color: #cbd5e1; }
+.sort-result.incorrect { display: block; background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.2); color: #cbd5e1; }
+.sort-result strong { color: var(--green); }
+
+/* ── QUICK QUIZ inline ── */
+.quick-quiz {
+  background: linear-gradient(135deg, rgba(34,211,238,.06), rgba(124,58,237,.04));
+  border: 1px solid rgba(34,211,238,.2);
+  border-radius: 20px; padding: 32px 36px; margin: 48px 0;
+  position: relative; overflow: hidden;
+}
+.quick-quiz::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+.quiz-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.quiz-icon { font-size: 2rem; }
+.quiz-label {
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 4px; color: var(--cyan); text-transform: uppercase;
+}
+.quiz-q { font-size: 1.05rem; color: #e2e8f0; line-height: 1.8; margin-bottom: 18px; font-weight: 300; }
+.quiz-q strong { color: white; font-weight: 600; }
+.quiz-choices { display: flex; flex-direction: column; gap: 10px; }
+.quiz-choice {
+  display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+  border-radius: 12px; border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.02); cursor: pointer; transition: all .3s;
+  font-size: .95rem; color: #cbd5e1; font-weight: 300; user-select: none;
+}
+.quiz-choice:hover { border-color: rgba(34,211,238,.3); background: rgba(34,211,238,.06); color: white; }
+.quiz-choice.correct-pick { border-color: var(--green); background: rgba(74,222,128,.1); color: white; pointer-events: none; }
+.quiz-choice.wrong-pick { border-color: var(--red); background: rgba(248,113,113,.08); color: #94a3b8; pointer-events: none; }
+.quiz-choice.reveal-correct { border-color: var(--green); background: rgba(74,222,128,.06); pointer-events: none; }
+.quiz-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,.2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .3s; }
+.quiz-choice.correct-pick .quiz-radio { border-color: var(--green); background: var(--green); }
+.quiz-choice.wrong-pick .quiz-radio { border-color: var(--red); background: var(--red); }
+.quiz-choice.reveal-correct .quiz-radio { border-color: var(--green); background: var(--green); }
+.quiz-radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #000; display: none; }
+.quiz-choice.correct-pick .quiz-radio::after,
+.quiz-choice.wrong-pick .quiz-radio::after,
+.quiz-choice.reveal-correct .quiz-radio::after { display: block; }
+.quiz-fb {
+  display: none; margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+  font-size: .9rem; line-height: 1.7; animation: fadeIn .4s ease;
+}
+.quiz-fb.shown { display: block; }
+.quiz-fb.win { background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2); color: #cbd5e1; }
+.quiz-fb.lose { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.2); color: #cbd5e1; }
+.quiz-fb strong { color: var(--green); }
+.quiz-fb.lose strong { color: var(--red); }
+
+/* ── ANALOGY BUILDER ── */
+.analogy-box {
+  background: linear-gradient(135deg, rgba(244,114,182,.06), rgba(249,115,22,.04));
+  border: 1px solid rgba(244,114,182,.2);
+  border-radius: 20px; padding: 32px 36px; margin: 48px 0;
+  position: relative; overflow: hidden;
+}
+.analogy-box::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--pink), transparent);
+}
+.analogy-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.analogy-icon { font-size: 2rem; }
+.analogy-label {
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 4px; color: var(--pink); text-transform: uppercase;
+}
+.analogy-intro { font-size: .95rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.analogy-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center; margin-bottom: 20px; }
+.analogy-cell {
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px; padding: 16px 20px; text-align: center;
+}
+.analogy-cell-label { font-family: 'Orbitron', sans-serif; font-size: .55rem; letter-spacing: 2px; color: var(--muted); margin-bottom: 6px; }
+.analogy-cell-val { font-size: .95rem; color: white; font-weight: 600; line-height: 1.5; }
+.analogy-arrow { font-size: 1.4rem; color: var(--pink); padding: 0 12px; text-align: center; }
+.analogy-select {
+  width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(244,114,182,.3);
+  border-radius: 10px; padding: 10px 14px; color: var(--text);
+  font-family: 'Exo 2', sans-serif; font-size: .92rem; cursor: pointer;
+  transition: border-color .3s; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.analogy-select:focus { outline: none; border-color: var(--pink); }
+.analogy-select option { background: #050d2a; }
+.analogy-check-btn {
+  padding: 10px 24px; background: rgba(244,114,182,.12);
+  border: 1px solid rgba(244,114,182,.3); border-radius: 100px;
+  color: var(--pink); font-family: 'Orbitron', sans-serif;
+  font-size: .6rem; letter-spacing: 2px; cursor: pointer; transition: all .3s;
+}
+.analogy-check-btn:hover { background: rgba(244,114,182,.25); color: white; }
+.analogy-result {
+  display: none; margin-top: 14px; padding: 14px 18px; border-radius: 12px;
+  font-size: .9rem; line-height: 1.7; animation: fadeIn .4s ease;
+}
+.analogy-result.visible { display: block; }
+.analogy-result.correct { background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.2); color: #cbd5e1; }
+.analogy-result.wrong { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.2); color: #cbd5e1; }
+.analogy-result strong { color: var(--green); }
+.analogy-result.wrong strong { color: var(--red); }
+
+/* ── OBSERVATION CHALLENGE ── */
+.observe-challenge {
+  background: linear-gradient(135deg, rgba(74,222,128,.05), rgba(34,211,238,.04));
+  border: 1px solid rgba(74,222,128,.2);
+  border-radius: 20px; padding: 32px 36px; margin: 48px 0;
+  position: relative; overflow: hidden;
+}
+.observe-challenge::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
+.obs-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.obs-icon { font-size: 2rem; }
+.obs-label {
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  letter-spacing: 4px; color: var(--green); text-transform: uppercase;
+}
+.obs-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+.obs-step {
+  display: flex; align-items: flex-start; gap: 14px; padding: 14px 18px;
+  background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+}
+.obs-step-num {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(74,222,128,.15); border: 1px solid rgba(74,222,128,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Orbitron', sans-serif; font-size: .6rem; color: var(--green); font-weight: 700;
+}
+.obs-step-text { font-size: .92rem; color: #cbd5e1; line-height: 1.65; font-weight: 300; }
+.obs-step-text strong { color: white; }
+.obs-record {
+  width: 100%; background: rgba(255,255,255,.03); border: 1px solid rgba(74,222,128,.2);
+  border-radius: 12px; padding: 14px 18px; color: var(--text);
+  font-family: 'Exo 2', sans-serif; font-size: .95rem; resize: vertical; min-height: 70px;
+  transition: border-color .3s; line-height: 1.6;
+}
+.obs-record:focus { outline: none; border-color: rgba(74,222,128,.5); }
+.obs-record::placeholder { color: rgba(148,163,184,.4); }
+
+/* RESPONSIVE */
 @media(max-width:900px){
-  nav{padding:20px 24px}
-  .nav-links{gap:16px}
-  .nav-links a{font-size:0.7rem}
-  main{padding:20px 24px 80px}
-  .page-hero{padding:130px 24px 40px}
-  .page-sub{font-size:1.05rem}
-  .sun-cutaway-wrap{grid-template-columns:1fr}
+  nav{padding:20px 24px} .nav-links{gap:16px} .nav-links a{font-size:0.7rem}
+  main{padding:20px 24px 80px} .page-hero{padding:130px 24px 40px}
+  .page-sub{font-size:1.05rem} .sun-cutaway-wrap{grid-template-columns:1fr}
   .layers-info-panel{position:static;min-height:220px}
   .sun-stage{width:min(320px,85vw);height:min(320px,85vw)}
-  .phenom-text,.role-text,.eclipse-desc,.info-desc{font-size:.95rem}
+  .sort-zones{grid-template-columns:1fr} .analogy-grid{grid-template-columns:1fr;gap:12px}
+  .analogy-arrow{transform:rotate(90deg)}
+  .think-box,.sort-activity,.quick-quiz,.analogy-box,.observe-challenge{padding:24px 20px}
 }
 </style>
 </head>
 <body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
 
 <!-- NAV -->
 <nav>
@@ -249,21 +519,20 @@ footer span { color:var(--glow); }
     <li class="has-dropdown">
       <a href="#">Home <span class="arrow">▾</span></a>
       <ul class="dropdown">
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="index.html#about">About Me</a></li>
-        <li><a href="SDGs.html">SDGs</a></li>
+        <li><a href="index.html#about">👤 About Me</a></li>
+        <li><a href="SDGs.html">🌱 SDGs</a></li>
       </ul>
     </li>
-    <li><a href="solarsystem.html">Solar System</a></li>
-    <li><a href="sun.html" class="nav-active">The Sun</a></li>
+    <li><a href="Activity.html">Activity</a></li>
     <li class="has-dropdown">
-      <a href="earth&moon.html">Earth & Moon <span class="arrow">▾</span></a>
+      <a href="#">Explore <span class="arrow">▾</span></a>
       <ul class="dropdown">
-        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
-        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+        <li><a href="solarsystem.html">🪐 Solar System</a></li>
+        <li><a href="sun.html" class="nav-active">☀️ The Sun</a></li>
+        <li><a href="earth&moon.html">🌍 Earth & Moon</a></li>
+        <li><a href="seasons.html">🍂 Seasons</a></li>
       </ul>
     </li>
-    <li><a href="seasons.html">Seasons</a></li>
     <li><a href="Activity.html">Quiz</a></li>
   </ul>
 </nav>
@@ -304,41 +573,33 @@ footer span { color:var(--glow); }
   <span class="section-label">Physical Data</span>
   <h2 class="section-heading">Key <span>Facts About the Sun</span></h2>
   <div class="char-grid">
-    <div class="char-card">
-      <div class="char-icon">🌡️</div>
-      <div class="char-label">Surface Temperature</div>
-      <div class="char-value">5,778 K</div>
-      <div class="char-sub">That's about 5,505°C — much hotter than any oven!</div>
+    <div class="char-card"><div class="char-icon">🌡️</div><div class="char-label">Surface Temperature</div><div class="char-value">5,778 K</div><div class="char-sub">That's about 5,505°C — much hotter than any oven!</div></div>
+    <div class="char-card"><div class="char-icon">🔥</div><div class="char-label">Core Temperature</div><div class="char-value">15 Million K</div><div class="char-sub">The incredibly hot centre where energy is made</div></div>
+    <div class="char-card"><div class="char-icon">📏</div><div class="char-label">Diameter</div><div class="char-value">1.39 Million km</div><div class="char-sub">109 times wider than Earth!</div></div>
+    <div class="char-card"><div class="char-icon">⚡</div><div class="char-label">Energy Output</div><div class="char-value">3.83 × 10²⁶ W</div><div class="char-sub">More energy every second than humans have ever used</div></div>
+    <div class="char-card"><div class="char-icon">🔄</div><div class="char-label">Rotation Speed</div><div class="char-value">25.4 Days</div><div class="char-sub">The equator spins faster than the poles — the Sun is not solid!</div></div>
+    <div class="char-card"><div class="char-icon">🌌</div><div class="char-label">Age</div><div class="char-value">4.6 Billion Years</div><div class="char-sub">About halfway through its life — it has 5 billion years left!</div></div>
+  </div>
+
+  <!-- 🔥 MINI ACTIVITY 1: Think & Predict -->
+  <div class="think-box">
+    <div class="think-header">
+      <span class="think-icon">🤔</span>
+      <div>
+        <div class="think-label">Think &amp; Predict · Activity 1</div>
+      </div>
     </div>
-    <div class="char-card">
-      <div class="char-icon">🔥</div>
-      <div class="char-label">Core Temperature</div>
-      <div class="char-value">15 Million K</div>
-      <div class="char-sub">The incredibly hot centre where energy is made</div>
-    </div>
-    <div class="char-card">
-      <div class="char-icon">📏</div>
-      <div class="char-label">Diameter</div>
-      <div class="char-value">1.39 Million km</div>
-      <div class="char-sub">109 times wider than Earth!</div>
-    </div>
-    <div class="char-card">
-      <div class="char-icon">⚡</div>
-      <div class="char-label">Energy Output</div>
-      <div class="char-value">3.83 × 10²⁶ W</div>
-      <div class="char-sub">More energy every second than humans have ever used</div>
-    </div>
-    <div class="char-card">
-      <div class="char-icon">🔄</div>
-      <div class="char-label">Rotation Speed</div>
-      <div class="char-value">25.4 Days</div>
-      <div class="char-sub">The equator spins faster than the poles — the Sun is not solid!</div>
-    </div>
-    <div class="char-card">
-      <div class="char-icon">🌌</div>
-      <div class="char-label">Age</div>
-      <div class="char-value">4.6 Billion Years</div>
-      <div class="char-sub">About halfway through its life — it has 5 billion years left!</div>
+    <p class="think-q">
+      You just read that the Sun's surface is <strong>5,778 K</strong>, but the core is <strong>15 million K</strong>.
+      That's a massive difference! <br><br>
+      In your own words — <strong>where do you think all that energy inside the core actually comes from?</strong>
+      Write your best guess before reading the next section.
+    </p>
+    <textarea class="think-input" placeholder="I think the energy comes from..."></textarea>
+    <br>
+    <button class="think-reveal-btn" onclick="revealAnswer('ans1')">💡 Show the Answer</button>
+    <div class="think-answer" id="ans1">
+      <strong>Great thinking!</strong> The energy inside the Sun's core comes from <strong>nuclear fusion</strong> — a process where hydrogen atoms are squeezed together so tightly that they merge and form helium. Every time this happens, a tiny burst of energy is released. Because this happens billions of times every second, the total energy is enormous. Scroll down to the Layers section to learn even more!
     </div>
   </div>
 </section>
@@ -350,6 +611,7 @@ footer span { color:var(--glow); }
   <span class="section-label">Anatomy</span>
   <h2 class="section-heading">Layers of <span>the Sun</span></h2>
   <p class="layers-hint">👆 Click any part of the left diagram to learn about each layer of the Sun!</p>
+
   <div class="sun-cutaway-wrap">
     <div class="sun-cutaway" id="sunCutaway">
       <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
@@ -390,149 +652,105 @@ footer span { color:var(--glow); }
         <line x1="250" y1="20" x2="250" y2="480" stroke="#fbbf24" stroke-width="1" stroke-opacity="0.5"/>
       </svg>
       <div class="diag-labels">
-        <div class="diag-label color-inti" style="left:7%;top:50%;transform:translateY(-50%);" data-layer="inti">
-          <div class="diag-label-dot" style="background:#fffde0;box-shadow:0 0 8px #fffde0;"></div>
-          <div class="diag-label-line" style="background:#fffde0;"></div>
-          <div class="diag-label-text">Core</div>
-        </div>
-        <div class="diag-label color-radiatif" style="left:3%;top:37%;" data-layer="radiatif">
-          <div class="diag-label-dot" style="background:#ffd060;box-shadow:0 0 8px #ffd060;"></div>
-          <div class="diag-label-line" style="background:#ffd060;"></div>
-          <div class="diag-label-text">Radiative</div>
-        </div>
-        <div class="diag-label color-konveksi" style="left:3%;top:25%;" data-layer="konveksi">
-          <div class="diag-label-dot" style="background:#f5a020;box-shadow:0 0 8px #f5a020;"></div>
-          <div class="diag-label-line" style="background:#f5a020;"></div>
-          <div class="diag-label-text">Convection</div>
-        </div>
-        <div class="diag-label color-fotosfer" style="left:3%;top:14%;" data-layer="fotosfer">
-          <div class="diag-label-dot" style="background:#f97316;box-shadow:0 0 8px #f97316;"></div>
-          <div class="diag-label-line" style="background:#f97316;"></div>
-          <div class="diag-label-text">Photosphere</div>
-        </div>
-        <div class="diag-label color-kromosfer" style="left:17%;top:6%;" data-layer="kromosfer">
-          <div class="diag-label-dot" style="background:#ef4444;box-shadow:0 0 8px #ef4444;"></div>
-          <div class="diag-label-line" style="background:#ef4444;"></div>
-          <div class="diag-label-text">Chromosphere</div>
-        </div>
-        <div class="diag-label color-korona" style="right:4%;top:10%;flex-direction:row-reverse;" data-layer="korona">
-          <div class="diag-label-dot" style="background:#fbbf24;box-shadow:0 0 8px #fbbf24;"></div>
-          <div class="diag-label-line" style="background:#fbbf24;"></div>
-          <div class="diag-label-text">Corona</div>
-        </div>
+        <div class="diag-label color-inti" style="left:7%;top:50%;transform:translateY(-50%);" data-layer="inti"><div class="diag-label-dot" style="background:#fffde0;box-shadow:0 0 8px #fffde0;"></div><div class="diag-label-line" style="background:#fffde0;"></div><div class="diag-label-text">Core</div></div>
+        <div class="diag-label color-radiatif" style="left:3%;top:37%;" data-layer="radiatif"><div class="diag-label-dot" style="background:#ffd060;box-shadow:0 0 8px #ffd060;"></div><div class="diag-label-line" style="background:#ffd060;"></div><div class="diag-label-text">Radiative</div></div>
+        <div class="diag-label color-konveksi" style="left:3%;top:25%;" data-layer="konveksi"><div class="diag-label-dot" style="background:#f5a020;box-shadow:0 0 8px #f5a020;"></div><div class="diag-label-line" style="background:#f5a020;"></div><div class="diag-label-text">Convection</div></div>
+        <div class="diag-label color-fotosfer" style="left:3%;top:14%;" data-layer="fotosfer"><div class="diag-label-dot" style="background:#f97316;box-shadow:0 0 8px #f97316;"></div><div class="diag-label-line" style="background:#f97316;"></div><div class="diag-label-text">Photosphere</div></div>
+        <div class="diag-label color-kromosfer" style="left:17%;top:6%;" data-layer="kromosfer"><div class="diag-label-dot" style="background:#ef4444;box-shadow:0 0 8px #ef4444;"></div><div class="diag-label-line" style="background:#ef4444;"></div><div class="diag-label-text">Chromosphere</div></div>
+        <div class="diag-label color-korona" style="right:4%;top:10%;flex-direction:row-reverse;" data-layer="korona"><div class="diag-label-dot" style="background:#fbbf24;box-shadow:0 0 8px #fbbf24;"></div><div class="diag-label-line" style="background:#fbbf24;"></div><div class="diag-label-text">Corona</div></div>
       </div>
-    </div><!-- end sun-cutaway -->
+    </div>
 
-    <!-- Info Panel — simple English descriptions -->
     <div class="layers-info-panel" id="infoPanel">
-      <div class="layer-info-default" id="defaultInfo">
-        <div style="font-size:3rem;">☀️</div>
-        <div>Click any layer on the left diagram to learn what it does!</div>
-      </div>
+      <div class="layer-info-default" id="defaultInfo"><div style="font-size:3rem;">☀️</div><div>Click any layer on the left diagram to learn what it does!</div></div>
+      <div class="layer-info" id="info-inti"><div class="info-icon">⚛️</div><div class="info-name color-inti">Core (The Centre)</div><div class="info-tag color-inti" style="border-color:#fffde0;">Deepest Layer</div><div class="info-desc">The core is the <strong>very centre of the Sun</strong> — the most powerful place in our Solar System. Here, hydrogen atoms are <strong>squeezed together so hard</strong> that they join to make helium, and this releases a <strong>huge amount of energy</strong>. This is the same process as a hydrogen bomb, but happening non-stop for billions of years! All the light and heat the Sun gives us comes from the core.</div><div class="info-stat"><div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-inti">15 Million °C</div></div><div class="stat-item"><div class="stat-label">Size</div><div class="stat-val color-inti">~20% of Sun</div></div><div class="stat-item"><div class="stat-label">Density</div><div class="stat-val color-inti">150 g/cm³</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Nuclear Fusion:</strong> When two hydrogen atoms join together and release a massive burst of energy and light.</div></div></div></div>
+      <div class="layer-info" id="info-radiatif"><div class="info-icon">✨</div><div class="info-name color-radiatif">Radiative Zone</div><div class="info-tag color-radiatif" style="border-color:#ffd060;">Energy Travel</div><div class="info-desc">After energy is made in the core, it slowly travels outward through this zone. The energy moves as <strong>tiny packets of light</strong> (photons). But it's very crowded here — the photons keep bouncing off atoms and changing direction. It can take up to <strong>170,000 years</strong> for energy to travel through this zone! That's longer than human civilization has existed.</div><div class="info-stat"><div class="stat-item"><div class="stat-label">From</div><div class="stat-val color-radiatif">20% → 70%</div></div><div class="stat-item"><div class="stat-label">Travel Time</div><div class="stat-val color-radiatif">~170,000 yrs</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Photon:</strong> A tiny particle of light. The photons made in the core take thousands of years to reach the surface!</div></div></div></div>
+      <div class="layer-info" id="info-konveksi"><div class="info-icon">🌀</div><div class="info-name color-konveksi">Convection Zone</div><div class="info-tag color-konveksi" style="border-color:#f5a020;">Boiling Gas</div><div class="info-desc">Think of this like a <strong>boiling pot of soup</strong>. Hot gas rises up to the surface, cools down, then sinks back — over and over again. You can actually <strong>see the top of these bubbles</strong> on the Sun's surface! They are called granules. This churning motion also creates the Sun's <strong>powerful magnetic field</strong>, which causes sunspots and solar flares.</div><div class="info-stat"><div class="stat-item"><div class="stat-label">From</div><div class="stat-val color-konveksi">70% → Surface</div></div><div class="stat-item"><div class="stat-label">Bubble Size</div><div class="stat-val color-konveksi">~1,000 km each</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Convection:</strong> When hot liquid or gas rises and cool liquid or gas sinks — like boiling water in a pot.</div></div></div></div>
+      <div class="layer-info" id="info-fotosfer"><div class="info-icon">💡</div><div class="info-name color-fotosfer">Photosphere</div><div class="info-tag color-fotosfer" style="border-color:#f97316;">The Visible Surface</div><div class="info-desc">This is the layer we can <strong>actually see</strong> — the bright, glowing surface of the Sun. When you look at the Sun in a photo (never look directly!), this is what you see. The photosphere is where <strong>sunspots</strong> appear — dark patches that are slightly cooler than the surrounding area. Even though they look dark, sunspots are still incredibly hot — around 3,500°C!</div><div class="info-stat"><div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-fotosfer">5,778 K</div></div><div class="stat-item"><div class="stat-label">Thickness</div><div class="stat-val color-fotosfer">~500 km</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Sunspot:</strong> A darker, cooler area on the Sun's surface caused by strong magnetic fields blocking heat from below.</div></div></div></div>
+      <div class="layer-info" id="info-kromosfer"><div class="info-icon">🔴</div><div class="info-name color-kromosfer">Chromosphere</div><div class="info-tag color-kromosfer" style="border-color:#ef4444;">Lower Atmosphere</div><div class="info-desc">Just above the surface is the chromosphere — a <strong>thin, pinkish-red layer</strong> of the Sun's atmosphere. You can only see it during a <strong>total solar eclipse</strong>, when it appears as a red ring around the Moon's shadow. Giant <strong>loops of hot gas</strong> called prominences shoot out from here, stretching hundreds of thousands of kilometers — bigger than the entire Earth!</div><div class="info-stat"><div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-kromosfer">4,000–25,000 K</div></div><div class="stat-item"><div class="stat-label">Thickness</div><div class="stat-val color-kromosfer">~2,000 km</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Prominence:</strong> A huge arch of glowing gas that shoots out from the Sun's surface, shaped by magnetic forces.</div></div></div></div>
+      <div class="layer-info" id="info-korona"><div class="info-icon">👑</div><div class="info-name color-korona">Corona</div><div class="info-tag color-korona" style="border-color:#fbbf24;">Outer Atmosphere</div><div class="info-desc">The corona is the Sun's <strong>outer atmosphere</strong> — a giant glowing halo stretching millions of kilometers into space. Here's a big mystery scientists are still studying: the corona is <strong>much hotter than the surface</strong> (1–3 million °C vs 5,778 K)! The corona is also where the <strong>solar wind</strong> comes from — streams of particles that flow out to all the planets.</div><div class="info-stat"><div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-korona">1–3 Million K</div></div><div class="stat-item"><div class="stat-label">Extends</div><div class="stat-val color-korona">Millions of km</div></div></div><div class="vocab-box"><div class="vocab-title">📚 Key Word</div><div class="vocab-list"><div class="vocab-item"><strong>Solar Wind:</strong> A stream of tiny particles that flows out from the corona in all directions — it reaches Earth and beyond!</div></div></div></div>
+    </div>
+  </div>
 
-      <div class="layer-info" id="info-inti">
-        <div class="info-icon">⚛️</div>
-        <div class="info-name color-inti">Core (The Centre)</div>
-        <div class="info-tag color-inti" style="border-color:#fffde0;">Deepest Layer</div>
-        <div class="info-desc">The core is the <strong>very centre of the Sun</strong> — the most powerful place in our Solar System. Here, hydrogen atoms are <strong>squeezed together so hard</strong> that they join to make helium, and this releases a <strong>huge amount of energy</strong>. This is the same process as a hydrogen bomb, but happening non-stop for billions of years! All the light and heat the Sun gives us comes from the core.</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-inti">15 Million °C</div></div>
-          <div class="stat-item"><div class="stat-label">Size</div><div class="stat-val color-inti">~20% of Sun</div></div>
-          <div class="stat-item"><div class="stat-label">Density</div><div class="stat-val color-inti">150 g/cm³</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Nuclear Fusion:</strong> When two hydrogen atoms join together and release a massive burst of energy and light.</div>
-          </div>
-        </div>
+  <!-- 🔥 MINI ACTIVITY 2: Sort the Layers -->
+  <div class="sort-activity">
+    <div class="sort-header">
+      <span class="sort-icon">🗂️</span>
+      <div>
+        <div class="sort-label">Sort &amp; Classify · Activity 2</div>
       </div>
+    </div>
+    <p class="sort-instruction">
+      Now that you've explored all 6 layers — <strong>can you sort them?</strong><br>
+      Click each layer name below to place it into the right category. Is it a layer <em>inside</em> the Sun, or part of the Sun's <em>atmosphere</em>?
+    </p>
+    <div class="sort-chips" id="sortChips">
+      <div class="sort-chip" data-correct="inside" onclick="placeChip(this,'sort-inside')">Core</div>
+      <div class="sort-chip" data-correct="atmo" onclick="placeChip(this,'sort-atmo')">Corona</div>
+      <div class="sort-chip" data-correct="inside" onclick="placeChip(this,'sort-inside')">Radiative Zone</div>
+      <div class="sort-chip" data-correct="atmo" onclick="placeChip(this,'sort-atmo')">Chromosphere</div>
+      <div class="sort-chip" data-correct="inside" onclick="placeChip(this,'sort-inside')">Convection Zone</div>
+      <div class="sort-chip" data-correct="inside" onclick="placeChip(this,'sort-inside')">Photosphere</div>
+    </div>
+    <div class="sort-zones">
+      <div class="sort-zone" id="sort-inside">
+        <div class="sort-zone-label hot-label">🔥 Inside the Sun</div>
+        <div class="sort-placed" id="placed-inside"></div>
+      </div>
+      <div class="sort-zone" id="sort-atmo">
+        <div class="sort-zone-label cold-label">🌌 Sun's Atmosphere</div>
+        <div class="sort-placed" id="placed-atmo"></div>
+      </div>
+    </div>
+    <button class="sort-check-btn" onclick="checkSort()">✅ Check My Answers</button>
+    <div class="sort-result" id="sortResult"></div>
+  </div>
 
-      <div class="layer-info" id="info-radiatif">
-        <div class="info-icon">✨</div>
-        <div class="info-name color-radiatif">Radiative Zone</div>
-        <div class="info-tag color-radiatif" style="border-color:#ffd060;">Energy Travel</div>
-        <div class="info-desc">After energy is made in the core, it slowly travels outward through this zone. The energy moves as <strong>tiny packets of light</strong> (photons). But it's very crowded here — the photons keep bouncing off atoms and changing direction. It can take up to <strong>170,000 years</strong> for energy to travel through this zone! That's longer than human civilization has existed.</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">From</div><div class="stat-val color-radiatif">20% → 70%</div></div>
-          <div class="stat-item"><div class="stat-label">Travel Time</div><div class="stat-val color-radiatif">~170,000 yrs</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Photon:</strong> A tiny particle of light. The photons made in the core take thousands of years to reach the surface!</div>
-          </div>
+  <!-- 🔥 MINI ACTIVITY 3: Analogy Builder -->
+  <div class="analogy-box">
+    <div class="analogy-header">
+      <span class="analogy-icon">🔗</span>
+      <div>
+        <div class="analogy-label">Analogy Builder · Activity 3</div>
+      </div>
+    </div>
+    <p class="analogy-intro">
+      Scientists often use everyday analogies to explain big ideas. The Convection Zone works just like something you see in real life!
+      Match each Sun layer to the best everyday analogy from the dropdown below.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="analogy-grid">
+        <div class="analogy-cell"><div class="analogy-cell-label">Sun Layer</div><div class="analogy-cell-val">Convection Zone</div></div>
+        <div class="analogy-arrow">→</div>
+        <div class="analogy-cell">
+          <div class="analogy-cell-label">Best Analogy</div>
+          <select class="analogy-select" id="a1">
+            <option value="">Choose...</option>
+            <option value="wrong">A flashlight beam</option>
+            <option value="correct">Boiling water in a pot</option>
+            <option value="wrong">A mirror reflecting light</option>
+            <option value="wrong">A frozen lake</option>
+          </select>
         </div>
       </div>
-
-      <div class="layer-info" id="info-konveksi">
-        <div class="info-icon">🌀</div>
-        <div class="info-name color-konveksi">Convection Zone</div>
-        <div class="info-tag color-konveksi" style="border-color:#f5a020;">Boiling Gas</div>
-        <div class="info-desc">Think of this like a <strong>boiling pot of soup</strong>. Hot gas rises up to the surface, cools down, then sinks back — over and over again. You can actually <strong>see the top of these bubbles</strong> on the Sun's surface! They are called granules. This churning motion also creates the Sun's <strong>powerful magnetic field</strong>, which causes sunspots and solar flares.</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">From</div><div class="stat-val color-konveksi">70% → Surface</div></div>
-          <div class="stat-item"><div class="stat-label">Bubble Size</div><div class="stat-val color-konveksi">~1,000 km each</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Convection:</strong> When hot liquid or gas rises and cool liquid or gas sinks — like boiling water in a pot.</div>
-          </div>
+      <div class="analogy-grid">
+        <div class="analogy-cell"><div class="analogy-cell-label">Sun Layer</div><div class="analogy-cell-val">Radiative Zone</div></div>
+        <div class="analogy-arrow">→</div>
+        <div class="analogy-cell">
+          <div class="analogy-cell-label">Best Analogy</div>
+          <select class="analogy-select" id="a2">
+            <option value="">Choose...</option>
+            <option value="wrong">A river flowing freely</option>
+            <option value="wrong">A boiling kettle</option>
+            <option value="correct">Light trying to pass through a very thick crowd</option>
+            <option value="wrong">A torch in an open field</option>
+          </select>
         </div>
       </div>
-
-      <div class="layer-info" id="info-fotosfer">
-        <div class="info-icon">💡</div>
-        <div class="info-name color-fotosfer">Photosphere</div>
-        <div class="info-tag color-fotosfer" style="border-color:#f97316;">The Visible Surface</div>
-        <div class="info-desc">This is the layer we can <strong>actually see</strong> — the bright, glowing surface of the Sun. When you look at the Sun in a photo (never look directly!), this is what you see. The photosphere is where <strong>sunspots</strong> appear — dark patches that are slightly cooler than the surrounding area. Even though they look dark, sunspots are still incredibly hot — around 3,500°C!</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-fotosfer">5,778 K</div></div>
-          <div class="stat-item"><div class="stat-label">Thickness</div><div class="stat-val color-fotosfer">~500 km</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Sunspot:</strong> A darker, cooler area on the Sun's surface caused by strong magnetic fields blocking heat from below.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="layer-info" id="info-kromosfer">
-        <div class="info-icon">🔴</div>
-        <div class="info-name color-kromosfer">Chromosphere</div>
-        <div class="info-tag color-kromosfer" style="border-color:#ef4444;">Lower Atmosphere</div>
-        <div class="info-desc">Just above the surface is the chromosphere — a <strong>thin, pinkish-red layer</strong> of the Sun's atmosphere. You can only see it during a <strong>total solar eclipse</strong>, when it appears as a red ring around the Moon's shadow. Giant <strong>loops of hot gas</strong> called prominences shoot out from here, stretching hundreds of thousands of kilometers — bigger than the entire Earth!</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-kromosfer">4,000–25,000 K</div></div>
-          <div class="stat-item"><div class="stat-label">Thickness</div><div class="stat-val color-kromosfer">~2,000 km</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Prominence:</strong> A huge arch of glowing gas that shoots out from the Sun's surface, shaped by magnetic forces.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="layer-info" id="info-korona">
-        <div class="info-icon">👑</div>
-        <div class="info-name color-korona">Corona</div>
-        <div class="info-tag color-korona" style="border-color:#fbbf24;">Outer Atmosphere</div>
-        <div class="info-desc">The corona is the Sun's <strong>outer atmosphere</strong> — a giant glowing halo stretching millions of kilometers into space. Here's a big mystery scientists are still studying: the corona is <strong>much hotter than the surface</strong> (1–3 million °C vs 5,778 K)! How can the outside be hotter than the inside? The corona is also where the <strong>solar wind</strong> comes from — streams of particles that flow out to all the planets.</div>
-        <div class="info-stat">
-          <div class="stat-item"><div class="stat-label">Temperature</div><div class="stat-val color-korona">1–3 Million K</div></div>
-          <div class="stat-item"><div class="stat-label">Extends</div><div class="stat-val color-korona">Millions of km</div></div>
-        </div>
-        <div class="vocab-box">
-          <div class="vocab-title">📚 Key Word</div>
-          <div class="vocab-list">
-            <div class="vocab-item"><strong>Solar Wind:</strong> A stream of tiny particles that flows out from the corona in all directions — it reaches Earth and beyond!</div>
-          </div>
-        </div>
-      </div>
-    </div><!-- end info panel -->
+    </div>
+    <br>
+    <button class="analogy-check-btn" onclick="checkAnalogy()">🔍 Check Analogies</button>
+    <div class="analogy-result" id="analogyResult"></div>
   </div>
 </section>
 
@@ -543,25 +761,47 @@ footer span { color:var(--glow); }
   <span class="section-label">Solar Events</span>
   <h2 class="section-heading">Amazing Things <span>the Sun Does</span></h2>
   <div class="phenom-grid">
-    <div class="phenom-card" style="--pc:rgba(249,115,22,.15)">
-      <span class="phenom-emoji">🌑</span>
-      <div class="phenom-title">Sunspots</div>
-      <p class="phenom-text">Dark patches on the Sun's surface that are slightly cooler than the surrounding area. They form where strong magnetic fields stop hot gas from rising up. Sunspots come and go in an <strong>11-year cycle</strong> — when there are more sunspots, the Sun is more active.</p>
+    <div class="phenom-card" style="--pc:rgba(249,115,22,.15)"><span class="phenom-emoji">🌑</span><div class="phenom-title">Sunspots</div><p class="phenom-text">Dark patches on the Sun's surface that are slightly cooler than the surrounding area. They form where strong magnetic fields stop hot gas from rising up. Sunspots come and go in an <strong>11-year cycle</strong> — when there are more sunspots, the Sun is more active.</p></div>
+    <div class="phenom-card" style="--pc:rgba(239,68,68,.15)"><span class="phenom-emoji">🔥</span><div class="phenom-title">Solar Flares</div><p class="phenom-text">Sudden, powerful <strong>bursts of energy and light</strong> from the Sun's surface. They happen when magnetic field lines get twisted and then suddenly snap back. A big solar flare can affect radio communication and GPS satellites on Earth!</p></div>
+    <div class="phenom-card" style="--pc:rgba(245,158,11,.15)"><span class="phenom-emoji">🌊</span><div class="phenom-title">Prominences</div><p class="phenom-text">Giant <strong>arches of glowing gas</strong> that rise from the chromosphere and loop back into the corona. They can be hundreds of thousands of kilometers long — much bigger than Earth! Some of them last for months before disappearing.</p></div>
+    <div class="phenom-card" style="--pc:rgba(139,92,246,.15)"><span class="phenom-emoji">🌌</span><div class="phenom-title">Solar Wind & Auroras</div><p class="phenom-text">The Sun constantly sends out a <strong>stream of tiny charged particles</strong> called solar wind. When these particles hit Earth's magnetic field, they create the beautiful <strong>Northern and Southern Lights</strong> (auroras) that glow in the sky near the poles!</p></div>
+  </div>
+
+  <!-- 🔥 MINI ACTIVITY 4: Quick Quiz on Solar Events -->
+  <div class="quick-quiz">
+    <div class="quiz-header">
+      <span class="quiz-icon">⚡</span>
+      <div><div class="quiz-label">Quick Quiz · Activity 4</div></div>
     </div>
-    <div class="phenom-card" style="--pc:rgba(239,68,68,.15)">
-      <span class="phenom-emoji">🔥</span>
-      <div class="phenom-title">Solar Flares</div>
-      <p class="phenom-text">Sudden, powerful <strong>bursts of energy and light</strong> from the Sun's surface. They happen when magnetic field lines get twisted and then suddenly snap back. A big solar flare can affect radio communication and GPS satellites on Earth!</p>
+    <p class="quiz-q">
+      A GPS satellite suddenly loses its signal for a short time during a sunny day.
+      Based on what you just read — <strong>which solar event is most likely responsible?</strong>
+    </p>
+    <div class="quiz-choices" id="quiz4">
+      <div class="quiz-choice" onclick="answerQuiz('quiz4',this,false,'q4fb')"><div class="quiz-radio"></div>A Sunspot forming on the surface</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz4',this,true,'q4fb')"><div class="quiz-radio"></div>A Solar Flare bursting from the Sun</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz4',this,false,'q4fb')"><div class="quiz-radio"></div>A Prominence looping into the corona</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz4',this,false,'q4fb')"><div class="quiz-radio"></div>The Sun rotating on its axis</div>
     </div>
-    <div class="phenom-card" style="--pc:rgba(245,158,11,.15)">
-      <span class="phenom-emoji">🌊</span>
-      <div class="phenom-title">Prominences</div>
-      <p class="phenom-text">Giant <strong>arches of glowing gas</strong> that rise from the chromosphere and loop back into the corona. They can be hundreds of thousands of kilometers long — much bigger than Earth! Some of them last for months before disappearing.</p>
+    <div class="quiz-fb" id="q4fb"></div>
+  </div>
+
+  <!-- 🔥 MINI ACTIVITY 5: Think & Predict — Aurora -->
+  <div class="think-box">
+    <div class="think-header">
+      <span class="think-icon">🌌</span>
+      <div><div class="think-label">Predict &amp; Connect · Activity 5</div></div>
     </div>
-    <div class="phenom-card" style="--pc:rgba(139,92,246,.15)">
-      <span class="phenom-emoji">🌌</span>
-      <div class="phenom-title">Solar Wind & Auroras</div>
-      <p class="phenom-text">The Sun constantly sends out a <strong>stream of tiny charged particles</strong> called solar wind. When these particles hit Earth's magnetic field, they create the beautiful <strong>Northern and Southern Lights</strong> (auroras) that glow in the sky near the poles!</p>
+    <p class="think-q">
+      You read that auroras (Northern/Southern Lights) happen when solar wind particles hit Earth's magnetic field.
+      <br><br>
+      <strong>Predict:</strong> If the Sun sent out a much stronger solar wind than usual, what do you think would happen to the auroras? Would they get bigger, smaller, or disappear? <em>Explain your reasoning.</em>
+    </p>
+    <textarea class="think-input" placeholder="I think the auroras would... because..."></textarea>
+    <br>
+    <button class="think-reveal-btn" onclick="revealAnswer('ans5')">💡 Reveal the Answer</button>
+    <div class="think-answer" id="ans5">
+      <strong>Well predicted!</strong> A stronger solar wind carries more charged particles, which means more particles hit Earth's magnetic field. The result? <strong>Auroras become much brighter, more colorful, and visible from areas much farther from the poles than usual</strong> — sometimes even visible from countries near the equator during extreme solar storms. This actually happened during the famous Carrington Event in 1859, one of the largest solar storms ever recorded!
     </div>
   </div>
 </section>
@@ -574,75 +814,43 @@ footer span { color:var(--glow); }
   <h2 class="section-heading">Types of <span>Solar Eclipse</span></h2>
   <p class="eclipse-intro">A solar eclipse happens when the Moon moves between Earth and the Sun, blocking the Sun's light. There are three different types — it all depends on how much of the Sun gets covered!</p>
   <div class="eclipse-grid">
-
     <div class="eclipse-card">
-      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="glowT" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4" stop-opacity=".9"/><stop offset="40%" stop-color="#fbbf24" stop-opacity=".5"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-          <radialGradient id="coronaT" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#fef3c7" stop-opacity="0"/><stop offset="62%" stop-color="#fbbf24" stop-opacity=".85"/><stop offset="78%" stop-color="#f59e0b" stop-opacity=".4"/><stop offset="100%" stop-color="#92400e" stop-opacity="0"/></radialGradient>
-          <radialGradient id="moonT" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#060612"/></radialGradient>
-          <filter id="blurT"><feGaussianBlur stdDeviation="5"/></filter>
-        </defs>
-        <circle cx="80" cy="80" r="72" fill="url(#glowT)" filter="url(#blurT)"/>
-        <circle cx="80" cy="80" r="58" fill="url(#coronaT)"/>
-        <g filter="url(#blurT)" opacity=".8">
-          <ellipse cx="80" cy="16" rx="5" ry="18" fill="#fef3c7" fill-opacity=".7"/>
-          <ellipse cx="80" cy="144" rx="5" ry="18" fill="#fef3c7" fill-opacity=".7"/>
-          <ellipse cx="16" cy="80" rx="18" ry="5" fill="#fef3c7" fill-opacity=".7"/>
-          <ellipse cx="144" cy="80" rx="18" ry="5" fill="#fef3c7" fill-opacity=".7"/>
-          <ellipse cx="33" cy="33" rx="4" ry="14" fill="#fef3c7" fill-opacity=".5" transform="rotate(-45 33 33)"/>
-          <ellipse cx="127" cy="127" rx="4" ry="14" fill="#fef3c7" fill-opacity=".5" transform="rotate(-45 127 127)"/>
-          <ellipse cx="127" cy="33" rx="4" ry="14" fill="#fef3c7" fill-opacity=".5" transform="rotate(45 127 33)"/>
-          <ellipse cx="33" cy="127" rx="4" ry="14" fill="#fef3c7" fill-opacity=".5" transform="rotate(45 33 127)"/>
-        </g>
-        <circle cx="80" cy="80" r="46" fill="url(#moonT)"/>
-        <text x="80" y="84" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,.45)">Moon</text>
-      </svg>
+      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="glowT" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4" stop-opacity=".9"/><stop offset="40%" stop-color="#fbbf24" stop-opacity=".5"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient><radialGradient id="coronaT" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#fef3c7" stop-opacity="0"/><stop offset="62%" stop-color="#fbbf24" stop-opacity=".85"/><stop offset="78%" stop-color="#f59e0b" stop-opacity=".4"/><stop offset="100%" stop-color="#92400e" stop-opacity="0"/></radialGradient><radialGradient id="moonT" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#060612"/></radialGradient><filter id="blurT"><feGaussianBlur stdDeviation="5"/></filter></defs><circle cx="80" cy="80" r="72" fill="url(#glowT)" filter="url(#blurT)"/><circle cx="80" cy="80" r="58" fill="url(#coronaT)"/><g filter="url(#blurT)" opacity=".8"><ellipse cx="80" cy="16" rx="5" ry="18" fill="#fef3c7" fill-opacity=".7"/><ellipse cx="80" cy="144" rx="5" ry="18" fill="#fef3c7" fill-opacity=".7"/><ellipse cx="16" cy="80" rx="18" ry="5" fill="#fef3c7" fill-opacity=".7"/><ellipse cx="144" cy="80" rx="18" ry="5" fill="#fef3c7" fill-opacity=".7"/></g><circle cx="80" cy="80" r="46" fill="url(#moonT)"/></svg>
       <div class="eclipse-tag">Total Eclipse</div>
       <div class="eclipse-type">Total Solar Eclipse</div>
-      <p class="eclipse-desc">The Moon <strong>completely covers the Sun</strong>. The sky goes dark in the middle of the day! You can see the corona glowing around the Moon like a halo. This only lasts a few minutes and only happens in a narrow path on Earth — people travel thousands of kilometers just to see one!</p>
+      <p class="eclipse-desc">The Moon <strong>completely covers the Sun</strong>. The sky goes dark in the middle of the day! You can see the corona glowing around the Moon like a halo. This only lasts a few minutes and only happens in a narrow path on Earth.</p>
     </div>
-
     <div class="eclipse-card">
-      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="sunP" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="35%" stop-color="#fbbf24"/><stop offset="75%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></radialGradient>
-          <radialGradient id="moonP" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2d2d4e"/><stop offset="100%" stop-color="#060612"/></radialGradient>
-          <radialGradient id="glowP" cx="50%" cy="50%" r="50%"><stop offset="65%" stop-color="#fbbf24" stop-opacity="0"/><stop offset="100%" stop-color="#f59e0b" stop-opacity=".35"/></radialGradient>
-          <filter id="blurP"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-        <circle cx="70" cy="88" r="62" fill="url(#glowP)" filter="url(#blurP)"/>
-        <circle cx="70" cy="88" r="48" fill="url(#sunP)"/>
-        <circle cx="100" cy="60" r="46" fill="url(#moonP)"/>
-        <text x="56" y="104" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,255,255,.55)">Sun</text>
-        <text x="104" y="55" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(180,180,220,.65)">Moon</text>
-      </svg>
+      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sunP" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="35%" stop-color="#fbbf24"/><stop offset="75%" stop-color="#d97706"/><stop offset="100%" stop-color="#92400e"/></radialGradient><radialGradient id="moonP" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2d2d4e"/><stop offset="100%" stop-color="#060612"/></radialGradient><filter id="blurP"><feGaussianBlur stdDeviation="4"/></filter></defs><circle cx="70" cy="88" r="48" fill="url(#sunP)"/><circle cx="100" cy="60" r="46" fill="url(#moonP)"/></svg>
       <div class="eclipse-tag">Partial Eclipse</div>
       <div class="eclipse-type">Partial Solar Eclipse</div>
-      <p class="eclipse-desc">The Moon covers <strong>only part of the Sun</strong>, so the Sun looks like it has a bite taken out of it! This is the most common type of eclipse and can be seen from a much larger area of Earth. <strong>Never look directly at a partial eclipse</strong> — always use special eclipse glasses!</p>
+      <p class="eclipse-desc">The Moon covers <strong>only part of the Sun</strong>, so the Sun looks like it has a bite taken out of it! This is the most common type. <strong>Always use special eclipse glasses</strong> — never look directly!</p>
     </div>
-
     <div class="eclipse-card">
-      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="sunA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="40%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></radialGradient>
-          <radialGradient id="ringA" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#fbbf24" stop-opacity="0"/><stop offset="62%" stop-color="#fbbf24" stop-opacity="1"/><stop offset="74%" stop-color="#f59e0b" stop-opacity=".55"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-          <radialGradient id="moonA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1e1e3a"/><stop offset="100%" stop-color="#060612"/></radialGradient>
-          <filter id="blurA"><feGaussianBlur stdDeviation="4"/></filter>
-        </defs>
-        <circle cx="80" cy="80" r="70" fill="url(#ringA)" filter="url(#blurA)"/>
-        <circle cx="80" cy="80" r="54" fill="url(#sunA)"/>
-        <circle cx="80" cy="80" r="41" fill="url(#moonA)"/>
-        <circle cx="80" cy="80" r="47" fill="none" stroke="#fbbf24" stroke-width="5" stroke-opacity=".9"/>
-        <circle cx="80" cy="80" r="51" fill="none" stroke="#fef3c7" stroke-width="1.5" stroke-opacity=".4"/>
-        <text x="80" y="84" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(180,180,220,.55)">Moon</text>
-        <text x="80" y="134" text-anchor="middle" font-family="sans-serif" font-size="10" fill="rgba(255,200,80,.6)">Sun</text>
-      </svg>
+      <svg class="eclipse-visual" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sunA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9c4"/><stop offset="40%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#d97706"/></radialGradient><radialGradient id="ringA" cx="50%" cy="50%" r="50%"><stop offset="52%" stop-color="#fbbf24" stop-opacity="0"/><stop offset="62%" stop-color="#fbbf24" stop-opacity="1"/><stop offset="74%" stop-color="#f59e0b" stop-opacity=".55"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient><radialGradient id="moonA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1e1e3a"/><stop offset="100%" stop-color="#060612"/></radialGradient></defs><circle cx="80" cy="80" r="54" fill="url(#sunA)"/><circle cx="80" cy="80" r="41" fill="url(#moonA)"/><circle cx="80" cy="80" r="47" fill="none" stroke="#fbbf24" stroke-width="5" stroke-opacity=".9"/></svg>
       <div class="eclipse-tag">Annular Eclipse</div>
       <div class="eclipse-type">Annular Solar Eclipse</div>
-      <p class="eclipse-desc">This happens when the Moon is a little <strong>farther away from Earth</strong> than usual, so it appears slightly smaller and cannot cover the Sun completely. The result is a beautiful <strong>"ring of fire"</strong> — a bright ring of sunlight visible around the Moon. Also called a ring eclipse!</p>
+      <p class="eclipse-desc">The Moon is a bit farther from Earth, so it looks smaller and creates a beautiful <strong>"ring of fire"</strong> — a bright ring of sunlight visible around the edge of the Moon!</p>
     </div>
+  </div>
 
+  <!-- 🔥 MINI ACTIVITY 6: Quiz on Eclipse Types -->
+  <div class="quick-quiz">
+    <div class="quiz-header">
+      <span class="quiz-icon">🌑</span>
+      <div><div class="quiz-label">Quick Quiz · Activity 6</div></div>
+    </div>
+    <p class="quiz-q">
+      Your friend sees a "ring of fire" shape in the sky during the day.
+      <strong>Which type of eclipse are they witnessing?</strong>
+    </p>
+    <div class="quiz-choices" id="quiz6">
+      <div class="quiz-choice" onclick="answerQuiz('quiz6',this,false,'q6fb')"><div class="quiz-radio"></div>Total Solar Eclipse</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz6',this,false,'q6fb')"><div class="quiz-radio"></div>Partial Solar Eclipse</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz6',this,true,'q6fb')"><div class="quiz-radio"></div>Annular Solar Eclipse</div>
+      <div class="quiz-choice" onclick="answerQuiz('quiz6',this,false,'q6fb')"><div class="quiz-radio"></div>Lunar Eclipse</div>
+    </div>
+    <div class="quiz-fb" id="q6fb"></div>
   </div>
 </section>
 
@@ -654,35 +862,70 @@ footer span { color:var(--glow); }
   <h2 class="section-heading">The Sun's <span>Role in Life on Earth</span></h2>
   <p class="role-intro">Without the Sun, there would be no life on Earth — no plants, no animals, no humans. Here's how the Sun supports every living thing on our planet:</p>
   <div class="role-grid">
-    <div class="role-card">
-      <span class="role-icon">🌱</span>
-      <div class="role-title">Photosynthesis</div>
-      <p class="role-text">Plants use sunlight to make their own food from carbon dioxide (CO₂) and water. This process — called <strong>photosynthesis</strong> — also produces the oxygen we breathe! Without the Sun, there would be no plants, and without plants, there would be no animals or humans either.</p>
+    <div class="role-card"><span class="role-icon">🌱</span><div class="role-title">Photosynthesis</div><p class="role-text">Plants use sunlight to make their own food from carbon dioxide (CO₂) and water. This process — called <strong>photosynthesis</strong> — also produces the oxygen we breathe! Without the Sun, there would be no plants, and without plants, there would be no animals or humans either.</p></div>
+    <div class="role-card"><span class="role-icon">🌡️</span><div class="role-title">Climate & Seasons</div><p class="role-text">The Sun heats Earth's surface unevenly — more at the equator, less at the poles. This creates <strong>wind, weather patterns, and ocean currents</strong> that move heat around the planet. The angle of sunlight also causes the four seasons as Earth orbits the Sun.</p></div>
+    <div class="role-card"><span class="role-icon">💧</span><div class="role-title">The Water Cycle</div><p class="role-text">Solar heat <strong>evaporates water</strong> from oceans, lakes, and rivers — turning liquid water into water vapour that rises into the atmosphere. Up in the sky it cools and forms clouds, then falls back as rain or snow. This cycle keeps our freshwater supplies full!</p></div>
+    <div class="role-card"><span class="role-icon">⚡</span><div class="role-title">Solar Energy</div><p class="role-text">We can capture sunlight using <strong>solar panels</strong> and turn it into electricity — clean energy with no pollution! In fact, wind power, hydropower, and even fossil fuels are all forms of stored solar energy. The Sun is the original energy source for almost everything!</p></div>
+    <div class="role-card"><span class="role-icon">🧬</span><div class="role-title">Vitamin D & Health</div><p class="role-text">When sunlight touches your skin, your body <strong>makes Vitamin D</strong> — an essential nutrient that helps build strong bones and keep your immune system healthy. This is why a little sunshine every day is actually good for you!</p></div>
+    <div class="role-card"><span class="role-icon">🌍</span><div class="role-title">Keeping Earth in Orbit</div><p class="role-text">The Sun's <strong>enormous gravity</strong> holds the entire Solar System together. It keeps Earth in the Goldilocks Zone — where temperatures are just right for liquid water to exist and life to survive.</p></div>
+  </div>
+
+  <!-- 🔥 MINI ACTIVITY 7: Observation Challenge -->
+  <div class="observe-challenge">
+    <div class="obs-header">
+      <span class="obs-icon">🔬</span>
+      <div><div class="obs-label">Real-World Observation · Activity 7</div></div>
     </div>
-    <div class="role-card">
-      <span class="role-icon">🌡️</span>
-      <div class="role-title">Climate & Seasons</div>
-      <p class="role-text">The Sun heats Earth's surface unevenly — more at the equator, less at the poles. This creates <strong>wind, weather patterns, and ocean currents</strong> that move heat around the planet. The angle of sunlight also causes the four seasons as Earth orbits the Sun.</p>
+    <p style="font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:20px;">
+      You've learned a lot about the Sun's role in daily life. Now it's time to <strong>spot it for yourself</strong>!
+      Complete this observation challenge over the next day.
+    </p>
+    <div class="obs-steps">
+      <div class="obs-step">
+        <div class="obs-step-num">1</div>
+        <div class="obs-step-text">Go outside or look through a window at different times of day — <strong>morning, noon, and late afternoon</strong>. Notice the shadow of a tall object (a tree, a wall, a post).</div>
+      </div>
+      <div class="obs-step">
+        <div class="obs-step-num">2</div>
+        <div class="obs-step-text">Observe <strong>how the shadow changes</strong> — its length and direction. Why do you think this happens? Think about what you learned about the Sun's position in the sky.</div>
+      </div>
+      <div class="obs-step">
+        <div class="obs-step-num">3</div>
+        <div class="obs-step-text">Also notice <strong>how warm you feel</strong> at each time. Is there a connection between the Sun's position and how hot it feels?</div>
+      </div>
     </div>
-    <div class="role-card">
-      <span class="role-icon">💧</span>
-      <div class="role-title">The Water Cycle</div>
-      <p class="role-text">Solar heat <strong>evaporates water</strong> from oceans, lakes, and rivers — turning liquid water into water vapour that rises into the atmosphere. Up in the sky it cools and forms clouds, then falls back as rain or snow. This cycle keeps our freshwater supplies full!</p>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:12px;font-family:'Orbitron',sans-serif;font-size:.58rem;letter-spacing:2px;text-transform:uppercase;">📝 Write your observations here:</p>
+    <textarea class="obs-record" placeholder="Morning: The shadow was... and it felt...&#10;Noon: The shadow was... and it felt...&#10;Afternoon: The shadow was... and it felt...&#10;&#10;My conclusion: I think this happens because..."></textarea>
+
+    <div class="activity-strip" style="margin-top:20px;margin-bottom:0;">
+      <span class="activity-strip-icon">🔗</span>
+      <div>
+        <div class="activity-strip-label">Connect It</div>
+        <div class="activity-strip-text">This is exactly what happens globally during different <strong>seasons</strong>! When Earth's axis tilts a region toward the Sun, the Sun appears higher — just like at noon — and that region gets warmer. Head over to the <a href="seasons.html" style="color:var(--cyan);">Seasons page</a> to explore this further!</div>
+      </div>
     </div>
-    <div class="role-card">
-      <span class="role-icon">⚡</span>
-      <div class="role-title">Solar Energy</div>
-      <p class="role-text">We can capture sunlight using <strong>solar panels</strong> and turn it into electricity — clean energy with no pollution! In fact, wind power, hydropower, and even fossil fuels (coal and oil) are all forms of stored solar energy from long ago. The Sun is the original energy source for almost everything!</p>
+  </div>
+
+  <!-- 🔥 MINI ACTIVITY 8: Final Think -->
+  <div class="think-box">
+    <div class="think-header">
+      <span class="think-icon">🌍</span>
+      <div><div class="think-label">Big Picture Thinking · Activity 8</div></div>
     </div>
-    <div class="role-card">
-      <span class="role-icon">🧬</span>
-      <div class="role-title">Vitamin D & Health</div>
-      <p class="role-text">When sunlight touches your skin, your body <strong>makes Vitamin D</strong> — an essential nutrient that helps build strong bones and keep your immune system healthy. People who don't get enough sunlight can develop health problems. This is why a little sunshine every day is actually good for you!</p>
-    </div>
-    <div class="role-card">
-      <span class="role-icon">🌍</span>
-      <div class="role-title">Keeping Earth in Orbit</div>
-      <p class="role-text">The Sun's <strong>enormous gravity</strong> holds the entire Solar System together. It keeps Earth in a stable path — the Goldilocks Zone — where temperatures are just right for liquid water to exist. If Earth were a little closer or farther from the Sun, liquid water would not exist and life would be impossible.</p>
+    <p class="think-q">
+      Imagine that the Sun's energy output suddenly <strong>dropped by half</strong> for one year.<br><br>
+      Using what you've learned about the Sun's role — <strong>list at least 3 specific things you think would change on Earth</strong>, and explain why each one would happen.
+    </p>
+    <textarea class="think-input" style="min-height:120px;" placeholder="1. I think _______ would happen because...&#10;2. I think _______ would happen because...&#10;3. I think _______ would happen because..."></textarea>
+    <br>
+    <button class="think-reveal-btn" onclick="revealAnswer('ans8')">💡 See Some Ideas</button>
+    <div class="think-answer" id="ans8">
+      There are many correct answers! Here are some likely effects: <br><br>
+      <strong>🌱 Plants would struggle to photosynthesize</strong> — less light means less food production, which would affect animals and humans in the food chain. <br>
+      <strong>🌡️ Global temperatures would drop sharply</strong> — leading to a kind of "mini ice age." Oceans would cool, glaciers would grow. <br>
+      <strong>💧 The water cycle would slow down</strong> — less evaporation means less rain, which could cause droughts and freshwater shortages. <br>
+      <strong>🌬️ Wind patterns would change</strong> — since the Sun drives uneven heating that creates wind, less energy would disrupt global weather systems. <br><br>
+      The Sun affects virtually everything — it really is the engine of life on Earth!
     </div>
   </div>
 </section>
@@ -694,10 +937,27 @@ footer span { color:var(--glow); }
 </footer>
 
 <script>
-// LAYERS INTERACTIVITY
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('cursorTrail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px';
+  setTimeout(() => { trail.style.left = e.clientX+'px'; trail.style.top = e.clientY+'px'; }, 80);
+});
+document.querySelectorAll('a,button,.quiz-choice,.sort-chip,.analogy-select').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='24px';cursor.style.height='24px';cursor.style.background='var(--glow)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='16px';cursor.style.height='16px';cursor.style.background='var(--cyan)'; });
+});
+
+// ── DROPDOWN ──
+document.querySelectorAll('.has-dropdown > a').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); });
+});
+document.addEventListener('click', () => document.querySelectorAll('.has-dropdown').forEach(el => el.classList.remove('open')));
+
+// ── SUN LAYERS ──
 const layers = ["inti","radiatif","konveksi","fotosfer","kromosfer","korona"];
 const cutaway = document.getElementById("sunCutaway");
-
 function setLayer(name) {
   if (!layers.includes(name)) return;
   document.querySelectorAll(".diag-label").forEach(el => el.classList.remove("active"));
@@ -709,10 +969,9 @@ function setLayer(name) {
   document.getElementById("infoPanel").classList.add("active");
   cutaway.dataset.active = name;
 }
-
 cutaway.addEventListener("click", function(e) {
   const rect = this.getBoundingClientRect();
-  const x = e.clientX - rect.left, y = e.clientY - rect.top;
+  const x = e.clientX-rect.left, y = e.clientY-rect.top;
   const cx = rect.width/2, cy = rect.height/2;
   if (x > cx) return;
   const dx = x-cx, dy = y-cy;
@@ -724,10 +983,9 @@ cutaway.addEventListener("click", function(e) {
   else if (dist < 0.91) setLayer("kromosfer");
   else if (dist < 1.00) setLayer("korona");
 });
-
 cutaway.addEventListener("mousemove", function(e) {
   const rect = this.getBoundingClientRect();
-  const x = e.clientX - rect.left, y = e.clientY - rect.top;
+  const x = e.clientX-rect.left, y = e.clientY-rect.top;
   const cx = rect.width/2, cy = rect.height/2;
   if (x > cx) { this.removeAttribute("data-hover"); return; }
   const dx = x-cx, dy = y-cy;
@@ -745,16 +1003,142 @@ document.querySelectorAll("[data-layer]").forEach(el => {
   el.addEventListener("click", e => { e.stopPropagation(); setLayer(el.dataset.layer); });
 });
 
-// DROPDOWN
-document.querySelectorAll('.has-dropdown > a').forEach(function(a) {
-  a.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    this.parentElement.classList.toggle('open');
+// ── ACTIVITY 1 & 5 & 8: Think & Reveal ──
+function revealAnswer(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('visible');
+}
+
+// ── ACTIVITY 2: Sort ──
+const sortPlacements = {}; // chipText → zone ('inside'|'atmo')
+
+function placeChip(chipEl, zoneId) {
+  if (chipEl.classList.contains('placed')) return;
+  const zone = zoneId === 'sort-inside' ? 'inside' : 'atmo';
+  const text = chipEl.textContent.trim();
+  sortPlacements[text] = { zone, correct: chipEl.dataset.correct };
+
+  // Create placed chip
+  const placed = document.getElementById('placed-' + zone);
+  const p = document.createElement('div');
+  p.className = 'sort-placed-chip ' + (zone === 'inside' ? 'hot-chip' : 'cold-chip');
+  p.textContent = text;
+  p.dataset.zone = zone;
+  p.dataset.chipText = text;
+  p.title = 'Click to remove';
+  p.onclick = () => removeChip(p, chipEl);
+  placed.appendChild(p);
+  chipEl.classList.add('placed');
+
+  // Reset previous result
+  document.getElementById('sortResult').className = 'sort-result';
+}
+
+function removeChip(placedEl, sourceChip) {
+  const zone = placedEl.dataset.zone;
+  const text = placedEl.dataset.chipText;
+  delete sortPlacements[text];
+  document.getElementById('placed-' + zone).removeChild(placedEl);
+  sourceChip.classList.remove('placed');
+  document.getElementById('sortResult').className = 'sort-result';
+}
+
+function checkSort() {
+  const answers = {
+    'Core': 'inside', 'Radiative Zone': 'inside',
+    'Convection Zone': 'inside', 'Photosphere': 'inside',
+    'Chromosphere': 'atmo', 'Corona': 'atmo'
+  };
+
+  const allChips = document.querySelectorAll('#sortChips .sort-chip');
+  const total = allChips.length;
+  const placed = Object.keys(sortPlacements).length;
+
+  if (placed < total) {
+    const r = document.getElementById('sortResult');
+    r.className = 'sort-result incorrect';
+    r.innerHTML = '⚠️ Please place all 6 layers before checking!';
+    return;
+  }
+
+  let correct = 0;
+  for (const [text, data] of Object.entries(sortPlacements)) {
+    if (answers[text] === data.zone) correct++;
+  }
+
+  const r = document.getElementById('sortResult');
+  if (correct === total) {
+    r.className = 'sort-result correct';
+    r.innerHTML = '🎉 <strong>Perfect!</strong> You got all 6 layers right! The Core, Radiative Zone, Convection Zone, and Photosphere are inside the Sun. The Chromosphere and Corona are the Sun\'s atmosphere layers.';
+  } else {
+    r.className = 'sort-result incorrect';
+    r.innerHTML = `You got <strong>${correct}/${total}</strong> correct. Remember: the Corona and Chromosphere are atmospheric layers, while the Photosphere is actually the Sun\'s visible surface — it\'s technically inside the boundary. Try adjusting your answers!`;
+  }
+}
+
+// ── ACTIVITY 3: Analogy ──
+function checkAnalogy() {
+  const a1 = document.getElementById('a1').value;
+  const a2 = document.getElementById('a2').value;
+  const r = document.getElementById('analogyResult');
+
+  if (!a1 || !a2) {
+    r.className = 'analogy-result visible wrong';
+    r.innerHTML = '⚠️ Please select an answer for both layers first!';
+    return;
+  }
+
+  if (a1 === 'correct' && a2 === 'correct') {
+    r.className = 'analogy-result visible correct';
+    r.innerHTML = '🎉 <strong>Both correct!</strong> The Convection Zone is exactly like boiling water — hot gas rises, cools, and sinks in a cycle. The Radiative Zone is like light trying to push through a thick crowd — photons bounce around for up to 170,000 years before getting through!';
+  } else {
+    r.className = 'analogy-result visible wrong';
+    let hint = '';
+    if (a1 !== 'correct') hint += 'Hint for Convection Zone: think about what happens when water boils in a pot on your stove. ';
+    if (a2 !== 'correct') hint += 'Hint for Radiative Zone: imagine being in a very crowded room and trying to walk from one side to the other — how long would it take?';
+    r.innerHTML = `<strong>Not quite!</strong> ${hint} Try again!`;
+  }
+}
+
+// ── ACTIVITY 4 & 6: Quick Quiz ──
+function answerQuiz(groupId, el, isCorrect, fbId) {
+  const group = document.getElementById(groupId);
+  if (group.dataset.answered) return;
+  group.dataset.answered = 'true';
+
+  const choices = group.querySelectorAll('.quiz-choice');
+  choices.forEach(c => {
+    c.style.pointerEvents = 'none';
+    if (c === el) {
+      c.classList.add(isCorrect ? 'correct-pick' : 'wrong-pick');
+    }
   });
-});
-document.addEventListener('click', function() {
-  document.querySelectorAll('.has-dropdown').forEach(function(item) { item.classList.remove('open'); });
-});
+
+  // Reveal correct if wrong
+  if (!isCorrect) {
+    choices.forEach(c => {
+      const txt = c.textContent.trim();
+      if ((groupId === 'quiz4' && txt === 'A Solar Flare bursting from the Sun') ||
+          (groupId === 'quiz6' && txt === 'Annular Solar Eclipse')) {
+        c.classList.add('reveal-correct');
+      }
+    });
+  }
+
+  const fb = document.getElementById(fbId);
+  fb.classList.add('shown');
+  if (isCorrect) {
+    fb.className = 'quiz-fb shown win';
+    fb.innerHTML = groupId === 'quiz4'
+      ? '✅ <strong>Correct!</strong> Solar flares release powerful bursts of electromagnetic energy that can disrupt satellites, GPS systems, and even radio communication on Earth. Sunspots are just cooler patches and don\'t cause interference directly.'
+      : '✅ <strong>Correct!</strong> The "ring of fire" is the defining feature of an annular eclipse — it happens when the Moon is slightly farther from Earth and appears a bit smaller, leaving a bright ring of Sun visible around the edges.';
+  } else {
+    fb.className = 'quiz-fb shown lose';
+    fb.innerHTML = groupId === 'quiz4'
+      ? '❌ <strong>Not quite.</strong> The correct answer is <strong>Solar Flare</strong>. Flares release sudden bursts of electromagnetic energy that can interfere with satellites and GPS systems. Give it another read!'
+      : '❌ <strong>Not quite.</strong> The correct answer is <strong>Annular Solar Eclipse</strong>. The "ring of fire" happens when the Moon is farther away and appears smaller, so it cannot fully block the Sun.';
+  }
+}
 </script>
 </body>
 </html>

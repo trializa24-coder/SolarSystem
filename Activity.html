@@ -6,7 +6,7 @@
 <title>Activity | Tria Liza</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
-:root {
+:root{
   --space:#020818;--deep:#050d2a;
   --accent:#7c3aed;--glow:#a78bfa;--cyan:#22d3ee;
   --text:#e2e8f0;--muted:#94a3b8;
@@ -16,25 +16,51 @@
 html{scroll-behavior:smooth;}
 body{
   background:var(--space);color:var(--text);
-  font-family:'Exo 2',sans-serif;
-  font-size:18px;
-  line-height:1.85;
+  font-family:'Exo 2',sans-serif;font-size:17px;line-height:1.85;
   min-height:100vh;overflow-x:hidden;cursor:none;
 }
+
+/* ── CURSOR ── */
 .cursor{position:fixed;width:16px;height:16px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;box-shadow:0 0 20px var(--cyan);mix-blend-mode:screen;}
 .cursor-trail{position:fixed;width:40px;height:40px;border:1px solid var(--glow);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s ease;opacity:.5;}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(1px 1px at 10% 20%,white,transparent),radial-gradient(1px 1px at 25% 65%,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 50% 10%,white,transparent),radial-gradient(1px 1px at 70% 45%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 85% 80%,white,transparent),radial-gradient(1px 1px at 35% 90%,rgba(255,255,255,.8),transparent),radial-gradient(1px 1px at 60% 30%,white,transparent),radial-gradient(1px 1px at 15% 55%,rgba(167,139,250,.6),transparent),radial-gradient(1px 1px at 90% 15%,rgba(255,255,255,.9),transparent),radial-gradient(1px 1px at 45% 75%,white,transparent),radial-gradient(1px 1px at 78% 60%,rgba(255,255,255,.5),transparent);}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);backdrop-filter:blur(10px);}
+/* ── STAR FIELD ── */
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%,white,transparent),
+    radial-gradient(1px 1px at 25% 65%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1.5px 1.5px at 50% 10%,white,transparent),
+    radial-gradient(1px 1px at 70% 45%,rgba(255,255,255,.6),transparent),
+    radial-gradient(1px 1px at 85% 80%,white,transparent),
+    radial-gradient(1px 1px at 35% 90%,rgba(255,255,255,.8),transparent),
+    radial-gradient(1px 1px at 60% 30%,white,transparent),
+    radial-gradient(1px 1px at 15% 55%,rgba(167,139,250,.6),transparent),
+    radial-gradient(1px 1px at 90% 15%,rgba(255,255,255,.9),transparent),
+    radial-gradient(1px 1px at 45% 75%,white,transparent),
+    radial-gradient(1px 1px at 78% 60%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1px 1px at 5% 40%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1px 1px at 55% 50%,rgba(167,139,250,.4),transparent),
+    radial-gradient(1px 1px at 92% 35%,white,transparent),
+    radial-gradient(1px 1px at 30% 15%,rgba(255,255,255,.6),transparent);
+}
+
+/* ── SHOOTING STARS ── */
+.shooting-star{position:fixed;width:2px;height:2px;background:white;border-radius:50%;pointer-events:none;z-index:0;opacity:0;}
+.shooting-star::after{content:'';position:absolute;top:0;right:0;width:80px;height:1px;background:linear-gradient(to left,white,transparent);transform-origin:right center;}
+@keyframes shoot{
+  0%{opacity:0;transform:translate(0,0);}
+  10%{opacity:1;}
+  90%{opacity:.5;}
+  100%{opacity:0;transform:translate(-400px,200px);}
+}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(2,8,24,0.92),transparent);backdrop-filter:blur(10px);}
 .nav-logo{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none;}
 .nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
-.nav-links a{font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
+.nav-links a{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
-.nav-links a:hover{color:var(--cyan);}
-.nav-links a:hover::after{width:100%;}
-.nav-active{color:var(--cyan)!important;}
-.nav-active::after{width:100%!important;}
+.nav-links a:hover{color:var(--cyan);}.nav-links a:hover::after{width:100%;}
 .has-dropdown{position:relative;align-self:center;}
 .has-dropdown>a{display:flex;align-items:center;gap:6px;}
 .arrow{display:inline-block;font-size:.7rem;transition:transform .3s ease;}
@@ -43,207 +69,81 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 @keyframes dropFade{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .has-dropdown.open .dropdown{display:flex;}
 .dropdown li a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap;}
-.dropdown li a::after{display:none;}
-.dropdown li a:hover{color:var(--cyan);background:rgba(34,211,238,.07);}
+.dropdown li a::after{display:none;}.dropdown li a:hover{color:var(--cyan);background:rgba(34,211,238,.07);}
 
-/* HERO */
+/* ── HERO ── */
 .page-hero{position:relative;z-index:1;padding:160px 60px 60px;text-align:center;}
 .page-eyebrow{font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:5px;color:var(--glow);text-transform:uppercase;margin-bottom:14px;display:block;opacity:0;animation:fadeUp .8s .2s ease forwards;}
 .page-title{font-family:'Orbitron',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:18px;opacity:0;animation:fadeUp .8s .4s ease forwards;}
 .page-title span{background:linear-gradient(90deg,var(--glow),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-sub{font-size:1.15rem;font-weight:300;line-height:1.9;color:var(--muted);max-width:620px;margin:0 auto;opacity:0;animation:fadeUp .8s .6s ease forwards;}
+.page-sub{font-size:1.1rem;font-weight:300;line-height:1.9;color:var(--muted);max-width:620px;margin:0 auto;opacity:0;animation:fadeUp .8s .6s ease forwards;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* SCOREBOARD */
-.scoreboard{position:relative;z-index:1;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 60px 40px;opacity:0;animation:fadeUp .8s .8s ease forwards;}
-.score-box{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 32px;text-align:center;min-width:140px;}
-.score-num{font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:900;color:var(--glow);}
-.score-label{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+/* ── ASTRONAUT MISSION BAR ── */
+.mission-bar{position:relative;z-index:1;max-width:700px;margin:0 auto;padding:0 60px 20px;opacity:0;animation:fadeUp .8s .7s ease forwards;}
+.mission-label{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between;}
+.mission-track{position:relative;height:36px;background:rgba(255,255,255,.04);border:1px solid rgba(167,139,250,.2);border-radius:50px;overflow:visible;}
+.mission-fill{height:100%;background:linear-gradient(90deg,rgba(124,58,237,.5),rgba(34,211,238,.4));border-radius:50px;transition:width .8s cubic-bezier(.34,1.56,.64,1);width:0%;}
+/* planet checkpoints */
+.checkpoint{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:1.1rem;z-index:3;transition:transform .3s;filter:grayscale(1) opacity(.4);}
+.checkpoint.reached{filter:none;animation:cpPop .5s ease forwards;}
+@keyframes cpPop{0%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(1.6)}100%{transform:translate(-50%,-50%) scale(1)}}
+/* astronaut character */
+.astronaut{position:absolute;top:50%;width:32px;height:32px;transform:translate(-50%,-60%);z-index:4;transition:left .8s cubic-bezier(.34,1.56,.64,1);left:0%;}
+.astro-svg{width:32px;height:32px;animation:astroFloat 2s ease-in-out infinite;}
+@keyframes astroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.astro-walk{animation:astroWalk .4s steps(2) infinite,astroFloat 2s ease-in-out infinite;}
+@keyframes astroWalk{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
 
-/* GAME NAV TABS */
+/* ── SCOREBOARD ── */
+.scoreboard{position:relative;z-index:1;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:0 60px 32px;opacity:0;animation:fadeUp .8s .85s ease forwards;}
+.score-box{background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 28px;text-align:center;min-width:130px;transition:transform .3s,border-color .3s;}
+.score-box:hover{transform:translateY(-3px);border-color:rgba(167,139,250,.4);}
+.score-num{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--glow);transition:transform .3s;}
+.score-num.bump{animation:numBump .4s ease;}
+@keyframes numBump{0%{transform:scale(1)}50%{transform:scale(1.4);color:var(--cyan)}100%{transform:scale(1)}}
+.score-label{font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+
+/* ── TABS ── */
 .game-tabs{position:relative;z-index:1;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:0 60px 20px;}
-.game-tab{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;padding:10px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.12);color:var(--muted);background:transparent;cursor:pointer;transition:all .3s;text-transform:uppercase;}
-.game-tab.active,.game-tab:hover{border-color:var(--glow);color:var(--glow);background:rgba(167,139,250,.1);}
+.game-tab{font-family:'Orbitron',sans-serif;font-size:.63rem;letter-spacing:2px;padding:10px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.12);color:var(--muted);background:transparent;cursor:pointer;transition:all .3s;text-transform:uppercase;position:relative;overflow:hidden;}
+.game-tab::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(167,139,250,.15),transparent);transform:translateX(-100%);transition:transform .5s;}
+.game-tab:hover::before{transform:translateX(100%);}
+.game-tab.active,.game-tab:hover{border-color:var(--glow);color:var(--glow);background:rgba(167,139,250,.08);}
 .game-tab.sdg-tab{border-color:rgba(74,222,128,.4);color:var(--green);}
 .game-tab.sdg-tab.active,.game-tab.sdg-tab:hover{background:rgba(74,222,128,.1);}
-
+.game-tab.inq-tab{border-color:rgba(249,115,22,.4);color:var(--orange);}
+.game-tab.inq-tab.active,.game-tab.inq-tab:hover{background:rgba(249,115,22,.1);}
 .divider-line{height:1px;background:linear-gradient(to right,transparent,rgba(167,139,250,.3),rgba(34,211,238,.3),transparent);margin:0 60px 0;position:relative;z-index:1;}
 
-/* MAIN */
+/* ── MAIN ── */
 main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 60px 100px;}
-
-/* GAME SECTIONS */
-.game-section{display:none;animation:fadeUp .4s ease;}
+.game-section{display:none;animation:sectionIn .4s ease;}
 .game-section.active{display:block;}
+@keyframes sectionIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
+/* ── SECTION HEADERS ── */
 .game-header{margin-bottom:32px;}
-.game-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.2);border:1px solid rgba(167,139,250,.4);border-radius:50px;padding:6px 18px;font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:3px;color:var(--glow);text-transform:uppercase;margin-bottom:14px;}
+.game-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.2);border:1px solid rgba(167,139,250,.4);border-radius:50px;padding:6px 18px;font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:3px;color:var(--glow);text-transform:uppercase;margin-bottom:14px;}
 .game-badge.green{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.4);color:var(--green);}
-.game-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;margin-bottom:10px;}
+.game-badge.orange{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.4);color:var(--orange);}
+.game-title{font-family:'Orbitron',sans-serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:700;margin-bottom:10px;}
 .game-title span{color:var(--cyan);}
 .game-title span.green{color:var(--green);}
-.game-desc{font-size:1rem;line-height:1.8;color:var(--muted);max-width:680px;}
+.game-title span.orange{color:var(--orange);}
+.game-desc{font-size:.97rem;line-height:1.8;color:var(--muted);max-width:680px;}
 
-/* POINT TOAST */
-.point-toast{position:fixed;top:90px;right:30px;background:rgba(74,222,128,.15);border:1px solid var(--green);border-radius:12px;padding:12px 20px;font-family:'Orbitron',sans-serif;font-size:.8rem;color:var(--green);z-index:500;opacity:0;transform:translateY(-10px);transition:all .3s;pointer-events:none;}
-.point-toast.show{opacity:1;transform:translateY(0);}
+/* ── TOAST ── */
+.point-toast{position:fixed;top:88px;right:28px;background:rgba(5,13,42,.95);border:1px solid var(--green);border-radius:14px;padding:12px 20px;font-family:'Orbitron',sans-serif;font-size:.78rem;color:var(--green);z-index:600;opacity:0;transform:translateY(-10px) scale(.95);transition:all .3s;pointer-events:none;box-shadow:0 4px 24px rgba(74,222,128,.2);}
+.point-toast.show{opacity:1;transform:translateY(0) scale(1);}
 
-/* ══════════════════════════════
-   GAME 1 — PLANET MATCH
-══════════════════════════════ */
-.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
-.match-col-label{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;padding-left:4px;}
-.match-item{
-  padding:16px 20px;border-radius:12px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.03);
-  font-size:1rem;line-height:1.6;
-  transition:all .25s;
-}
-.match-item:hover{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.1);}
-.match-item.selected{border-color:var(--glow);background:rgba(167,139,250,.15);color:white;}
-.match-item.correct{border-color:var(--green);background:rgba(74,222,128,.1);color:var(--green);pointer-events:none;}
-.match-item.wrong{border-color:var(--red);background:rgba(248,113,113,.1);color:var(--red);}
-.match-item.used{opacity:.35;pointer-events:none;}
-.match-planet-name{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:4px;}
+/* ── STAR BURST CANVAS (correct answer effect) ── */
+#burstCanvas{position:fixed;inset:0;pointer-events:none;z-index:500;}
 
-/* ══════════════════════════════
-   GAME 2 — ORBIT ORDER
-══════════════════════════════ */
-.orbit-pool{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;min-height:60px;padding:16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;}
-.orbit-chip{
-  font-family:'Orbitron',sans-serif;font-size:.78rem;letter-spacing:1px;
-  padding:10px 20px;border-radius:50px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);
-  color:var(--text);transition:all .25s;
-}
-.orbit-chip:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.08);}
-.orbit-chip.placed{opacity:.3;pointer-events:none;}
-.orbit-sequence{display:flex;flex-wrap:wrap;gap:10px;min-height:58px;padding:14px;background:rgba(124,58,237,.05);border:2px dashed rgba(167,139,250,.25);border-radius:14px;margin-bottom:20px;align-items:center;}
-.orbit-seq-chip{
-  font-family:'Orbitron',sans-serif;font-size:.75rem;
-  padding:8px 16px;border-radius:50px;cursor:pointer;
-  background:rgba(167,139,250,.15);border:1px solid var(--glow);
-  color:var(--glow);transition:all .2s;
-}
-.orbit-seq-chip:hover{background:rgba(167,139,250,.25);}
-.orbit-result{font-size:1rem;line-height:1.75;padding:16px 20px;border-radius:12px;display:none;margin-bottom:16px;}
-.orbit-result.correct{background:rgba(74,222,128,.1);border:1px solid var(--green);color:var(--green);display:block;}
-.orbit-result.wrong{background:rgba(248,113,113,.1);border:1px solid var(--red);color:var(--red);display:block;}
-
-/* ══════════════════════════════
-   GAME 3 — QUIZ
-══════════════════════════════ */
-.quiz-progress{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
-.quiz-bar-wrap{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:50px;overflow:hidden;}
-.quiz-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:50px;transition:width .5s ease;width:0%;}
-.quiz-counter{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:2px;color:var(--muted);white-space:nowrap;}
-
-.quiz-card{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:32px;}
-.quiz-q-badge{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;color:var(--glow);text-transform:uppercase;margin-bottom:12px;}
-.quiz-q-badge.sdg{color:var(--green);}
-.quiz-question{font-size:1.15rem;font-weight:600;line-height:1.75;color:white;margin-bottom:24px;}
-.quiz-options{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
-.quiz-option{
-  padding:16px 22px;border-radius:12px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);
-  font-size:1rem;line-height:1.65;text-align:left;color:var(--text);
-  transition:all .25s;display:flex;gap:14px;align-items:flex-start;
-}
-.quiz-option:hover{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.08);}
-.quiz-option.correct{border-color:var(--green);background:rgba(74,222,128,.1);color:var(--green);pointer-events:none;}
-.quiz-option.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);pointer-events:none;}
-.quiz-option.disabled{pointer-events:none;opacity:.5;}
-.opt-letter{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:2px;}
-.quiz-feedback{font-size:.97rem;line-height:1.75;padding:14px 18px;border-radius:10px;margin-bottom:16px;display:none;}
-.quiz-feedback.show{display:block;}
-.quiz-feedback.correct{background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.3);color:#86efac;}
-.quiz-feedback.wrong{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3);color:#fca5a5;}
-
-.quiz-result-card{text-align:center;padding:40px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;}
-.quiz-result-score{font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;color:var(--glow);margin-bottom:8px;}
-.quiz-result-msg{font-size:1.1rem;color:var(--muted);margin-bottom:24px;}
-
-/* ══════════════════════════════
-   GAME 4 — FILL IN THE BLANK
-══════════════════════════════ */
-.fill-list{display:flex;flex-direction:column;gap:20px;margin-bottom:24px;}
-.fill-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px;}
-.fill-sentence{font-size:1.05rem;line-height:1.9;color:#cbd5e1;margin-bottom:14px;}
-.fill-input{
-  width:100%;background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.15);border-radius:10px;
-  color:var(--text);font-family:'Exo 2',sans-serif;
-  font-size:1rem;padding:12px 18px;
-  transition:border-color .3s,background .3s;
-}
-.fill-input:focus{outline:none;border-color:var(--glow);background:rgba(167,139,250,.06);}
-.fill-input.correct{border-color:var(--green);background:rgba(74,222,128,.08);color:var(--green);}
-.fill-input.wrong{border-color:var(--red);background:rgba(248,113,113,.08);}
-.fill-hint{font-size:.88rem;color:var(--muted);margin-top:8px;display:none;}
-.fill-hint.show{display:block;}
-
-/* ══════════════════════════════
-   GAME 5 — SPIN THE WHEEL
-══════════════════════════════ */
-.spin-wrap{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start;}
-.wheel-container{display:flex;flex-direction:column;align-items:center;gap:20px;}
-.wheel-canvas-wrap{position:relative;width:260px;height:260px;}
-#spinCanvas{border-radius:50%;display:block;}
-.wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.8rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5));}
-.spin-question-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px;}
-.spin-topic-badge{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:inline-block;padding:4px 12px;border-radius:50px;border:1px solid currentColor;}
-.spin-question-text{font-size:1.1rem;line-height:1.8;color:white;font-weight:600;margin-bottom:20px;}
-.spin-answer-area{width:100%;min-height:100px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:1rem;padding:14px 18px;resize:vertical;line-height:1.7;}
-.spin-answer-area:focus{outline:none;border-color:var(--glow);background:rgba(167,139,250,.06);}
-.spin-reveal-btn{margin-top:14px;padding:12px 24px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:var(--muted);font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;cursor:pointer;transition:all .3s;}
-.spin-reveal-btn:hover{border-color:var(--glow);color:var(--glow);}
-.spin-sample-answer{margin-top:14px;padding:14px 18px;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.2);border-radius:10px;font-size:.95rem;color:#86efac;line-height:1.75;display:none;}
-.spin-sample-answer.show{display:block;}
-.spin-idle{text-align:center;color:var(--muted);font-size:1rem;line-height:1.7;padding:40px 20px;}
-
-/* ══════════════════════════════
-   GAME 6 — SDG CHALLENGE
-══════════════════════════════ */
-.sdg-challenge-intro{background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(34,211,238,.04));border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:24px 28px;margin-bottom:32px;font-size:1rem;line-height:1.85;color:#cbd5e1;}
-.sdg-challenge-intro strong{color:var(--green);}
-
-.sdg-match-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;}
-.sdg-match-col-label{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
-.sdg-match-item{
-  padding:16px 20px;border-radius:12px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.03);
-  font-size:.97rem;line-height:1.65;
-  transition:all .25s;
-}
-.sdg-match-item:hover{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.06);}
-.sdg-match-item.selected{border-color:var(--green);background:rgba(74,222,128,.12);color:white;}
-.sdg-match-item.correct{border-color:var(--green);background:rgba(74,222,128,.12);color:var(--green);pointer-events:none;}
-.sdg-match-item.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);}
-.sdg-match-item.used{opacity:.3;pointer-events:none;}
-.sdg-num{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;margin-bottom:4px;color:var(--green);}
-
-.sdg-quiz-list{display:flex;flex-direction:column;gap:24px;margin-bottom:28px;}
-.sdg-quiz-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px;}
-.sdg-quiz-q{font-size:1.05rem;font-weight:600;color:white;margin-bottom:16px;line-height:1.7;}
-.sdg-quiz-opts{display:flex;flex-direction:column;gap:10px;}
-.sdg-quiz-opt{
-  padding:13px 18px;border-radius:10px;cursor:pointer;
-  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);
-  font-size:.97rem;text-align:left;color:var(--text);
-  transition:all .25s;display:flex;gap:12px;align-items:flex-start;
-}
-.sdg-quiz-opt:hover{border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.06);}
-.sdg-quiz-opt.correct{border-color:var(--green);background:rgba(74,222,128,.1);color:var(--green);pointer-events:none;}
-.sdg-quiz-opt.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);pointer-events:none;}
-.sdg-quiz-opt.disabled{pointer-events:none;opacity:.5;}
-.sdg-feedback{font-size:.95rem;line-height:1.75;padding:12px 16px;border-radius:10px;margin-top:12px;display:none;}
-.sdg-feedback.show.correct{display:block;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.25);color:#86efac;}
-.sdg-feedback.show.wrong{display:block;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.25);color:#fca5a5;}
-
-/* BUTTONS */
-.btn{font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;padding:13px 28px;border-radius:12px;cursor:pointer;transition:all .3s;text-transform:uppercase;}
+/* ── BUTTONS ── */
+.btn{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:2px;padding:13px 28px;border-radius:12px;cursor:pointer;transition:all .3s;text-transform:uppercase;position:relative;overflow:hidden;}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .3s;}
+.btn:hover::after{opacity:1;}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#5b21b6);border:none;color:white;box-shadow:0 4px 20px rgba(124,58,237,.3);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.5);}
 .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--muted);}
@@ -252,14 +152,176 @@ main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 60p
 .btn-green:hover{background:linear-gradient(135deg,rgba(74,222,128,.3),rgba(34,211,238,.2));transform:translateY(-2px);}
 .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
 
-footer{position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:2px;color:var(--muted);}
+/* ════════════════════════════════
+   GAME 1 — PLANET MATCH
+════════════════════════════════ */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.match-col-label{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.match-item{padding:15px 18px;border-radius:12px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.95rem;line-height:1.6;transition:all .22s;margin-bottom:10px;position:relative;overflow:hidden;}
+.match-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(167,139,250,.08),transparent);transform:translateX(-100%);transition:transform .4s;}
+.match-item:hover::before{transform:translateX(100%);}
+.match-item:hover{border-color:rgba(167,139,250,.5);background:rgba(124,58,237,.08);}
+.match-item.selected{border-color:var(--glow);background:rgba(167,139,250,.12);color:white;}
+.match-item.correct{border-color:var(--green);background:rgba(74,222,128,.08);color:var(--green);pointer-events:none;animation:correctPop .5s ease;}
+.match-item.wrong{animation:wrongShake .4s ease;}
+.match-item.used{opacity:.3;pointer-events:none;}
+.match-planet-name{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:4px;}
+@keyframes correctPop{0%{transform:scale(1)}30%{transform:scale(1.04)}60%{transform:scale(.98)}100%{transform:scale(1)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* ════════════════════════════════
+   GAME 2 — ORBIT ORDER
+════════════════════════════════ */
+.orbit-pool{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;min-height:58px;padding:14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;}
+.orbit-chip{font-family:'Orbitron',sans-serif;font-size:.75rem;letter-spacing:1px;padding:9px 18px;border-radius:50px;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:var(--text);transition:all .22s;}
+.orbit-chip:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.08);transform:translateY(-2px);}
+.orbit-chip.placed{opacity:.3;pointer-events:none;}
+.orbit-sequence{display:flex;flex-wrap:wrap;gap:10px;min-height:56px;padding:14px;background:rgba(124,58,237,.04);border:2px dashed rgba(167,139,250,.22);border-radius:14px;margin-bottom:20px;align-items:center;}
+.orbit-seq-chip{font-family:'Orbitron',sans-serif;font-size:.72rem;padding:8px 15px;border-radius:50px;cursor:pointer;background:rgba(167,139,250,.13);border:1px solid var(--glow);color:var(--glow);transition:all .2s;}
+.orbit-seq-chip:hover{background:rgba(167,139,250,.22);transform:scale(.96);}
+.orbit-result{font-size:.95rem;line-height:1.75;padding:16px 20px;border-radius:12px;display:none;margin-bottom:16px;}
+.orbit-result.correct{background:rgba(74,222,128,.08);border:1px solid var(--green);color:var(--green);display:block;}
+.orbit-result.wrong{background:rgba(248,113,113,.08);border:1px solid var(--red);color:var(--red);display:block;}
+
+/* ════════════════════════════════
+   GAME 3 — QUIZ
+════════════════════════════════ */
+.quiz-progress{display:flex;align-items:center;gap:16px;margin-bottom:28px;}
+.quiz-bar-wrap{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:50px;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:50px;transition:width .5s ease;width:0%;}
+.quiz-counter{font-family:'Orbitron',sans-serif;font-size:.68rem;letter-spacing:2px;color:var(--muted);white-space:nowrap;}
+.quiz-card{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:30px;}
+.quiz-q-badge{font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:2px;color:var(--glow);text-transform:uppercase;margin-bottom:12px;}
+.quiz-question{font-size:1.1rem;font-weight:600;line-height:1.75;color:white;margin-bottom:22px;}
+.quiz-options{display:flex;flex-direction:column;gap:11px;margin-bottom:18px;}
+.quiz-option{padding:14px 20px;border-radius:12px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.96rem;line-height:1.65;text-align:left;color:var(--text);transition:all .22s;display:flex;gap:14px;align-items:flex-start;position:relative;overflow:hidden;}
+.quiz-option::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(167,139,250,.06),transparent);transform:translateX(-100%);transition:transform .4s;}
+.quiz-option:hover::before{transform:translateX(100%);}
+.quiz-option:hover{border-color:rgba(167,139,250,.45);background:rgba(124,58,237,.07);}
+.quiz-option.correct{border-color:var(--green);background:rgba(74,222,128,.08);color:var(--green);pointer-events:none;animation:correctPop .5s ease;}
+.quiz-option.wrong{border-color:var(--red);background:rgba(248,113,113,.07);color:var(--red);pointer-events:none;animation:wrongShake .4s ease;}
+.quiz-option.disabled{pointer-events:none;opacity:.45;}
+.opt-letter{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:3px;color:var(--muted);}
+.quiz-feedback{font-size:.94rem;line-height:1.75;padding:14px 18px;border-radius:10px;margin-bottom:14px;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.correct{background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.28);color:#86efac;}
+.quiz-feedback.wrong{background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.28);color:#fca5a5;}
+.quiz-result-card{text-align:center;padding:44px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:20px;}
+.quiz-result-score{font-family:'Orbitron',sans-serif;font-size:3.2rem;font-weight:900;color:var(--glow);margin-bottom:8px;animation:numBump .6s ease;}
+.quiz-result-msg{font-size:1.05rem;color:var(--muted);margin-bottom:24px;}
+
+/* ════════════════════════════════
+   GAME 4 — FILL BLANK
+════════════════════════════════ */
+.fill-list{display:flex;flex-direction:column;gap:18px;margin-bottom:24px;}
+.fill-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 22px;}
+.fill-sentence{font-size:1rem;line-height:1.9;color:#cbd5e1;margin-bottom:12px;}
+.fill-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);border-radius:10px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.97rem;padding:11px 16px;transition:border-color .3s,background .3s;}
+.fill-input:focus{outline:none;border-color:var(--glow);background:rgba(167,139,250,.05);}
+.fill-input.correct{border-color:var(--green);background:rgba(74,222,128,.07);color:var(--green);}
+.fill-input.wrong{border-color:var(--red);background:rgba(248,113,113,.06);animation:wrongShake .4s ease;}
+.fill-hint{font-size:.86rem;color:var(--muted);margin-top:8px;display:none;font-style:italic;}
+.fill-hint.show{display:block;}
+
+/* ════════════════════════════════
+   GAME 5 — TRUE / FALSE
+════════════════════════════════ */
+.tf-list{display:flex;flex-direction:column;gap:16px;margin-bottom:24px;}
+.tf-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px;}
+.tf-q{font-size:1rem;font-weight:600;color:#fff;margin-bottom:14px;line-height:1.7;}
+.tf-btns{display:flex;gap:12px;}
+.tf-btn{padding:10px 28px;border-radius:10px;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:1px;cursor:pointer;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:var(--text);transition:all .25s;}
+.tf-btn:hover{transform:translateY(-2px);}
+.tf-btn.pick-true:hover{border-color:var(--green);color:var(--green);}
+.tf-btn.pick-false:hover{border-color:var(--red);color:var(--red);}
+.tf-btn.show-correct{border-color:var(--green);color:var(--green);pointer-events:none;}
+.tf-btn.show-wrong{border-color:var(--red);color:var(--red);animation:wrongShake .4s ease;}
+.tf-btn.dim{opacity:.3;pointer-events:none;}
+.tf-feedback{font-size:.9rem;line-height:1.75;padding:12px 16px;border-radius:10px;margin-top:12px;display:none;}
+.tf-feedback.show.correct{display:block;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.25);color:#86efac;}
+.tf-feedback.show.wrong{display:block;background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.25);color:#fca5a5;}
+
+/* ════════════════════════════════
+   GAME 6 — SPIN
+════════════════════════════════ */
+.spin-wrap{display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start;}
+.wheel-container{display:flex;flex-direction:column;align-items:center;gap:20px;}
+.wheel-canvas-wrap{position:relative;width:260px;height:260px;}
+#spinCanvas{border-radius:50%;display:block;}
+.wheel-pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1.8rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));}
+.spin-question-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:26px;}
+.spin-topic-badge{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:inline-block;padding:4px 12px;border-radius:50px;border:1px solid currentColor;}
+.spin-question-text{font-size:1.05rem;line-height:1.8;color:white;font-weight:600;margin-bottom:18px;}
+.spin-answer-area{width:100%;min-height:96px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:12px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.97rem;padding:13px 16px;resize:vertical;line-height:1.7;}
+.spin-answer-area:focus{outline:none;border-color:var(--glow);background:rgba(167,139,250,.05);}
+.spin-reveal-btn{margin-top:12px;padding:10px 22px;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:10px;color:var(--muted);font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:2px;cursor:pointer;transition:all .3s;}
+.spin-reveal-btn:hover{border-color:var(--glow);color:var(--glow);}
+.spin-sample-answer{margin-top:12px;padding:14px 16px;background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.2);border-radius:10px;font-size:.93rem;color:#86efac;line-height:1.75;display:none;}
+.spin-sample-answer.show{display:block;}
+.spin-idle{text-align:center;color:var(--muted);font-size:.97rem;line-height:1.7;padding:40px 20px;}
+
+/* ════════════════════════════════
+   GAME 7 — INQUIRY LAB
+════════════════════════════════ */
+.inquiry-intro{background:linear-gradient(135deg,rgba(249,115,22,.06),rgba(245,200,66,.03));border:1px solid rgba(249,115,22,.2);border-radius:16px;padding:20px 24px;margin-bottom:28px;font-size:.97rem;line-height:1.85;color:#cbd5e1;}
+.inquiry-intro strong{color:var(--orange);}
+.inquiry-steps{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+.iq-step{font-family:'Orbitron',sans-serif;font-size:.62rem;letter-spacing:1px;padding:7px 16px;border-radius:50px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);color:var(--orange);}
+.inquiry-list{display:flex;flex-direction:column;gap:16px;}
+.inq-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:border-color .3s;}
+.inq-card.open{border-color:rgba(249,115,22,.3);}
+.inq-top{padding:20px 22px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;}
+.inq-num{font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700;color:var(--orange);flex-shrink:0;margin-top:2px;}
+.inq-q{font-size:1rem;font-weight:600;color:#fff;line-height:1.65;flex:1;}
+.inq-arrow{color:var(--muted);transition:transform .3s;flex-shrink:0;}
+.inq-card.open .inq-arrow{transform:rotate(90deg);}
+.inq-body{padding:0 22px 20px 50px;display:none;}
+.inq-card.open .inq-body{display:block;}
+.inq-context{font-size:.9rem;color:var(--muted);line-height:1.75;margin-bottom:13px;padding:11px 15px;background:rgba(255,255,255,.02);border-radius:9px;border-left:3px solid var(--orange);}
+.inq-textarea{width:100%;min-height:96px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:.93rem;padding:12px 15px;resize:vertical;line-height:1.65;}
+.inq-textarea:focus{outline:none;border-color:var(--orange);background:rgba(249,115,22,.04);}
+.inq-reveal-btn{margin-top:11px;padding:9px 18px;background:transparent;border:1px solid rgba(255,255,255,.13);color:var(--muted);font-family:'Orbitron',sans-serif;font-size:.6rem;letter-spacing:1.5px;border-radius:9px;cursor:pointer;transition:all .25s;}
+.inq-reveal-btn:hover{border-color:var(--orange);color:var(--orange);}
+.inq-sample{margin-top:11px;padding:13px 15px;background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.18);border-radius:9px;font-size:.9rem;color:#fcd9b1;line-height:1.75;display:none;}
+.inq-sample.show{display:block;}
+
+/* ════════════════════════════════
+   GAME 8 — SDG CHALLENGE
+════════════════════════════════ */
+.sdg-challenge-intro{background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(34,211,238,.03));border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:22px 26px;margin-bottom:30px;font-size:.97rem;line-height:1.85;color:#cbd5e1;}
+.sdg-challenge-intro strong{color:var(--green);}
+.sdg-match-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:26px;}
+.sdg-match-col-label{font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.sdg-match-item{padding:14px 18px;border-radius:12px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.93rem;line-height:1.65;transition:all .22s;margin-bottom:10px;position:relative;overflow:hidden;}
+.sdg-match-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(74,222,128,.07),transparent);transform:translateX(-100%);transition:transform .4s;}
+.sdg-match-item:hover::before{transform:translateX(100%);}
+.sdg-match-item:hover{border-color:rgba(74,222,128,.45);background:rgba(74,222,128,.05);}
+.sdg-match-item.selected{border-color:var(--green);background:rgba(74,222,128,.1);}
+.sdg-match-item.correct{border-color:var(--green);background:rgba(74,222,128,.1);color:var(--green);pointer-events:none;animation:correctPop .5s ease;}
+.sdg-match-item.wrong{animation:wrongShake .4s ease;}
+.sdg-match-item.used{opacity:.3;pointer-events:none;}
+.sdg-num{font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;margin-bottom:4px;color:var(--green);}
+.sdg-quiz-list{display:flex;flex-direction:column;gap:20px;}
+.sdg-quiz-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px;}
+.sdg-quiz-q{font-size:1rem;font-weight:600;color:white;margin-bottom:14px;line-height:1.7;}
+.sdg-quiz-opts{display:flex;flex-direction:column;gap:9px;}
+.sdg-quiz-opt{padding:12px 17px;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.93rem;text-align:left;color:var(--text);transition:all .22s;display:flex;gap:11px;align-items:flex-start;}
+.sdg-quiz-opt:hover{border-color:rgba(74,222,128,.38);background:rgba(74,222,128,.05);}
+.sdg-quiz-opt.correct{border-color:var(--green);background:rgba(74,222,128,.09);color:var(--green);pointer-events:none;animation:correctPop .5s ease;}
+.sdg-quiz-opt.wrong{border-color:var(--red);background:rgba(248,113,113,.07);color:var(--red);pointer-events:none;animation:wrongShake .4s ease;}
+.sdg-quiz-opt.disabled{pointer-events:none;opacity:.45;}
+.sdg-feedback{font-size:.92rem;line-height:1.75;padding:12px 16px;border-radius:10px;margin-top:11px;display:none;}
+.sdg-feedback.show.correct{display:block;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.22);color:#86efac;}
+.sdg-feedback.show.wrong{display:block;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.22);color:#fca5a5;}
+.sec-divider{font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin:36px 0 18px;opacity:.8;}
+
+footer{position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:2px;color:var(--muted);}
 footer span{color:var(--glow);}
 
 @media(max-width:900px){
-  nav{padding:20px 24px;}.nav-links{gap:16px;}.nav-links a{font-size:.65rem;}
-  main{padding:30px 24px 80px;}
-  .page-hero{padding:130px 24px 40px;}
-  .scoreboard,.game-tabs,.divider-line{padding-left:24px;padding-right:24px;}
+  nav{padding:18px 20px;}.nav-links{gap:14px;}
+  main,.page-hero{padding-left:22px;padding-right:22px;}
+  .scoreboard,.game-tabs,.divider-line,.mission-bar{padding-left:22px;padding-right:22px;}
   .match-grid,.sdg-match-grid{grid-template-columns:1fr;}
   .spin-wrap{grid-template-columns:1fr;}
   .wheel-container{margin:0 auto;}
@@ -268,9 +330,17 @@ footer span{color:var(--glow);}
 </head>
 <body>
 
+<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- BURST CANVAS -->
+<canvas id="burstCanvas"></canvas>
+
+<!-- TOAST -->
 <div class="point-toast" id="pointToast">+10 points! 🎉</div>
+
+<!-- SHOOTING STARS (JS generated) -->
 
 <!-- NAV -->
 <nav>
@@ -284,17 +354,17 @@ footer span{color:var(--glow);}
         <li><a href="SDGs.html">SDGs</a></li>
       </ul>
     </li>
-    <li><a href="solarsystem.html">Solar System</a></li>
-    <li><a href="sun.html">The Sun</a></li>
+    <li><a href="investigation.html">Activity</a></li>
     <li class="has-dropdown">
-      <a href="earth&moon.html">Earth &amp; Moon <span class="arrow">▾</span></a>
+      <a href="#">Explore <span class="arrow">▾</span></a>
       <ul class="dropdown">
-        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
-        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+        <li><a href="solarsystem.html">Solar System</a></li>
+        <li><a href="sun.html">The Sun</a></li>
+        <li><a href="earth&moon.html">Earth &amp; Moon</a></li>
+        <li><a href="seasons.html">Seasons</a></li>
       </ul>
     </li>
-    <li><a href="seasons.html">Seasons</a></li>
-    <li><a href="Activity.html" class="nav-active">Quiz</a></li>
+    <li><a href="Activity.html">Quiz</a></li>
   </ul>
 </nav>
 
@@ -302,8 +372,57 @@ footer span{color:var(--glow);}
 <header class="page-hero">
   <span class="page-eyebrow">Science Grade VII · Chapter 7 · Interactive Learning</span>
   <h1 class="page-title">Let's <span>Play & Learn!</span></h1>
-  <p class="page-sub">Test what you know about the Solar System, Earth, the Moon, and the Seasons — plus how science connects to the real world. Earn points as you go!</p>
+  <p class="page-sub">Help the astronaut complete their mission! Answer questions, earn points, and guide them across the Solar System. 8 different activity types — matching, quiz, fill-in-the-blank, true/false, spin, inquiry, and SDG challenges!</p>
 </header>
+
+<!-- ASTRONAUT MISSION PROGRESS BAR -->
+<div class="mission-bar">
+  <div class="mission-label">
+    <span>🚀 Mission Progress</span>
+    <span id="missionPct">0% complete</span>
+  </div>
+  <div class="mission-track">
+    <div class="mission-fill" id="missionFill"></div>
+    <!-- planet checkpoints -->
+    <div class="checkpoint" id="cp1" style="left:12.5%">☿</div>
+    <div class="checkpoint" id="cp2" style="left:25%">♀</div>
+    <div class="checkpoint" id="cp3" style="left:37.5%">🌍</div>
+    <div class="checkpoint" id="cp4" style="left:50%">♂</div>
+    <div class="checkpoint" id="cp5" style="left:62.5%">♃</div>
+    <div class="checkpoint" id="cp6" style="left:75%">♄</div>
+    <div class="checkpoint" id="cp7" style="left:87.5%">⛢</div>
+    <div class="checkpoint" id="cp8" style="left:100%">♆</div>
+    <!-- astronaut -->
+    <div class="astronaut" id="astronaut">
+      <svg class="astro-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- helmet -->
+        <ellipse cx="16" cy="11" rx="8" ry="9" fill="#dce4f0" stroke="#a78bfa" stroke-width="1.5"/>
+        <!-- visor -->
+        <ellipse cx="16" cy="11" rx="5" ry="5.5" fill="#22d3ee" opacity=".6"/>
+        <ellipse cx="14" cy="9" rx="1.5" ry="1" fill="white" opacity=".5"/>
+        <!-- body suit -->
+        <rect x="10" y="18" width="12" height="9" rx="4" fill="#94a3b8"/>
+        <!-- arms -->
+        <rect x="5" y="19" width="6" height="4" rx="3" fill="#94a3b8"/>
+        <rect x="21" y="19" width="6" height="4" rx="3" fill="#94a3b8"/>
+        <!-- gloves -->
+        <circle cx="5" cy="22" r="2" fill="#dce4f0"/>
+        <circle cx="27" cy="22" r="2" fill="#dce4f0"/>
+        <!-- legs -->
+        <rect x="11" y="26" width="4" height="5" rx="2" fill="#94a3b8"/>
+        <rect x="17" y="26" width="4" height="5" rx="2" fill="#94a3b8"/>
+        <!-- boots -->
+        <ellipse cx="13" cy="31" rx="3.5" ry="1.5" fill="#7c3aed"/>
+        <ellipse cx="19" cy="31" rx="3.5" ry="1.5" fill="#7c3aed"/>
+        <!-- backpack -->
+        <rect x="19.5" y="19" width="4" height="5" rx="1.5" fill="#7c3aed" opacity=".7"/>
+        <!-- flag -->
+        <line x1="24" y1="14" x2="24" y2="8" stroke="#fbbf24" stroke-width="1"/>
+        <rect x="24" y="8" width="5" height="3" rx=".5" fill="#fbbf24" opacity=".9"/>
+      </svg>
+    </div>
+  </div>
+</div>
 
 <!-- SCOREBOARD -->
 <div class="scoreboard">
@@ -312,71 +431,59 @@ footer span{color:var(--glow);}
   <div class="score-box"><div class="score-num" id="doneCount">0</div><div class="score-label">Activities Done</div></div>
 </div>
 
-<!-- GAME TABS -->
+<!-- TABS -->
 <div class="game-tabs">
   <button class="game-tab active" onclick="switchGame('match')">1 · Planet Match</button>
   <button class="game-tab" onclick="switchGame('orbit')">2 · Orbit Order</button>
   <button class="game-tab" onclick="switchGame('quiz')">3 · Space Quiz</button>
-  <button class="game-tab" onclick="switchGame('fill')">4 · Fill in the Blank</button>
-  <button class="game-tab" onclick="switchGame('spin')">5 · Spin &amp; Answer</button>
-  <button class="game-tab sdg-tab" onclick="switchGame('sdg')">🌍 6 · SDG Challenge</button>
+  <button class="game-tab" onclick="switchGame('fill')">4 · Fill Blank</button>
+  <button class="game-tab" onclick="switchGame('tf')">5 · True/False</button>
+  <button class="game-tab" onclick="switchGame('spin')">6 · Spin &amp; Answer</button>
+  <button class="game-tab inq-tab" onclick="switchGame('inquiry')">🔍 7 · Inquiry Lab</button>
+  <button class="game-tab sdg-tab" onclick="switchGame('sdg')">🌍 8 · SDG Challenge</button>
 </div>
-<div class="divider-line" style="margin-bottom:0;"></div>
+<div class="divider-line" style="margin-bottom:0"></div>
 
 <main>
 
-<!-- ══════════════════════════════
-     GAME 1 — PLANET MATCH
-══════════════════════════════ -->
+<!-- ════ GAME 1 ════ -->
 <div class="game-section active" id="game-match">
   <div class="game-header">
     <div class="game-badge">Game 1 · Matching</div>
     <h2 class="game-title">Planet <span>Match</span></h2>
-    <p class="game-desc">Click a planet name on the left, then click the correct fact on the right to match them. Each correct match gives you <strong>10 points</strong>!</p>
+    <p class="game-desc">Click a planet name on the left, then click the matching fact on the right. Each correct match = <strong>+10 points</strong>!</p>
   </div>
   <div class="match-grid">
-    <div>
-      <div class="match-col-label">🪐 Planets</div>
-      <div id="matchPlanets"></div>
-    </div>
-    <div>
-      <div class="match-col-label">💡 Facts</div>
-      <div id="matchFacts"></div>
-    </div>
+    <div><div class="match-col-label">🪐 Planets</div><div id="matchPlanets"></div></div>
+    <div><div class="match-col-label">💡 Key Facts</div><div id="matchFacts"></div></div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-secondary" onclick="initMatch()">↺ Play Again</button>
-  </div>
+  <div class="btn-row"><button class="btn btn-secondary" onclick="initMatch()">↺ Shuffle &amp; Replay</button></div>
 </div>
 
-<!-- ══════════════════════════════
-     GAME 2 — ORBIT ORDER
-══════════════════════════════ -->
+<!-- ════ GAME 2 ════ -->
 <div class="game-section" id="game-orbit">
   <div class="game-header">
     <div class="game-badge">Game 2 · Sequencing</div>
     <h2 class="game-title">Orbit <span>Order</span></h2>
-    <p class="game-desc">Put the 8 planets in the correct order from <strong>closest</strong> to <strong>farthest</strong> from the Sun. Click each planet in order. Remember: <em>My Very Energetic Mother Just Served Us Nachos!</em></p>
+    <p class="game-desc">Put the 8 planets in order from <strong>closest</strong> to <strong>farthest</strong> from the Sun. Tip: <em>My Very Energetic Mother Just Served Us Nachos!</em></p>
   </div>
-  <div class="match-col-label" style="margin-bottom:10px;">Click planets in order (1 = closest to Sun):</div>
+  <div class="match-col-label" style="margin-bottom:8px;">Click to add planets:</div>
   <div class="orbit-pool" id="orbitPool"></div>
-  <div class="match-col-label" style="margin-bottom:10px;">Your sequence (click to remove):</div>
-  <div class="orbit-sequence" id="orbitSeq"><span style="color:var(--muted);font-size:.9rem;padding:4px;">Click planets above to add them here...</span></div>
+  <div class="match-col-label" style="margin-bottom:8px;">Your order (click chip to remove):</div>
+  <div class="orbit-sequence" id="orbitSeq"><span style="color:var(--muted);font-size:.88rem;">Planets will appear here...</span></div>
   <div class="orbit-result" id="orbitResult"></div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="checkOrbit()">✓ Check My Order</button>
+    <button class="btn btn-primary" onclick="checkOrbit()">✓ Check Order</button>
     <button class="btn btn-secondary" onclick="initOrbit()">↺ Reset</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     GAME 3 — SPACE QUIZ
-══════════════════════════════ -->
+<!-- ════ GAME 3 ════ -->
 <div class="game-section" id="game-quiz">
   <div class="game-header">
     <div class="game-badge">Game 3 · Multiple Choice</div>
     <h2 class="game-title">Space <span>Quiz</span></h2>
-    <p class="game-desc">Answer 10 questions about the Solar System, the Sun, Earth, and the Moon. Read each question carefully! Each correct answer gives you <strong>10 points</strong>.</p>
+    <p class="game-desc">10 questions on the Solar System, Sun, Earth, and Moon. Read carefully — some need you to think, not just remember! Each correct answer = <strong>+10 points</strong>.</p>
   </div>
   <div class="quiz-progress">
     <div class="quiz-bar-wrap"><div class="quiz-bar" id="quizBar"></div></div>
@@ -385,30 +492,36 @@ footer span{color:var(--glow);}
   <div id="quizArea"></div>
 </div>
 
-<!-- ══════════════════════════════
-     GAME 4 — FILL IN THE BLANK
-══════════════════════════════ -->
+<!-- ════ GAME 4 ════ -->
 <div class="game-section" id="game-fill">
   <div class="game-header">
     <div class="game-badge">Game 4 · Fill in the Blank</div>
     <h2 class="game-title">Complete the <span>Sentence</span></h2>
-    <p class="game-desc">Type the missing word to complete each sentence. Press <strong>Check Answers</strong> when you are done. Spelling must be correct!</p>
+    <p class="game-desc">Type the missing word to complete each sentence. Spelling must be correct! Press <strong>Check Answers</strong> when done.</p>
   </div>
   <div class="fill-list" id="fillList"></div>
   <div class="btn-row">
     <button class="btn btn-primary" onclick="checkFill()">✓ Check Answers</button>
-    <button class="btn btn-secondary" onclick="initFill()">↺ Reset</button>
+    <button class="btn btn-secondary" onclick="initFill()">↺ Clear &amp; Retry</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     GAME 5 — SPIN & ANSWER
-══════════════════════════════ -->
+<!-- ════ GAME 5 ════ -->
+<div class="game-section" id="game-tf">
+  <div class="game-header">
+    <div class="game-badge">Game 5 · True or False</div>
+    <h2 class="game-title">True <span>or</span> False?</h2>
+    <p class="game-desc">Is each statement TRUE or FALSE? Some of these will surprise you! Each correct answer = <strong>+10 points</strong>.</p>
+  </div>
+  <div class="tf-list" id="tfList"></div>
+</div>
+
+<!-- ════ GAME 6 ════ -->
 <div class="game-section" id="game-spin">
   <div class="game-header">
-    <div class="game-badge">Game 5 · Discussion</div>
+    <div class="game-badge">Game 6 · Discussion</div>
     <h2 class="game-title">Spin &amp; <span>Answer</span></h2>
-    <p class="game-desc">Spin the wheel to get a random topic. Answer the open question in the box. Great for group discussion or solo review! There are no wrong answers here — just think and explain.</p>
+    <p class="game-desc">Spin the wheel to get a random topic and open question. Write your answer or discuss with classmates — no wrong answers!</p>
   </div>
   <div class="spin-wrap">
     <div class="wheel-container">
@@ -418,653 +531,851 @@ footer span{color:var(--glow);}
       </div>
       <button class="btn btn-primary" onclick="spinWheel()" id="spinBtn">🎰 Spin!</button>
     </div>
-    <div id="spinQuestionArea">
-      <div class="spin-idle">🌌 Spin the wheel to get your question!<br><span style="font-size:.9rem;margin-top:8px;display:block;">Each section has a different topic to think about.</span></div>
-    </div>
+    <div id="spinQuestionArea"><div class="spin-idle">🌌 Spin the wheel to get your question!<br><span style="font-size:.88rem;display:block;margin-top:8px;">Great for solo thinking or group discussion.</span></div></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     GAME 6 — SDG CHALLENGE ✨
-══════════════════════════════ -->
+<!-- ════ GAME 7 ════ -->
+<div class="game-section" id="game-inquiry">
+  <div class="game-header">
+    <div class="game-badge orange">🔍 Game 7 · Inquiry Lab</div>
+    <h2 class="game-title">Inquiry <span class="orange">Lab</span></h2>
+    <p class="game-desc">Scientists don't just memorize facts — they <strong>ask questions</strong>, think critically, and investigate! These questions have no single right answer. Think, reason, and explain.</p>
+  </div>
+  <div class="inquiry-intro">
+    🔬 These are <strong>open-ended inquiry questions</strong>. You need to think, reason, and explain using what you have learned. Write your best answer, then check the sample response to compare your ideas!
+  </div>
+  <div class="inquiry-steps">
+    <div class="iq-step">1. Read the question</div>
+    <div class="iq-step">2. Think &amp; write your answer</div>
+    <div class="iq-step">3. Check the sample response</div>
+    <div class="iq-step">4. Discuss with your class!</div>
+  </div>
+  <div class="inquiry-list" id="inquiryList"></div>
+</div>
+
+<!-- ════ GAME 8 ════ -->
 <div class="game-section" id="game-sdg">
   <div class="game-header">
-    <div class="game-badge green">🌍 Game 6 · SDG Challenge</div>
+    <div class="game-badge green">🌍 Game 8 · SDG Challenge</div>
     <h2 class="game-title">SDG <span class="green">Challenge</span></h2>
-    <p class="game-desc">Test your understanding of how space science connects to the United Nations' Sustainable Development Goals (SDGs). Can you match the science to the global impact?</p>
+    <p class="game-desc">The United Nations has 17 goals to make the world better by 2030. Can you connect space science to these real-world goals?</p>
   </div>
-
   <div class="sdg-challenge-intro">
-    🌐 The SDGs are <strong>17 goals set by the United Nations</strong> to make the world better for everyone by 2030. In this game, you will discover how topics like the Sun, Moon, Earth, and Seasons are connected to goals like <strong>Climate Action, Clean Water, and Life on Land</strong>. Science isn't just in the classroom — it shapes the future of our planet!
+    🌐 The <strong>SDGs (Sustainable Development Goals)</strong> are 17 goals set by the United Nations to make the world better for everyone by 2030. In this game, you'll discover how topics like the Sun, Moon, Earth, and Seasons connect to goals like <strong>Climate Action, Clean Water, and Life on Land</strong>. Science isn't just in the classroom — it shapes the future of our planet!
   </div>
-
-  <!-- SDG MATCH -->
-  <h3 style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:20px;">Part A · Match the Science to the SDG</h3>
-  <p style="font-size:.97rem;color:var(--muted);margin-bottom:20px;line-height:1.7;">Click a science fact on the left, then click the SDG it connects to on the right. Each correct match gives you <strong>10 points</strong>!</p>
+  <div class="sec-divider">Part A · Match the Science to the SDG</div>
+  <p style="font-size:.95rem;color:var(--muted);margin-bottom:18px;line-height:1.75;">Click a science fact on the left, then click the matching SDG on the right. Each correct match = <strong>+10 points</strong>!</p>
   <div class="sdg-match-grid">
-    <div>
-      <div class="sdg-match-col-label">🔭 Science Fact</div>
-      <div id="sdgMatchFacts"></div>
-    </div>
-    <div>
-      <div class="sdg-match-col-label">🌍 SDG Goal</div>
-      <div id="sdgMatchGoals"></div>
-    </div>
+    <div><div class="sdg-match-col-label">🔭 Science Fact</div><div id="sdgMatchFacts"></div></div>
+    <div><div class="sdg-match-col-label">🌍 SDG Goal</div><div id="sdgMatchGoals"></div></div>
   </div>
-  <div class="btn-row" style="margin-bottom:40px;">
-    <button class="btn btn-secondary" onclick="initSDGMatch()">↺ Play Again</button>
-  </div>
-
-  <!-- SDG QUIZ -->
-  <h3 style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:3px;color:var(--green);text-transform:uppercase;margin-bottom:20px;">Part B · SDG Knowledge Quiz</h3>
-  <p style="font-size:.97rem;color:var(--muted);margin-bottom:24px;line-height:1.7;">Choose the correct answer for each question. Read carefully — some questions ask you to think and connect ideas, not just remember facts!</p>
+  <div class="btn-row" style="margin-bottom:0"><button class="btn btn-secondary" onclick="initSDGMatch()">↺ Shuffle Again</button></div>
+  <div class="sec-divider" style="margin-top:40px">Part B · SDG Knowledge Quiz</div>
+  <p style="font-size:.95rem;color:var(--muted);margin-bottom:22px;line-height:1.75;">Choose the correct answer. Read carefully — some questions ask you to think and connect ideas, not just remember facts!</p>
   <div class="sdg-quiz-list" id="sdgQuizList"></div>
 </div>
 
 </main>
-
-<footer><span>Tria Liza</span> &middot; Universitas Pendidikan Indonesia &middot; Earth &amp; Solar System Activity 🌌</footer>
+<footer><span>Tria Liza</span> · Universitas Pendidikan Indonesia · Earth &amp; Solar System Activity 🌌</footer>
 
 <script>
 /* ─── GLOBALS ─── */
-let totalPoints = 0, correctCount = 0, doneCount = 0;
-function addPoints(p){ totalPoints+=p; correctCount++; updateScore(); }
-function addDone(){ doneCount++; updateScore(); }
-function updateScore(){
-  document.getElementById('totalPoints').textContent = totalPoints;
-  document.getElementById('correctCount').textContent = correctCount;
-  document.getElementById('doneCount').textContent = doneCount;
+let totalPoints=0, correctCount=0, doneCount=0, totalPossible=0;
+const TOTAL_POSSIBLE = 160; // rough max pts
+
+function addPoints(p){
+  totalPoints+=p; correctCount++; doneCount++;
+  document.getElementById('totalPoints').textContent=totalPoints;
+  document.getElementById('correctCount').textContent=correctCount;
+  document.getElementById('doneCount').textContent=doneCount;
+  // bump animation
+  ['totalPoints','correctCount','doneCount'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');
+  });
+  updateMission();
 }
+function updateMission(){
+  const pct=Math.min((totalPoints/TOTAL_POSSIBLE)*100,100);
+  document.getElementById('missionFill').style.width=pct+'%';
+  document.getElementById('astronaut').style.left=pct+'%';
+  document.getElementById('missionPct').textContent=Math.round(pct)+'% complete';
+  document.querySelector('.astro-svg').classList.add('astro-walk');
+  sfxAstro();
+  setTimeout(()=>document.querySelector('.astro-svg').classList.remove('astro-walk'),1200);
+  const cps=[0,12.5,25,37.5,50,62.5,75,87.5,100];
+  for(let i=1;i<=8;i++){
+    const cp=document.getElementById('cp'+i);
+    if(pct>=cps[i]&&!cp.classList.contains('reached')){
+      cp.classList.add('reached');
+      sfxLevelUp();
+    }
+  }
+}
+
+/* ── TOAST ── */
 function showToast(msg='+10 points! 🎉'){
-  const t = document.getElementById('pointToast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=> t.classList.remove('show'), 1800);
+  const t=document.getElementById('pointToast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
 }
 
-/* CURSOR */
-const cursor = document.getElementById('cursor');
-const trail = document.getElementById('cursorTrail');
-document.addEventListener('mousemove', e=>{
-  cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
-  setTimeout(()=>{ trail.style.left=e.clientX+'px'; trail.style.top=e.clientY+'px'; },80);
-});
-document.querySelectorAll('a,button,.match-item,.orbit-chip,.quiz-option,.sdg-match-item,.sdg-quiz-opt').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ cursor.style.width='24px'; cursor.style.height='24px'; cursor.style.background='var(--glow)'; });
-  el.addEventListener('mouseleave',()=>{ cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--cyan)'; });
+/* ── STAR BURST (correct answer celebration) ── */
+const bCanvas=document.getElementById('burstCanvas');
+const bCtx=bCanvas.getContext('2d');
+let particles=[];
+function resizeBurst(){bCanvas.width=window.innerWidth;bCanvas.height=window.innerHeight;}
+resizeBurst();window.addEventListener('resize',resizeBurst);
+
+function burst(x,y){
+  for(let i=0;i<28;i++){
+    const angle=Math.random()*Math.PI*2;
+    const spd=Math.random()*5+2;
+    const colors=['#a78bfa','#22d3ee','#4ade80','#fbbf24','#f97316'];
+    particles.push({x,y,vx:Math.cos(angle)*spd,vy:Math.sin(angle)*spd,r:Math.random()*4+2,c:colors[Math.floor(Math.random()*colors.length)],life:1});
+  }
+  if(!animating) animateBurst();
+}
+let animating=false;
+function animateBurst(){
+  animating=true;
+  bCtx.clearRect(0,0,bCanvas.width,bCanvas.height);
+  particles=particles.filter(p=>p.life>0);
+  particles.forEach(p=>{
+    bCtx.globalAlpha=p.life;
+    bCtx.beginPath();bCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bCtx.fillStyle=p.c;bCtx.fill();
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.1;p.life-=.03;p.r*=.98;
+  });
+  bCtx.globalAlpha=1;
+  if(particles.length>0) requestAnimationFrame(animateBurst);
+  else animating=false;
+}
+// trigger burst on any correct answer click
+document.addEventListener('click',e=>{
+  if(e.target.closest('.quiz-option.correct,.match-item.correct,.sdg-match-item.correct,.tf-btn.show-correct,.sdg-quiz-opt.correct,.fill-input.correct,.orbit-result.correct'))return;
+  // we'll trigger from each game manually
 });
 
-/* DROPDOWN */
+/* ════════════════════════════════
+   🔊 SOUND ENGINE (Web Audio API)
+   All sounds synthesized — no files needed!
+════════════════════════════════ */
+let audioCtx=null;
+let soundOn=true;
+
+function getCtx(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// Master volume helper
+function masterGain(ctx,vol=0.18){
+  const g=ctx.createGain();g.gain.value=vol;g.connect(ctx.destination);return g;
+}
+
+// ✅ CORRECT — rising chime ding-ding-ding
+function sfxCorrect(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const notes=[523.25,659.25,783.99,1046.5]; // C5 E5 G5 C6
+  notes.forEach((freq,i)=>{
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sine';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.1;
+    gain.gain.setValueAtTime(0,t);
+    gain.gain.linearRampToValueAtTime(0.22,t+0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001,t+0.35);
+    osc.start(t);osc.stop(t+0.35);
+  });
+}
+
+// ❌ WRONG — low buzz thud
+function sfxWrong(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.type='sawtooth';
+  osc.frequency.setValueAtTime(180,ctx.currentTime);
+  osc.frequency.linearRampToValueAtTime(80,ctx.currentTime+0.3);
+  gain.gain.setValueAtTime(0.18,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.4);
+  osc.start();osc.stop(ctx.currentTime+0.4);
+}
+
+// 🖱️ CLICK — soft tick
+function sfxClick(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.type='sine';osc.frequency.value=880;
+  gain.gain.setValueAtTime(0.09,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.08);
+  osc.start();osc.stop(ctx.currentTime+0.08);
+}
+
+// 🏆 LEVEL UP — fanfare arpeggio
+function sfxLevelUp(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const notes=[523.25,659.25,783.99,1046.5,1318.5];
+  notes.forEach((freq,i)=>{
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='triangle';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.12;
+    gain.gain.setValueAtTime(0,t);
+    gain.gain.linearRampToValueAtTime(0.25,t+0.03);
+    gain.gain.exponentialRampToValueAtTime(0.001,t+0.5);
+    osc.start(t);osc.stop(t+0.5);
+  });
+}
+
+// 🎰 SPIN — whoosh
+function sfxSpin(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.type='sine';
+  osc.frequency.setValueAtTime(200,ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(800,ctx.currentTime+0.4);
+  osc.frequency.exponentialRampToValueAtTime(300,ctx.currentTime+1.2);
+  osc.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+2.0);
+  osc.frequency.exponentialRampToValueAtTime(400,ctx.currentTime+3.0);
+  gain.gain.setValueAtTime(0.12,ctx.currentTime);
+  gain.gain.setValueAtTime(0.12,ctx.currentTime+2.8);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+3.5);
+  osc.start();osc.stop(ctx.currentTime+3.5);
+}
+
+// 🔔 SPIN LAND — ping
+function sfxSpinLand(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  [880,1100,1320].forEach((freq,i)=>{
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='sine';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.08;
+    gain.gain.setValueAtTime(0,t);
+    gain.gain.linearRampToValueAtTime(0.2,t+0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001,t+0.6);
+    osc.start(t);osc.stop(t+0.6);
+  });
+}
+
+// 🔀 TAB SWITCH — swoosh
+function sfxTab(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.connect(gain);gain.connect(ctx.destination);
+  osc.type='sine';
+  osc.frequency.setValueAtTime(400,ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(600,ctx.currentTime+0.1);
+  gain.gain.setValueAtTime(0.1,ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.18);
+  osc.start();osc.stop(ctx.currentTime+0.18);
+}
+
+// 🚀 ASTRONAUT MOVE — bleep
+function sfxAstro(){
+  if(!soundOn)return;
+  const ctx=getCtx();
+  [440,550].forEach((freq,i)=>{
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain);gain.connect(ctx.destination);
+    osc.type='square';osc.frequency.value=freq;
+    const t=ctx.currentTime+i*0.07;
+    gain.gain.setValueAtTime(0.06,t);
+    gain.gain.exponentialRampToValueAtTime(0.001,t+0.1);
+    osc.start(t);osc.stop(t+0.1);
+  });
+}
+
+// 🎵 BACKGROUND AMBIENT (optional spacey drone)
+let ambientNode=null;
+function startAmbient(){
+  if(!soundOn||ambientNode)return;
+  const ctx=getCtx();
+  ambientNode=ctx.createOscillator();
+  const gain=ctx.createGain();
+  const filter=ctx.createBiquadFilter();
+  ambientNode.connect(filter);filter.connect(gain);gain.connect(ctx.destination);
+  ambientNode.type='sine';ambientNode.frequency.value=60;
+  filter.type='lowpass';filter.frequency.value=200;
+  gain.gain.value=0.04;
+  ambientNode.start();
+}
+
+// ── SOUND TOGGLE BUTTON ──
+document.addEventListener('DOMContentLoaded',()=>{
+  const btn=document.createElement('button');
+  btn.id='soundToggle';
+  btn.innerHTML='🔊';
+  btn.title='Toggle sound';
+  btn.style.cssText=`
+    position:fixed;bottom:28px;right:28px;z-index:700;
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(5,13,42,.9);border:1px solid rgba(167,139,250,.4);
+    color:#a78bfa;font-size:1.3rem;cursor:none;
+    transition:all .3s;box-shadow:0 4px 20px rgba(124,58,237,.3);
+    display:flex;align-items:center;justify-content:center;
+  `;
+  btn.addEventListener('mouseenter',()=>{btn.style.transform='scale(1.1)';btn.style.borderColor='var(--cyan)';});
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='scale(1)';btn.style.borderColor='rgba(167,139,250,.4)';});
+  btn.onclick=()=>{
+    soundOn=!soundOn;
+    btn.innerHTML=soundOn?'🔊':'🔇';
+    btn.style.opacity=soundOn?'1':'.5';
+    if(soundOn){getCtx();sfxClick();}
+  };
+  document.body.appendChild(btn);
+});
+
+// Unlock audio on first interaction
+document.addEventListener('click',()=>{if(!audioCtx){audioCtx=new(window.AudioContext||window.webkitAudioContext)();}else if(audioCtx.state==='suspended'){audioCtx.resume();}},{once:true});
+
+/* ── CURSOR ── */
+const cur=document.getElementById('cursor');
+const trail=document.getElementById('cursorTrail');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px';},80);
+});
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='24px';cur.style.height='24px';cur.style.background='var(--glow)';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='16px';cur.style.height='16px';cur.style.background='var(--cyan)';});
+});
+
+/* ── DROPDOWN ── */
 document.querySelectorAll('.has-dropdown > a').forEach(a=>{
-  a.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); });
+  a.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();a.parentElement.classList.toggle('open');});
 });
-document.addEventListener('click',()=>{ document.querySelectorAll('.has-dropdown').forEach(el=>el.classList.remove('open')); });
+document.addEventListener('click',()=>document.querySelectorAll('.has-dropdown').forEach(el=>el.classList.remove('open')));
 
-/* SWITCH GAME */
+/* ── SHOOTING STARS ── */
+function makeStar(){
+  const s=document.createElement('div');s.className='shooting-star';
+  s.style.cssText=`top:${Math.random()*60}%;right:${Math.random()*30}%;animation:shoot ${2+Math.random()*2}s linear forwards;`;
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),4000);
+}
+setInterval(()=>{if(Math.random()<.4)makeStar();},2500);
+
+/* ── SWITCH GAME ── */
 function switchGame(id){
+  sfxTab();
   document.querySelectorAll('.game-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.game-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('game-'+id).classList.add('active');
-  const tabs = document.querySelectorAll('.game-tab');
-  const map = {match:0,orbit:1,quiz:2,fill:3,spin:4,sdg:5};
-  if(map[id]!==undefined) tabs[map[id]].classList.add('active');
+  const map={match:0,orbit:1,quiz:2,fill:3,tf:4,spin:5,inquiry:6,sdg:7};
+  if(map[id]!==undefined) document.querySelectorAll('.game-tab')[map[id]].classList.add('active');
   window.scrollTo({top:200,behavior:'smooth'});
 }
 
-/* ══════════════════════════════
+/* ════════════════════════════════
    GAME 1 — PLANET MATCH
-══════════════════════════════ */
-const matchData = [
-  {planet:'Mercury', fact:'The smallest planet — and its day is longer than its year!'},
-  {planet:'Venus',   fact:'The hottest planet, covered in thick clouds of carbon dioxide'},
-  {planet:'Earth',   fact:'The only planet known to have liquid water and life on its surface'},
-  {planet:'Mars',    fact:'The Red Planet — has the tallest volcano in the Solar System'},
-  {planet:'Jupiter', fact:'The biggest planet — its Great Red Spot is a storm bigger than Earth'},
-  {planet:'Saturn',  fact:'Famous for its beautiful rings made of ice and rock'},
-  {planet:'Uranus',  fact:'Spins on its side — its poles face the Sun for 42 years at a time!'},
-  {planet:'Neptune', fact:'The windiest planet, with winds reaching 2,100 km/h'},
+════════════════════════════════ */
+const matchData=[
+  {planet:'Mercury',fact:'Smallest planet — its day is longer than its year!'},
+  {planet:'Venus',  fact:'Hottest planet, covered in thick CO₂ clouds'},
+  {planet:'Earth',  fact:'Only planet with liquid water and living things'},
+  {planet:'Mars',   fact:'The Red Planet — home to the Solar System\'s tallest volcano'},
+  {planet:'Jupiter',fact:'Biggest planet — its Great Red Spot storm is larger than Earth!'},
+  {planet:'Saturn', fact:'Famous for beautiful rings made of ice and rock'},
+  {planet:'Uranus', fact:'Spins on its side — poles face the Sun for 42 years!'},
+  {planet:'Neptune',fact:'Windiest planet — storms reach 2,100 km/h'},
 ];
-let matchSelected = null;
+let matchSel=null;
 function initMatch(){
-  matchSelected = null;
-  const shuffledPlanets = [...matchData].sort(()=>Math.random()-.5);
-  const shuffledFacts   = [...matchData].sort(()=>Math.random()-.5);
-  const pDiv = document.getElementById('matchPlanets');
-  const fDiv = document.getElementById('matchFacts');
-  pDiv.innerHTML = ''; fDiv.innerHTML = '';
-  shuffledPlanets.forEach(d=>{
-    const el = document.createElement('div');
-    el.className = 'match-item'; el.dataset.planet = d.planet;
-    el.innerHTML = `<div class="match-planet-name">${d.planet}</div>`;
-    el.style.marginBottom='10px';
-    el.onclick = ()=> selectMatchPlanet(el, d.planet);
-    pDiv.appendChild(el);
+  matchSel=null;
+  const sh1=[...matchData].sort(()=>Math.random()-.5);
+  const sh2=[...matchData].sort(()=>Math.random()-.5);
+  const pD=document.getElementById('matchPlanets');
+  const fD=document.getElementById('matchFacts');
+  pD.innerHTML='';fD.innerHTML='';
+  sh1.forEach(d=>{
+    const el=mkEl('div','match-item');el.dataset.planet=d.planet;
+    el.innerHTML=`<div class="match-planet-name">${d.planet}</div>`;
+    el.onclick=()=>pickMatchPlanet(el,d.planet);pD.appendChild(el);
   });
-  shuffledFacts.forEach(d=>{
-    const el = document.createElement('div');
-    el.className = 'match-item'; el.dataset.planet = d.planet;
-    el.textContent = d.fact; el.style.marginBottom='10px';
-    el.onclick = ()=> selectMatchFact(el, d.planet);
-    fDiv.appendChild(el);
+  sh2.forEach(d=>{
+    const el=mkEl('div','match-item');el.dataset.planet=d.planet;
+    el.textContent=d.fact;
+    el.onclick=()=>pickMatchFact(el,d.planet);fD.appendChild(el);
   });
 }
-function selectMatchPlanet(el, planet){
-  if(el.classList.contains('used')||el.classList.contains('correct')) return;
+function pickMatchPlanet(el,p){
+  if(el.classList.contains('used')||el.classList.contains('correct'))return;
+  sfxClick();
   document.querySelectorAll('#matchPlanets .match-item').forEach(e=>e.classList.remove('selected'));
-  el.classList.add('selected'); matchSelected = planet;
+  el.classList.add('selected');matchSel=p;
 }
-function selectMatchFact(el, planet){
-  if(!matchSelected||el.classList.contains('used')||el.classList.contains('correct')) return;
-  if(matchSelected === planet){
-    el.classList.add('correct');
-    document.querySelectorAll('#matchPlanets .match-item').forEach(e=>{
-      if(e.dataset.planet===matchSelected){ e.classList.add('correct','used'); }
-    });
-    addPoints(10); addDone(); showToast('+10 points! Great match! 🎉');
+function pickMatchFact(el,p){
+  if(!matchSel||el.classList.contains('used')||el.classList.contains('correct'))return;
+  if(matchSel===p){
+    sfxCorrect();
+    el.classList.add('correct','used');
+    document.querySelectorAll('#matchPlanets .match-item').forEach(e=>{if(e.dataset.planet===matchSel)e.classList.add('correct','used');});
+    addPoints(10);showToast('+10 pts! Great match! 🪐');
+    const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
   } else {
+    sfxWrong();
     el.classList.add('wrong');
     document.querySelectorAll('#matchPlanets .match-item').forEach(e=>e.classList.remove('selected'));
-    setTimeout(()=> el.classList.remove('wrong'), 900);
+    setTimeout(()=>el.classList.remove('wrong'),600);
   }
-  matchSelected = null;
+  matchSel=null;
 }
 initMatch();
 
-/* ══════════════════════════════
+/* ════════════════════════════════
    GAME 2 — ORBIT ORDER
-══════════════════════════════ */
-const correctOrbit = ['Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune'];
-let orbitSeqArr = [];
+════════════════════════════════ */
+const correctOrbit=['Mercury','Venus','Earth','Mars','Jupiter','Saturn','Uranus','Neptune'];
+let orbitSeqArr=[];
 function initOrbit(){
-  orbitSeqArr = [];
-  const pool = document.getElementById('orbitPool');
-  const seq  = document.getElementById('orbitSeq');
-  const res  = document.getElementById('orbitResult');
-  pool.innerHTML=''; seq.innerHTML='<span style="color:var(--muted);font-size:.9rem;padding:4px;">Click planets above to add them here...</span>';
-  res.className='orbit-result'; res.style.display='none';
+  orbitSeqArr=[];
+  const pool=document.getElementById('orbitPool');
+  const seq=document.getElementById('orbitSeq');
+  const res=document.getElementById('orbitResult');
+  pool.innerHTML='';
+  seq.innerHTML='<span style="color:var(--muted);font-size:.88rem;">Planets will appear here...</span>';
+  res.className='orbit-result';res.style.display='none';
   [...correctOrbit].sort(()=>Math.random()-.5).forEach(p=>{
-    const el = document.createElement('div');
-    el.className='orbit-chip'; el.textContent=p; el.dataset.planet=p;
-    el.onclick=()=> addToOrbit(p,el);
-    pool.appendChild(el);
+    const el=mkEl('div','orbit-chip');el.textContent=p;el.dataset.planet=p;
+    el.onclick=()=>addToOrbit(p,el);pool.appendChild(el);
   });
 }
-function addToOrbit(planet, el){
-  if(el.classList.contains('placed')) return;
-  el.classList.add('placed');
-  orbitSeqArr.push(planet);
-  const seq = document.getElementById('orbitSeq');
-  if(seq.querySelector('span')) seq.innerHTML='';
-  const chip = document.createElement('div');
-  chip.className='orbit-seq-chip'; chip.textContent=`${orbitSeqArr.length}. ${planet}`; chip.dataset.planet=planet;
-  chip.onclick=()=> removeFromOrbit(planet,chip,el);
-  seq.appendChild(chip);
+function addToOrbit(p,el){
+  if(el.classList.contains('placed'))return;
+  sfxClick();
+  el.classList.add('placed');orbitSeqArr.push(p);
+  const seq=document.getElementById('orbitSeq');
+  if(seq.querySelector('span'))seq.innerHTML='';
+  const chip=mkEl('div','orbit-seq-chip');chip.textContent=`${orbitSeqArr.length}. ${p}`;chip.dataset.planet=p;
+  chip.onclick=()=>rmFromOrbit(p,chip,el);seq.appendChild(chip);
 }
-function removeFromOrbit(planet,chip,origEl){
-  orbitSeqArr = orbitSeqArr.filter(p=>p!==planet);
-  chip.remove();
-  origEl.classList.remove('placed');
-  if(orbitSeqArr.length===0) document.getElementById('orbitSeq').innerHTML='<span style="color:var(--muted);font-size:.9rem;padding:4px;">Click planets above to add them here...</span>';
-  // renumber
-  document.querySelectorAll('.orbit-seq-chip').forEach((c,i)=>{
-    c.textContent = `${i+1}. ${c.dataset.planet}`;
-  });
+function rmFromOrbit(p,chip,orig){
+  orbitSeqArr=orbitSeqArr.filter(x=>x!==p);chip.remove();orig.classList.remove('placed');
+  if(orbitSeqArr.length===0)document.getElementById('orbitSeq').innerHTML='<span style="color:var(--muted);font-size:.88rem;">Planets will appear here...</span>';
+  document.querySelectorAll('.orbit-seq-chip').forEach((c,i)=>c.textContent=`${i+1}. ${c.dataset.planet}`);
 }
 function checkOrbit(){
-  const res = document.getElementById('orbitResult');
-  if(orbitSeqArr.length<8){ res.className='orbit-result wrong'; res.textContent='You need to place all 8 planets before checking!'; res.style.display='block'; return; }
-  const correct = orbitSeqArr.every((p,i)=>p===correctOrbit[i]);
-  if(correct){
+  const res=document.getElementById('orbitResult');
+  if(orbitSeqArr.length<8){res.className='orbit-result wrong';res.textContent='You need all 8 planets first!';res.style.display='block';return;}
+  if(orbitSeqArr.every((p,i)=>p===correctOrbit[i])){
+    sfxLevelUp();
     res.className='orbit-result correct';
-    res.textContent='✅ Perfect! The correct order is: Mercury → Venus → Earth → Mars → Jupiter → Saturn → Uranus → Neptune. Remember: My Very Energetic Mother Just Served Us Nachos!';
-    addPoints(20); addDone(); showToast('+20 points! Perfect order! 🚀');
+    res.innerHTML='✅ Perfect! Order: Mercury → Venus → Earth → Mars → Jupiter → Saturn → Uranus → Neptune. <br>Remember: <em>My Very Energetic Mother Just Served Us Nachos!</em>';
+    addPoints(20);showToast('+20 pts! Perfect orbit! 🚀');
+    const r=res.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
   } else {
-    const correctStr = correctOrbit.join(' → ');
+    sfxWrong();
     res.className='orbit-result wrong';
-    res.innerHTML=`❌ Not quite! The correct order from the Sun is:<br><strong style="color:var(--text)">${correctStr}</strong><br>Try again!`;
+    res.innerHTML=`❌ Not quite! Correct order from the Sun:<br><strong style="color:var(--text)">${correctOrbit.join(' → ')}</strong><br>Try again!`;
   }
   res.style.display='block';
 }
 initOrbit();
 
-/* ══════════════════════════════
+/* ════════════════════════════════
    GAME 3 — SPACE QUIZ
-══════════════════════════════ */
-const quizData = [
-  {
-    q:'Which planet is the HOTTEST in our Solar System?',
-    opts:['Mercury — it is closest to the Sun','Venus — it has a thick atmosphere that traps heat','Mars — it is a rocky desert planet','Jupiter — it is the biggest planet'],
-    ans:1,
-    feedback:'Venus is the hottest planet (465°C), not Mercury! Venus has a very thick atmosphere full of carbon dioxide gas that traps heat — this is called the greenhouse effect. Mercury has almost no atmosphere so heat escapes quickly.'
-  },
-  {
-    q:'How long does light from the Sun take to reach Earth?',
-    opts:['About 1 second','About 8 minutes','About 1 hour','About 1 day'],
-    ans:1,
-    feedback:'Sunlight travels 149.6 million km from the Sun to Earth in about 8 minutes and 20 seconds. That means the sunlight you feel right now actually left the Sun 8 minutes ago!'
-  },
-  {
-    q:'Why does Earth have seasons (Spring, Summer, Autumn, Winter)?',
-    opts:["Because Earth moves closer to and farther from the Sun during the year","Because Earth is tilted at 23.5° as it orbits the Sun","Because the Sun gets hotter and cooler throughout the year","Because the Moon blocks some of the Sun's light"],
-    ans:1,
-    feedback:"Seasons happen because Earth is tilted at 23.5°. When your part of Earth is tilted toward the Sun, you get summer. When it is tilted away, you get winter. Earth's distance from the Sun barely changes — that is NOT the cause of seasons!"
-  },
-  {
-    q:'What is the Great Red Spot on Jupiter?',
-    opts:['A giant volcano that erupts red lava','A huge storm that has been going on for at least 350 years','A sea of red liquid methane on the surface','A large red crater from a meteorite impact'],
-    ans:1,
-    feedback:"The Great Red Spot is a massive storm on Jupiter — bigger than the entire Earth! It has been spinning for at least 350 years. Jupiter is a gas giant with no solid surface, so there are no volcanoes or craters."
-  },
-  {
-    q:'Why does the Moon appear to change shape every night?',
-    opts:["The Moon is actually changing its shape","We see different amounts of the Moon's sunlit side as it orbits Earth","Clouds on the Moon hide parts of it","The Earth's shadow covers different parts of the Moon"],
-    ans:1,
-    feedback:"The Moon doesn't actually change shape — it is always a sphere! As the Moon orbits Earth, we see different parts of its sunlit side. When the fully lit side faces us, we see a Full Moon. When the lit side faces away, we see a New Moon."
-  },
-  {
-    q:"What percentage of the Solar System's total mass does the Sun contain?",
-    opts:['About 50%','About 75%','About 99.86%','About 60%'],
-    ans:2,
-    feedback:'The Sun contains about 99.86% of all the mass in the Solar System! All 8 planets, moons, asteroids, and comets together make up less than 0.2% of the total mass. The Sun is enormous compared to everything else.'
-  },
-  {
-    q:'Indonesia only has 2 seasons (rainy and dry). Why?',
-    opts:["Indonesia is too small to have 4 seasons","Indonesia is located on the equator, where Earth's tilt has less effect","Indonesia is always cloudy so the seasons don't change","Indonesia is too far from the Moon"],
-    ans:1,
-    feedback:"Indonesia sits right on the equator. Earth's 23.5° tilt affects regions far from the equator most — giving them 4 seasons. Near the equator, the Sun's angle barely changes throughout the year, so there are only 2 seasons: rainy and dry."
-  },
-  {
-    q:'What causes a Lunar Eclipse?',
-    opts:['The Moon moves between the Sun and Earth','Earth moves between the Sun and the Moon','The Sun moves behind the Moon','The Moon moves away from Earth'],
-    ans:1,
-    feedback:'A Lunar Eclipse happens when Earth moves between the Sun and the Moon. Earth casts a shadow on the Moon, making it look dark or reddish. This is different from a Solar Eclipse, where the Moon blocks sunlight from reaching Earth.'
-  },
-  {
-    q:'Saturn would float on water. Why?',
-    opts:["Saturn is made of air, which floats on water","Saturn's density is lower than water's density","Saturn has millions of tiny holes that trap air inside","Saturn is magnetic and water is magnetic too"],
-    ans:1,
-    feedback:"Saturn is the least dense planet in the Solar System — its density (0.687 g/cm³) is less than water (1 g/cm³). Density means how much mass is packed into a given space. Saturn is huge but made mostly of light gases like hydrogen and helium."
-  },
-  {
-    q:'What is nuclear fusion and where does it happen in the Sun?',
-    opts:['It is when atoms split apart — it happens in the corona','It is when hydrogen atoms join together to make helium — it happens in the core','It is when the Sun absorbs energy from planets — it happens at the surface','It is a type of explosion — it happens in the radiative zone'],
-    ans:1,
-    feedback:'Nuclear fusion happens in the Sun\'s core. Hydrogen atoms are squeezed together under enormous heat and pressure until they join (fuse) to make helium. This releases a massive amount of energy — all the light and heat we receive from the Sun comes from this process!'
-  },
+════════════════════════════════ */
+const quizData=[
+  {q:'Which planet is the HOTTEST in our Solar System?',
+   opts:['Mercury — it\'s closest to the Sun','Venus — its thick atmosphere traps heat','Mars — it\'s a rocky desert planet','Jupiter — it\'s the biggest planet'],
+   ans:1,fb:'Venus is hotter than Mercury (about 465°C)! Even though Mercury is closer to the Sun, Venus has a very thick atmosphere full of CO₂ that traps heat like a blanket — called the greenhouse effect. Mercury has almost no atmosphere, so heat escapes quickly.'},
+  {q:'How long does light from the Sun take to reach Earth?',
+   opts:['About 1 second','About 8 minutes','About 1 hour','About 1 day'],
+   ans:1,fb:'Sunlight travels 149.6 million km to reach us, but light moves incredibly fast! It takes about 8 minutes and 20 seconds. That means the sunshine on your face right now left the Sun 8 minutes ago!'},
+  {q:'Why does Earth have four seasons?',
+   opts:['Earth moves closer and farther from the Sun','Earth is tilted at 23.5° as it orbits the Sun','The Sun gets hotter and cooler during the year','The Moon blocks some sunlight'],
+   ans:1,fb:"Seasons happen because Earth is tilted at 23.5° — not because of distance from the Sun! When your part of Earth tilts toward the Sun, you get more direct sunlight = summer. When it tilts away, sunlight spreads wider = winter. Earth's distance from the Sun barely changes."},
+  {q:"What is the Great Red Spot on Jupiter?",
+   opts:['A giant volcano','A huge storm lasting at least 350 years','A sea of red liquid','A crater from a meteorite'],
+   ans:1,fb:"Jupiter's Great Red Spot is a massive storm bigger than Earth! It has been spinning for at least 350 years. Jupiter is a gas giant with no solid surface — so no volcanoes or craters like on rocky planets."},
+  {q:'Why does the Moon seem to change shape every night?',
+   opts:["The Moon actually changes shape","We see different parts of the Moon's sunlit side as it orbits Earth","Clouds on the Moon hide parts of it","Earth's shadow covers different parts"],
+   ans:1,fb:"The Moon doesn't actually change shape — it's always a sphere! As it orbits Earth, we see different portions of its sunlit side. Fully lit side facing us = Full Moon. Lit side facing away = New Moon. These are called the phases of the Moon."},
+  {q:"How much of the Solar System's total mass does the Sun hold?",
+   opts:['About 50%','About 75%','About 99.86%','About 60%'],
+   ans:2,fb:"The Sun holds about 99.86% of ALL the mass in the Solar System! Every planet, moon, asteroid, and comet combined makes up less than 0.2% of the total. This is why the Sun's gravity controls the orbits of everything."},
+  {q:'Indonesia only has 2 seasons. Why?',
+   opts:['Indonesia is too small','Indonesia is on the equator, where Earth\'s tilt has less effect','Indonesia is always cloudy','Indonesia is too far from the Moon'],
+   ans:1,fb:"Earth's 23.5° tilt affects countries far from the equator the most. Indonesia sits right on the equator, where the Sun's angle barely changes throughout the year. So temperatures stay similar — only rainfall changes, giving us a rainy season and a dry season."},
+  {q:'What causes a Lunar Eclipse?',
+   opts:['The Moon moves between the Sun and Earth','Earth moves between the Sun and the Moon','The Sun moves behind the Moon','The Moon moves far from Earth'],
+   ans:1,fb:"A Lunar Eclipse happens when Earth moves directly between the Sun and the Moon. Earth's shadow falls on the Moon, making it look dark or sometimes reddish-orange (a 'Blood Moon'). This is different from a Solar Eclipse, where the Moon blocks the Sun."},
+  {q:'Saturn would float on water. Why?',
+   opts:['Saturn is made of air','Saturn\'s density is lower than water','Saturn has holes that trap air','Saturn is magnetic'],
+   ans:1,fb:"Density means how much mass is packed into a given space. Saturn's density (0.687 g/cm³) is actually less than water (1 g/cm³). Even though Saturn is huge, it's mostly made of light gases like hydrogen and helium — so it would float!"},
+  {q:'Where in the Sun does nuclear fusion happen?',
+   opts:['In the corona (outer layer)','In the core','At the surface (photosphere)','In the radiative zone'],
+   ans:1,fb:"Nuclear fusion happens in the Sun's core! Temperatures there reach 15 million°C — hot enough to squeeze hydrogen atoms together to form helium. This releases enormous energy. All the light and warmth we get from the Sun comes from this process!"},
 ];
-
-let quizIndex = 0, quizAnswered = false;
-function initQuiz(){
-  quizIndex=0; quizAnswered=false;
-  renderQuizQuestion();
-}
-function renderQuizQuestion(){
-  const area = document.getElementById('quizArea');
-  if(quizIndex >= quizData.length){
+let quizIdx=0,quizDone=false;
+function initQuiz(){quizIdx=0;quizDone=false;renderQuiz();}
+function renderQuiz(){
+  const area=document.getElementById('quizArea');
+  if(quizIdx>=quizData.length){
     area.innerHTML=`<div class="quiz-result-card">
-      <div class="quiz-result-score">${quizIndex * 10}</div>
-      <div class="quiz-result-msg">You finished the Space Quiz! 🎉<br>Great work, scientist!</div>
+      <div class="quiz-result-score">${quizIdx*10} pts</div>
+      <div class="quiz-result-msg">You finished the Space Quiz! 🎉 Amazing work, scientist!</div>
       <button class="btn btn-primary" onclick="initQuiz()">↺ Try Again</button>
     </div>`;
     document.getElementById('quizBar').style.width='100%';
     document.getElementById('quizCounter').textContent='Completed!';
     return;
   }
-  const q = quizData[quizIndex];
-  document.getElementById('quizBar').style.width=`${((quizIndex)/quizData.length)*100}%`;
-  document.getElementById('quizCounter').textContent=`Question ${quizIndex+1} of ${quizData.length}`;
-  quizAnswered=false;
-  area.innerHTML=`
-    <div class="quiz-card">
-      <div class="quiz-q-badge">Question ${quizIndex+1}</div>
-      <div class="quiz-question">${q.q}</div>
-      <div class="quiz-options">
-        ${q.opts.map((o,i)=>`
-          <button class="quiz-option" onclick="answerQuiz(${i})">
-            <span class="opt-letter">${['A','B','C','D'][i]}.</span>
-            <span>${o}</span>
-          </button>`).join('')}
-      </div>
-      <div class="quiz-feedback" id="quizFeedback"></div>
-      <div class="btn-row" id="quizNextRow" style="display:none;">
-        <button class="btn btn-primary" onclick="nextQuiz()">Next Question →</button>
-      </div>
-    </div>`;
+  const q=quizData[quizIdx];
+  document.getElementById('quizBar').style.width=`${(quizIdx/quizData.length)*100}%`;
+  document.getElementById('quizCounter').textContent=`Question ${quizIdx+1} of ${quizData.length}`;
+  quizDone=false;
+  area.innerHTML=`<div class="quiz-card">
+    <div class="quiz-q-badge">Question ${quizIdx+1}</div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-option" onclick="answerQuiz(${i},this)"><span class="opt-letter">${['A','B','C','D'][i]}.</span><span>${o}</span></button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="qFb"></div>
+    <div class="btn-row" id="qNext" style="display:none;"><button class="btn btn-primary" onclick="nextQuiz()">Next Question →</button></div>
+  </div>`;
 }
-function answerQuiz(i){
-  if(quizAnswered) return;
-  quizAnswered=true;
-  const q = quizData[quizIndex];
-  const opts = document.querySelectorAll('.quiz-option');
-  opts.forEach((o,idx)=>{
+function answerQuiz(i,btn){
+  if(quizDone)return;quizDone=true;
+  const q=quizData[quizIdx];
+  document.querySelectorAll('.quiz-option').forEach((o,idx)=>{
     o.classList.add(idx===q.ans?'correct':'disabled');
-    if(idx===i && i!==q.ans) o.classList.add('wrong');
+    if(idx===i&&i!==q.ans)o.classList.add('wrong');
   });
-  const fb = document.getElementById('quizFeedback');
+  const fb=document.getElementById('qFb');
   fb.className='quiz-feedback show '+(i===q.ans?'correct':'wrong');
-  fb.textContent=(i===q.ans?'✅ Correct! ':'❌ Not quite! ')+q.feedback;
-  document.getElementById('quizNextRow').style.display='flex';
-  if(i===q.ans){ addPoints(10); addDone(); showToast('+10 points! Correct! ✅'); }
+  fb.textContent=(i===q.ans?'✅ Correct! ':'❌ Not quite! ')+q.fb;
+  document.getElementById('qNext').style.display='flex';
+  if(i===q.ans){
+    sfxCorrect();
+    addPoints(10);showToast('+10 pts! Correct! ✅');
+    const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
+  } else { sfxWrong(); }
 }
-function nextQuiz(){
-  quizIndex++;
-  renderQuizQuestion();
-}
+function nextQuiz(){quizIdx++;renderQuiz();}
 initQuiz();
 
-/* ══════════════════════════════
-   GAME 4 — FILL IN THE BLANK
-══════════════════════════════ */
-const fillData = [
-  {sentence:'Earth is the _____ planet from the Sun.',    answer:'third',   hint:'Count from Mercury...'},
-  {sentence:'The Moon takes about _____ days to go once around Earth.',  answer:'29.5', hint:'This is also how long a lunar cycle takes.'},
-  {sentence:'Earth is tilted at _____ degrees on its axis.',  answer:'23.5', hint:'This tilt is what causes the seasons!'},
-  {sentence:'The largest planet in our Solar System is _____.',  answer:'Jupiter', hint:'It is a gas giant with a famous storm...'},
-  {sentence:"Venus is the _____ planet in our Solar System, even hotter than Mercury.",  answer:'hottest', hint:'Think about the greenhouse effect...'},
-  {sentence:"The Sun's outer atmosphere, which is much hotter than its surface, is called the _____.",  answer:'corona', hint:'It looks like a glowing ring during a solar eclipse.'},
-  {sentence:'Regions near the _____ only experience 2 seasons because Earth\'s tilt has less effect there.',  answer:'equator', hint:'This is the imaginary line around the middle of Earth — and where Indonesia is!'},
-  {sentence:'A _____ eclipse happens when Earth comes between the Sun and the Moon.',  answer:'lunar', hint:'The other type is a solar eclipse.'},
+/* ════════════════════════════════
+   GAME 4 — FILL BLANK
+════════════════════════════════ */
+const fillData=[
+  {s:'Earth is the _____ planet from the Sun.',            ans:'third',   hint:'Count from Mercury...'},
+  {s:'The Moon takes about _____ days to orbit Earth.',    ans:'29.5',    hint:'This is also the length of a lunar cycle.'},
+  {s:"Earth's axis is tilted at _____ degrees.",           ans:'23.5',    hint:'This tilt causes the seasons!'},
+  {s:'The largest planet in the Solar System is _____.',   ans:'Jupiter', hint:'It has a famous giant storm...'},
+  {s:'The _____ planet is hotter than Mercury.',           ans:'Venus',   hint:'Think: greenhouse effect...'},
+  {s:"The Sun's very hot outer atmosphere is the _____.",  ans:'corona',  hint:'Visible during a solar eclipse.'},
+  {s:'Countries near the _____ only have 2 seasons.',      ans:'equator', hint:'Indonesia is right on this line!'},
+  {s:'A _____ eclipse happens when Earth moves between the Sun and Moon.',ans:'lunar',hint:'The other type is a solar eclipse.'},
 ];
 function initFill(){
-  const list = document.getElementById('fillList');
-  list.innerHTML='';
-  fillData.forEach((d,i)=>{
-    list.innerHTML+=`<div class="fill-item">
-      <div class="fill-sentence">Q${i+1}: ${d.sentence.replace('_____','<strong style="color:var(--glow)">_____</strong>')}</div>
-      <input class="fill-input" id="fill-${i}" placeholder="Type your answer here..." autocomplete="off">
-      <div class="fill-hint" id="fill-hint-${i}">💡 Hint: ${d.hint}</div>
-    </div>`;
-  });
+  const list=document.getElementById('fillList');list.innerHTML='';
+  fillData.forEach((d,i)=>list.innerHTML+=`<div class="fill-item">
+    <div class="fill-sentence">Q${i+1}: ${d.s.replace('_____','<strong style="color:var(--glow)">_____</strong>')}</div>
+    <input class="fill-input" id="fi${i}" placeholder="Type your answer..." autocomplete="off">
+    <div class="fill-hint" id="fh${i}">💡 Hint: ${d.hint}</div>
+  </div>`);
 }
 function checkFill(){
-  let pts = 0;
+  let pts=0;
   fillData.forEach((d,i)=>{
-    const input = document.getElementById(`fill-${i}`);
-    const val = input.value.trim().toLowerCase();
-    const correct = d.answer.toLowerCase();
-    if(val===correct){
-      input.classList.remove('wrong'); input.classList.add('correct');
-      pts+=10;
+    const inp=document.getElementById(`fi${i}`);
+    const val=inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(val===d.ans.toLowerCase()){
+      inp.classList.add('correct');pts+=10;
+      const r=inp.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
     } else {
-      input.classList.remove('correct'); input.classList.add('wrong');
-      const hint = document.getElementById(`fill-hint-${i}`);
-      hint.classList.add('show');
+      sfxWrong();
+      inp.classList.add('wrong');
+      document.getElementById(`fh${i}`).classList.add('show');
     }
   });
-  if(pts>0){ addPoints(pts); addDone(); showToast(`+${pts} points! 🎉`); }
+  if(pts>0){sfxCorrect();addPoints(pts);showToast(`+${pts} pts! 🎉`);}
 }
 initFill();
 
-/* ══════════════════════════════
-   GAME 5 — SPIN THE WHEEL
-══════════════════════════════ */
-const spinSegments = [
-  {label:'☀️ Sun',    color:'#f59e0b'},
-  {label:'🪐 Planets', color:'#818cf8'},
-  {label:'🌍 Earth',  color:'#22d3ee'},
-  {label:'🌕 Moon',   color:'#a78bfa'},
-  {label:'🌦️ Seasons',color:'#4ade80'},
-  {label:'🌍 SDGs',   color:'#34d399'},
-  {label:'🔭 Space',  color:'#f97316'},
-  {label:'⭐ Fun Fact',color:'#fbbf24'},
+/* ════════════════════════════════
+   GAME 5 — TRUE / FALSE
+════════════════════════════════ */
+const tfData=[
+  {s:'Mercury is the hottest planet in the Solar System.',ans:false,fb:'FALSE! Venus is hotter. Even though Mercury is closer to the Sun, it has almost no atmosphere to trap heat. Venus has a thick CO₂ atmosphere that traps heat, making it reach about 465°C!'},
+  {s:'Earth has seasons because it moves closer to and farther from the Sun.',ans:false,fb:"FALSE! Seasons are caused by Earth's 23.5° tilt — not its distance from the Sun. In fact, Earth is slightly closer to the Sun in January (during Southern Hemisphere summer) than in July!"},
+  {s:'The Moon does not produce its own light — it reflects sunlight.',ans:true,fb:'TRUE! The Moon has no light of its own. What we see is sunlight bouncing off its rocky surface. That\'s also why we only see the parts facing the Sun lit up.'},
+  {s:'Saturn is less dense than water and would float on a giant ocean.',ans:true,fb:"TRUE! Saturn's density (0.687 g/cm³) is less than water (1 g/cm³). It's huge but made mostly of hydrogen and helium gas — so despite its size, it would float!"},
+  {s:'A Solar Eclipse happens when Earth moves between the Sun and the Moon.',ans:false,fb:'FALSE! That describes a Lunar Eclipse. A Solar Eclipse happens when the MOON moves between the Sun and Earth, blocking sunlight from reaching part of Earth\'s surface.'},
+  {s:'Indonesia has only 2 seasons because it is located on the equator.',ans:true,fb:"TRUE! Countries near the equator are barely affected by Earth's tilt. The Sun shines at a similar angle all year, so temperatures don't change much. Only rainfall changes — giving Indonesia a rainy and a dry season."},
+  {s:'Nuclear fusion in the Sun happens in the corona (the outermost layer).',ans:false,fb:"FALSE! Nuclear fusion happens in the Sun's core — the very centre. Temperatures there reach 15 million°C! The corona is incredibly hot too, but for different reasons — fusion only occurs in the core."},
+  {s:"Jupiter's Great Red Spot is a storm that has lasted hundreds of years.",ans:true,fb:"TRUE! The Great Red Spot is a massive, long-lasting storm on Jupiter — bigger than Earth! Scientists estimate it's been spinning for at least 350 years. It's slowly shrinking though!"},
 ];
-const spinQuestions = {
-  '☀️ Sun': {
-    q:"The Sun is the source of almost all energy on Earth. Can you name TWO ways humans use the Sun's energy in everyday life?",
-    sample:'Solar panels on rooftops convert sunlight into electricity. Plants use sunlight for photosynthesis to make food. We also use sunlight to make Vitamin D in our skin, and wind power is created by the Sun heating air unevenly.'
-  },
-  '🪐 Planets': {
-    q:"If you could choose one planet (other than Earth) to visit, which would it be and why? What would you see there?",
-    sample:'Mars would be a fascinating choice — you could see Olympus Mons, the tallest volcano in the Solar System, and Valles Marineris, the longest canyon. You would need a spacesuit because Mars has very thin air and temperatures as low as -125°C!'
-  },
-  '🌍 Earth': {
-    q:"Earth is special because it has liquid water, an atmosphere, and a magnetic field. What do you think would happen to life on Earth if the magnetic field suddenly disappeared?",
-    sample:"Without Earth's magnetic field, harmful solar wind particles would hit Earth's surface directly. Over time, the solar wind would slowly strip away our atmosphere. Without the atmosphere, liquid water could not exist on the surface, and life would not survive."
-  },
-  '🌕 Moon': {
-    q:"The Moon affects Earth's oceans through tides. How do you think fishermen and farmers in Indonesia use their knowledge of the Moon in their daily work?",
-    sample:'Indonesian fishermen watch the Moon phases to predict tides. High tides bring fish closer to shore. Salt farmers fill their ponds with seawater during high tides. Some farmers also use the Javanese lunar calendar (Pranata Mangsa) to plan when to plant crops.'
-  },
-  '🌦️ Seasons': {
-    q:"Indonesia has 2 seasons, but Europe has 4. Explain in your own words WHY this difference exists. What causes it?",
-    sample:"Earth is tilted at 23.5°. Countries far from the equator (like in Europe) experience a big change in the angle of sunlight throughout the year — giving them 4 seasons. Indonesia sits on the equator, where the Sun's angle barely changes, so temperatures stay similar all year. Only rainfall changes, giving Indonesia a rainy and a dry season."
-  },
-  '🌍 SDGs': {
-    q:"The United Nations' SDG 13 is about Climate Action. How do you think learning about the Sun and seasons helps us understand and fight climate change?",
-    sample:"Understanding the Sun helps us see that Earth's climate depends on how much solar energy it receives and traps. The Seasons page shows how Earth's tilt creates different climates. Learning this helps us understand what a 'normal' climate looks like — and recognize when human activities (like releasing CO₂) are changing it. We also use satellites (from space technology) to monitor climate change."
-  },
-  '🔭 Space': {
-    q:"Scientists have sent rovers to Mars to look for signs of ancient life. Why do you think finding life (even just bacteria) on another planet would be so important for humanity?",
-    sample:"Finding life on Mars would be one of the biggest discoveries in human history! It would mean that life is not unique to Earth and could exist elsewhere in the universe. This could change how we think about biology, religion, and our place in the cosmos. It would also push governments to invest much more in space exploration."
-  },
-  '⭐ Fun Fact': {
-    q:"Choose any planet or topic from this website and share one amazing fact about it. Explain WHY that fact is so surprising or interesting to you.",
-    sample:"One amazing fact: A day on Venus (243 Earth days) is longer than a year on Venus (225 Earth days)! Venus also rotates backwards compared to most planets, so the Sun rises in the west and sets in the east. This is surprising because it means the basic cycle of day and night works completely differently on Venus than on Earth!"
-  },
-};
+function buildTF(){
+  const list=document.getElementById('tfList');list.innerHTML='';
+  tfData.forEach((d,i)=>list.innerHTML+=`<div class="tf-card" id="tfc${i}">
+    <div class="tf-q">Statement ${i+1}: ${d.s}</div>
+    <div class="tf-btns">
+      <button class="tf-btn pick-true" onclick="answerTF(${i},true,this)">✓ True</button>
+      <button class="tf-btn pick-false" onclick="answerTF(${i},false,this)">✗ False</button>
+    </div>
+    <div class="tf-feedback" id="tff${i}"></div>
+  </div>`);
+}
+function answerTF(i,guess,btn){
+  const card=document.getElementById(`tfc${i}`);
+  if(card.dataset.done)return;card.dataset.done='y';
+  const d=tfData[i];const ok=guess===d.ans;
+  card.querySelectorAll('.tf-btn').forEach(b=>b.classList.add('dim'));
+  btn.classList.remove('dim');
+  btn.classList.add(ok?'show-correct':'show-wrong');
+  const fb=document.getElementById(`tff${i}`);
+  fb.className='tf-feedback show '+(ok?'correct':'wrong');
+  fb.textContent=(ok?'✅ Correct! ':'❌ Not quite! ')+d.fb;
+  if(ok){sfxCorrect();addPoints(10);showToast('+10 pts! Correct! ✅');const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);}
+  else{sfxWrong();}
+}
+buildTF();
 
-let spinAngle=0, spinning=false;
-function drawWheel(){
-  const canvas=document.getElementById('spinCanvas');
-  const ctx=canvas.getContext('2d');
-  const cx=130,cy=130,r=120;
-  const seg=2*Math.PI/spinSegments.length;
+/* ════════════════════════════════
+   GAME 6 — SPIN & ANSWER
+════════════════════════════════ */
+const spinSegs=[
+  {label:'☀️ Sun',     color:'#f59e0b'},
+  {label:'🪐 Planets', color:'#818cf8'},
+  {label:'🌍 Earth',   color:'#22d3ee'},
+  {label:'🌕 Moon',    color:'#a78bfa'},
+  {label:'🌦️ Seasons', color:'#4ade80'},
+  {label:'🌍 SDGs',    color:'#34d399'},
+  {label:'🔭 Deep Space',color:'#f97316'},
+  {label:'⭐ Fun Fact', color:'#fbbf24'},
+];
+const spinQs={
+  '☀️ Sun':{q:"The Sun provides almost all of Earth's energy. Name TWO ways humans use the Sun's energy in everyday life.",s:"1) Solar panels convert sunlight into electricity. 2) Plants use sunlight for photosynthesis — when we eat plants, we get that energy. 3) Wind energy is also solar-powered: the Sun heats air unevenly, creating wind. 4) Our skin makes Vitamin D using sunlight."},
+  '🪐 Planets':{q:"If you could visit any planet (other than Earth), which would you choose and why? What do you think you'd see?",s:"Mars is popular! You'd see Olympus Mons — 3× taller than Everest — and a huge canyon called Valles Marineris. The sky would look pinkish-orange. You'd need a full spacesuit since the air is 95% CO₂ and temperatures drop to −125°C at night."},
+  '🌍 Earth':{q:"Earth is protected by a magnetic field. What do you think would happen to life if it suddenly disappeared?",s:"Without Earth's magnetic field, harmful particles from the Sun (solar wind) would hit Earth's surface directly. Over thousands of years, the solar wind would strip away our atmosphere — just like what happened to Mars! Without an atmosphere, liquid water couldn't exist, and life as we know it would end."},
+  '🌕 Moon':{q:"The Moon causes ocean tides. How might fishermen and farmers in Indonesia use their knowledge of the Moon?",s:"Indonesian fishermen watch Moon phases to predict tides — high tides bring fish closer to shore. Salt farmers fill ponds with seawater during high tides. Some Javanese farmers use the traditional Pranata Mangsa calendar (based on Moon cycles) to plan planting and harvest times."},
+  '🌦️ Seasons':{q:"Indonesia has 2 seasons, but countries like Germany have 4. In your own words, explain WHY this difference happens.",s:"Earth is tilted at 23.5°. Countries far from the equator get very different sun angles in June vs December — giving them clear summer and winter. Indonesia sits on the equator where the Sun's angle barely changes all year. So temperatures stay similar — only rainfall changes, giving us rainy and dry seasons."},
+  '🌍 SDGs':{q:"SDG 13 is about Climate Action. How does learning about the Sun and seasons help us understand and act on climate change?",s:"Understanding the Sun helps us see that Earth's climate depends on how much solar energy it receives and traps. Learning about seasons shows normal climate patterns. When we know what's normal, we can detect changes — like hotter summers or stronger rainy seasons — and connect them to rising CO₂ levels from human activities."},
+  '🔭 Deep Space':{q:"Scientists have sent rovers to Mars to look for ancient life. Why would finding even just bacteria on another planet be a huge deal?",s:"Finding ANY life on Mars — even ancient microbes — would mean life isn't unique to Earth and could exist across the universe. It would change biology, philosophy, and possibly religion. It would also massively boost funding for space exploration and raise deep questions about humanity's place in the cosmos."},
+  '⭐ Fun Fact':{q:"Choose any planet or space topic from this website and share one amazing fact. Explain WHY it surprises or impresses you.",s:"A day on Venus (243 Earth days) is actually longer than a year on Venus (225 Earth days)! Venus also rotates backwards compared to most planets — so the Sun rises in the WEST and sets in the EAST. Everything about day and night is flipped on Venus!"},
+};
+let spinAngle=0,isSpinning=false;
+function drawSpin(){
+  const cv=document.getElementById('spinCanvas');
+  const ctx=cv.getContext('2d');
+  const cx=130,cy=130,r=118;
+  const sz=2*Math.PI/spinSegs.length;
   ctx.clearRect(0,0,260,260);
-  spinSegments.forEach((s,i)=>{
-    const start=spinAngle+i*seg, end=start+seg;
-    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,end); ctx.closePath();
-    ctx.fillStyle=s.color+'33'; ctx.fill();
-    ctx.strokeStyle=s.color; ctx.lineWidth=2; ctx.stroke();
-    ctx.save(); ctx.translate(cx,cy);
-    ctx.rotate(start+seg/2);
-    ctx.textAlign='right'; ctx.fillStyle='#fff';
-    ctx.font='bold 12px Exo 2,sans-serif';
-    ctx.fillText(s.label,r-10,4);
-    ctx.restore();
+  spinSegs.forEach((s,i)=>{
+    const st=spinAngle+i*sz,en=st+sz;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,st,en);ctx.closePath();
+    ctx.fillStyle=s.color+'28';ctx.fill();
+    ctx.strokeStyle=s.color;ctx.lineWidth=1.5;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(st+sz/2);
+    ctx.textAlign='right';ctx.fillStyle='#e2e8f0';
+    ctx.font='bold 11px Exo 2,sans-serif';
+    ctx.fillText(s.label,r-8,4);ctx.restore();
   });
-  // center circle
-  ctx.beginPath(); ctx.arc(cx,cy,22,0,2*Math.PI);
-  ctx.fillStyle='#050d2a'; ctx.fill();
-  ctx.strokeStyle='rgba(167,139,250,.5)'; ctx.lineWidth=2; ctx.stroke();
-  ctx.fillStyle='#a78bfa'; ctx.font='bold 10px Orbitron,sans-serif';
-  ctx.textAlign='center'; ctx.fillText('SPIN',cx,cy+4);
+  ctx.beginPath();ctx.arc(cx,cy,22,0,2*Math.PI);
+  ctx.fillStyle='#020818';ctx.fill();
+  ctx.strokeStyle='rgba(167,139,250,.5)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle='#a78bfa';ctx.font='bold 10px Orbitron,sans-serif';
+  ctx.textAlign='center';ctx.fillText('SPIN',cx,cy+4);
 }
 function spinWheel(){
-  if(spinning) return;
-  spinning=true;
+  if(isSpinning)return;isSpinning=true;
+  sfxSpin();
   document.getElementById('spinBtn').disabled=true;
   document.getElementById('spinQuestionArea').innerHTML='<div class="spin-idle">⏳ Spinning...</div>';
-  const totalRot = 2*Math.PI*(5+Math.random()*5);
-  const duration=3500, start=performance.now(), startAngle=spinAngle;
-  function animate(now){
-    const elapsed=now-start;
-    const progress=Math.min(elapsed/duration,1);
-    const ease=1-Math.pow(1-progress,4);
-    spinAngle=startAngle+totalRot*ease;
-    drawWheel();
-    if(progress<1){ requestAnimationFrame(animate); }
-    else {
-      spinning=false;
-      document.getElementById('spinBtn').disabled=false;
-      // find which segment is at top (pointer at angle=Math.PI*1.5)
-      const normalised=((spinAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
-      const segSize=2*Math.PI/spinSegments.length;
-      const pointerAngle=(3*Math.PI/2);
-      let relAngle=(pointerAngle-normalised+2*Math.PI)%(2*Math.PI);
-      const idx=Math.floor(relAngle/segSize)%spinSegments.length;
-      showSpinQuestion(spinSegments[idx].label, spinSegments[idx].color);
+  const total=2*Math.PI*(5+Math.random()*5);
+  const dur=3500,st=performance.now(),sa=spinAngle;
+  (function frame(now){
+    const el=now-st,prog=Math.min(el/dur,1),ease=1-Math.pow(1-prog,4);
+    spinAngle=sa+total*ease;drawSpin();
+    if(prog<1){requestAnimationFrame(frame);}
+    else{
+      isSpinning=false;document.getElementById('spinBtn').disabled=false;
+      const norm=((spinAngle%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+      const segSz=2*Math.PI/spinSegs.length;
+      const rel=(3*Math.PI/2-norm+2*Math.PI)%(2*Math.PI);
+      const idx=Math.floor(rel/segSz)%spinSegs.length;
+      sfxSpinLand();
+      showSpinQ(spinSegs[idx].label,spinSegs[idx].color);
     }
-  }
-  requestAnimationFrame(animate);
+  })(performance.now());
 }
-function showSpinQuestion(label, color){
-  const data = spinQuestions[label];
-  if(!data) return;
+function showSpinQ(label,color){
+  const d=spinQs[label];if(!d)return;
+  const key=label.replace(/[^a-z]/gi,'');
   document.getElementById('spinQuestionArea').innerHTML=`
     <div class="spin-question-box">
-      <div class="spin-topic-badge" style="color:${color};border-color:${color};">${label}</div>
-      <div class="spin-question-text">${data.q}</div>
-      <textarea class="spin-answer-area" placeholder="Write your answer here... Take your time and think carefully!"></textarea>
-      <button class="spin-reveal-btn" onclick="revealSample(this,'${label}')">👁 Show Sample Answer</button>
-      <div class="spin-sample-answer" id="sample-${label.replace(/[^a-z]/gi,'')}">
-        <strong style="color:var(--green);">💡 Sample Answer:</strong><br>${data.sample}
-      </div>
+      <div class="spin-topic-badge" style="color:${color};border-color:${color}">${label}</div>
+      <div class="spin-question-text">${d.q}</div>
+      <textarea class="spin-answer-area" placeholder="Write your answer here... Think carefully!"></textarea>
+      <button class="spin-reveal-btn" onclick="this.style.display='none';document.getElementById('spsa${key}').classList.add('show')">👁 Show Sample Answer</button>
+      <div class="spin-sample-answer" id="spsa${key}"><strong style="color:var(--green)">💡 Sample Answer:</strong><br>${d.s}</div>
     </div>`;
 }
-function revealSample(btn, label){
-  const key=label.replace(/[^a-z]/gi,'');
-  document.getElementById('sample-'+key).classList.add('show');
-  btn.style.display='none';
-}
-drawWheel();
+drawSpin();
 
-/* ══════════════════════════════
-   GAME 6 — SDG CHALLENGE
-══════════════════════════════ */
-const sdgMatchData = [
-  {fact:'The Moon\'s gravity creates ocean tides that shape coastal ecosystems', sdg:'SDG 14 · Life Below Water'},
-  {fact:"Earth's 23.5° axial tilt creates tropical rainforests and arctic tundra", sdg:'SDG 15 · Life on Land'},
-  {fact:'Weather satellites (from space science) help us track climate change', sdg:'SDG 13 · Climate Action'},
-  {fact:'This website uses visual tools to make science accessible to all students', sdg:'SDG 4 · Quality Education'},
-  {fact:'The Sun drives the water cycle by evaporating water from the oceans', sdg:'SDG 14 · Life Below Water'},
-  {fact:"Venus's runaway greenhouse effect shows what happens with too much CO₂", sdg:'SDG 13 · Climate Action'},
+/* ════════════════════════════════
+   GAME 7 — INQUIRY LAB
+════════════════════════════════ */
+const inquiryData=[
+  {q:"If Earth's tilt was 0° (completely straight, no tilt), what do you think would happen to the seasons and to the variety of life on Earth?",
+   ctx:"Think about how tilt creates seasons, and how seasons affect different plants and animals in different places on Earth.",
+   s:"If Earth had no tilt, every place would receive the same amount of sunlight all year — no seasons. The equator would still be hot and poles cold, but neither would change throughout the year. This would likely reduce biodiversity: many plants and animals need seasonal changes to breed, migrate, or hibernate. Without those cues, fewer ecological niches would exist, possibly meaning fewer species overall."},
+  {q:"Venus has a thick CO₂ atmosphere making it extremely hot. Earth's CO₂ levels are slowly rising. What does Venus teach us about Earth's future if we don't act on climate change?",
+   ctx:"Connect what you know about Venus's greenhouse effect with what is happening on Earth due to burning fossil fuels.",
+   s:"Venus shows what a 'runaway greenhouse effect' looks like — when CO₂ levels get so high that the planet traps enormous heat and becomes uninhabitable. Earth is not close to that extreme, but Venus is a warning: even small increases in CO₂ can cause significant temperature rises. If we keep burning fossil fuels, Earth could face more extreme heatwaves, rising sea levels, and stronger storms. Venus is a lesson from our own Solar System."},
+  {q:"You're a scientist designing a new space mission. Would you send a mission to find water on Mars, or to study Europa (a moon of Jupiter) which may have liquid water under its icy surface? Explain your reasoning.",
+   ctx:"Think about what makes a place suitable for life, what we already know about Mars, and what we might discover at each location.",
+   s:"Both are great! Europa might be more exciting because it is believed to have a real liquid water ocean today — not just in the past like Mars. Liquid water is the #1 requirement for life as we know it. If Europa has liquid water right now, there's a real chance of finding living microbes — which would be an even bigger discovery than ancient traces on Mars."},
+  {q:"Indonesia is one of the most biodiverse countries in the world. How might Indonesia's location on the equator (and its 2-season climate) be connected to this amazing biodiversity?",
+   ctx:"Think about how a warm, consistent climate with good rainfall affects plants and animals. Connect climate science to biology.",
+   s:"Indonesia's equatorial location means warm temperatures and high rainfall all year — perfect for tropical rainforests. These forests are incredibly species-rich because: plants can grow year-round, food is always available so animals don't need to migrate or hibernate, and the warm wet climate allows many different ecological niches to exist. Biodiversity thrives where conditions are stable and solar energy (sunlight) is abundant."},
+  {q:"A student says: 'The Sun is important, but it has nothing to do with the United Nations' Sustainable Development Goals.' Do you agree or disagree? Use at least TWO specific examples to support your answer.",
+   ctx:"Think about how the Sun connects to energy, food, water, climate, and life. Then connect those ideas to specific SDGs.",
+   s:"I strongly disagree. The Sun connects to many SDGs! For example: SDG 7 (Clean Energy) — solar panels harness the Sun's energy as clean, renewable power. SDG 2 (Zero Hunger) — all food starts with photosynthesis, which needs sunlight. Without the Sun there would be no plants, no crops, and no food. SDG 13 (Climate Action) — understanding solar energy helps us understand climate systems and climate change. The Sun is literally the engine of life on Earth."},
 ];
-let sdgSelected = null;
+function buildInquiry(){
+  const list=document.getElementById('inquiryList');list.innerHTML='';
+  inquiryData.forEach((d,i)=>list.innerHTML+=`<div class="inq-card" id="iqc${i}">
+    <div class="inq-top" onclick="toggleInq(${i})">
+      <span class="inq-num">Q${i+1}</span>
+      <span class="inq-q">${d.q}</span>
+      <span class="inq-arrow">▶</span>
+    </div>
+    <div class="inq-body">
+      <div class="inq-context">💡 Think about: ${d.ctx}</div>
+      <textarea class="inq-textarea" placeholder="Write your answer here — explain your reasoning clearly..."></textarea>
+      <button class="inq-reveal-btn" onclick="this.style.display='none';document.getElementById('iqs${i}').classList.add('show')">👁 Show Sample Answer</button>
+      <div class="inq-sample" id="iqs${i}"><strong>Sample Answer:</strong><br>${d.s}</div>
+    </div>
+  </div>`);
+}
+function toggleInq(i){document.getElementById(`iqc${i}`).classList.toggle('open');}
+buildInquiry();
+
+/* ════════════════════════════════
+   GAME 8 — SDG CHALLENGE
+════════════════════════════════ */
+const sdgMatchData=[
+  {fact:"The Moon's gravity creates ocean tides that shape coastal ecosystems",sdg:'SDG 14 · Life Below Water'},
+  {fact:"Earth's 23.5° axial tilt creates tropical rainforests and arctic tundra",sdg:'SDG 15 · Life on Land'},
+  {fact:'Weather satellites (space science) help us track climate change',sdg:'SDG 13 · Climate Action'},
+  {fact:'This website makes space science accessible and free for all students',sdg:'SDG 4 · Quality Education'},
+  {fact:'The Sun drives the water cycle by evaporating water from oceans',sdg:'SDG 6 · Clean Water'},
+  {fact:"Venus's runaway greenhouse effect shows what too much CO₂ can do",sdg:'SDG 13 · Climate Action'},
+];
+let sdgSel=null;
 function initSDGMatch(){
-  sdgSelected=null;
-  const shuffFacts=[...sdgMatchData].sort(()=>Math.random()-.5).slice(0,4);
-  const uniqueGoals=[...new Set(shuffFacts.map(d=>d.sdg))].sort(()=>Math.random()-.5);
-  const fDiv=document.getElementById('sdgMatchFacts');
-  const gDiv=document.getElementById('sdgMatchGoals');
-  fDiv.innerHTML=''; gDiv.innerHTML='';
-  shuffFacts.forEach(d=>{
-    const el=document.createElement('div');
-    el.className='sdg-match-item'; el.dataset.sdg=d.sdg;
-    el.innerHTML=`<div class="sdg-num">Science</div>${d.fact}`;
-    el.style.marginBottom='10px';
-    el.onclick=()=> selectSDGFact(el,d.sdg);
-    fDiv.appendChild(el);
+  sdgSel=null;
+  const pick=[...sdgMatchData].sort(()=>Math.random()-.5).slice(0,4);
+  const goals=[...new Set(pick.map(d=>d.sdg))].sort(()=>Math.random()-.5);
+  const fD=document.getElementById('sdgMatchFacts');
+  const gD=document.getElementById('sdgMatchGoals');
+  fD.innerHTML='';gD.innerHTML='';
+  pick.forEach(d=>{
+    const el=mkEl('div','sdg-match-item');el.dataset.sdg=d.sdg;
+    el.innerHTML=`<div class="sdg-num">Science ↓</div>${d.fact}`;
+    el.onclick=()=>pickSDGFact(el,d.sdg);fD.appendChild(el);
   });
-  uniqueGoals.forEach(g=>{
-    const el=document.createElement('div');
-    el.className='sdg-match-item'; el.dataset.sdg=g;
+  goals.forEach(g=>{
+    const el=mkEl('div','sdg-match-item');el.dataset.sdg=g;
     el.innerHTML=`<div class="sdg-num">🌍</div>${g}`;
-    el.style.marginBottom='10px';
-    el.onclick=()=> selectSDGGoal(el,g);
-    gDiv.appendChild(el);
+    el.onclick=()=>pickSDGGoal(el,g);gD.appendChild(el);
   });
 }
-function selectSDGFact(el,sdg){
-  if(el.classList.contains('used')||el.classList.contains('correct')) return;
+function pickSDGFact(el,sdg){
+  if(el.classList.contains('used')||el.classList.contains('correct'))return;
+  sfxClick();
   document.querySelectorAll('#sdgMatchFacts .sdg-match-item').forEach(e=>e.classList.remove('selected'));
-  el.classList.add('selected'); sdgSelected=sdg;
+  el.classList.add('selected');sdgSel=sdg;
 }
-function selectSDGGoal(el,sdg){
-  if(!sdgSelected||el.classList.contains('used')||el.classList.contains('correct')) return;
-  if(sdgSelected===sdg){
+function pickSDGGoal(el,sdg){
+  if(!sdgSel||el.classList.contains('used')||el.classList.contains('correct'))return;
+  if(sdgSel===sdg){
+    sfxCorrect();
     el.classList.add('correct','used');
-    document.querySelectorAll('#sdgMatchFacts .sdg-match-item').forEach(e=>{
-      if(e.classList.contains('selected')){ e.classList.add('correct','used'); }
-    });
-    addPoints(10); addDone(); showToast('+10 points! Great connection! 🌍');
+    document.querySelectorAll('#sdgMatchFacts .sdg-match-item').forEach(e=>{if(e.classList.contains('selected'))e.classList.add('correct','used');});
+    addPoints(10);showToast('+10 pts! Great connection! 🌍');
+    const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);
   } else {
+    sfxWrong();
     el.classList.add('wrong');
     document.querySelectorAll('#sdgMatchFacts .sdg-match-item').forEach(e=>e.classList.remove('selected'));
-    setTimeout(()=>el.classList.remove('wrong'),900);
+    setTimeout(()=>el.classList.remove('wrong'),600);
   }
-  sdgSelected=null;
+  sdgSel=null;
 }
 initSDGMatch();
 
-/* SDG QUIZ */
-const sdgQuizData = [
-  {
-    q:'SDG 4 is about "Quality Education." How does this website connect to SDG 4?',
-    opts:[
-      'By selling expensive science books to students',
-      'By making solar system science easy to understand and free for everyone to access',
-      'By only teaching students who already know about space',
-      'By focusing only on Indonesian students'
-    ],
-    ans:1,
-    feedback:"SDG 4 is about making quality education accessible to everyone. This website uses clear language, visuals, and interactive tools so that any student can learn about the Solar System — not just those with the best resources. That's exactly what SDG 4 is about!"
-  },
-  {
-    q:"The Moon causes ocean tides. Which SDG is most directly connected to this?",
-    opts:[
-      'SDG 4 · Quality Education',
-      'SDG 13 · Climate Action',
-      'SDG 14 · Life Below Water',
-      'SDG 15 · Life on Land'
-    ],
-    ans:2,
-    feedback:'SDG 14 is about protecting life in the oceans. The Moon\'s gravitational pull creates tides that oxygenate coastal waters and create habitats for thousands of marine species. Fishermen also use tide patterns to know when and where to fish.'
-  },
-  {
-    q:"Venus has a surface temperature of 465°C because of its thick CO₂ atmosphere. This is an example of what phenomenon — and which SDG does it connect to?",
-    opts:[
-      'Nuclear fusion — connects to SDG 7 (Clean Energy)',
-      'The greenhouse effect — connects to SDG 13 (Climate Action)',
-      'Solar wind — connects to SDG 14 (Life Below Water)',
-      'Tidal forces — connects to SDG 15 (Life on Land)'
-    ],
-    ans:1,
-    feedback:"Venus is the perfect example of a runaway greenhouse effect — when CO₂ traps so much heat that the planet becomes incredibly hot. Earth's CO₂ levels are rising due to human activities. SDG 13 (Climate Action) is about preventing Earth from moving toward a situation like Venus!"
-  },
-  {
-    q:"Earth's magnetic field protects all life on land from harmful solar radiation. Which SDG does this scientific fact connect to?",
-    opts:[
-      'SDG 4 · Quality Education — because it teaches us about Earth',
-      'SDG 13 · Climate Action — because it affects temperature',
-      'SDG 14 · Life Below Water — because it protects the oceans',
-      'SDG 15 · Life on Land — because it protects land ecosystems'
-    ],
-    ans:3,
-    feedback:"Earth's magnetic field acts like a giant shield that deflects harmful solar particles. Without it, the solar wind would strip away our atmosphere over time, and life on land would not be possible. This is directly connected to SDG 15 — protecting land ecosystems."
-  },
-  {
-    q:"Scientists use satellites orbiting Earth to monitor rising sea levels and melting ice caps. Which SDG does this connect to — and why?",
-    opts:[
-      'SDG 4 — because satellites are used in schools',
-      'SDG 13 (Climate Action) — because satellites provide data to track and understand climate change',
-      'SDG 15 — because satellites count trees in forests',
-      'SDG 14 — because satellites study fish in the ocean'
-    ],
-    ans:1,
-    feedback:"Satellites are a product of space science and technology. They orbit Earth collecting data about sea levels, ice cover, temperature, and weather. This data is essential for SDG 13 (Climate Action) — we cannot fight climate change without understanding how and where it is happening."
-  },
+const sdgQuizData=[
+  {q:"SDG 4 is about 'Quality Education.' How does this website connect to that goal?",
+   opts:['By selling science books','By making solar system science easy and free for all students','By teaching only advanced students','By only helping students in certain cities'],
+   ans:1,fb:"SDG 4 wants quality education accessible to EVERYONE. This website uses clear language, visuals, and interactive activities so any student can explore space science — not just those with the best resources. That's exactly what SDG 4 is about!"},
+  {q:"Ocean tides are caused by the Moon's gravity. Which SDG does this connect to most directly?",
+   opts:['SDG 4 · Quality Education','SDG 13 · Climate Action','SDG 14 · Life Below Water','SDG 15 · Life on Land'],
+   ans:2,fb:"SDG 14 is about protecting life in our oceans. The Moon's gravity creates tides that oxygenate coastal waters, create habitats for marine creatures, and help fishermen predict when to fish. Without tides, coastal ocean ecosystems would be very different — and so would the lives of millions of coastal communities."},
+  {q:"Venus has surface temperatures of 465°C because of its thick CO₂ atmosphere. Which SDG and which phenomenon does this connect to?",
+   opts:['Nuclear fusion — SDG 7 Clean Energy','The greenhouse effect — SDG 13 Climate Action','Solar wind — SDG 14 Life Below Water','Tidal forces — SDG 15 Life on Land'],
+   ans:1,fb:"Venus is a perfect extreme example of the greenhouse effect — when CO₂ traps so much heat that a planet becomes scorching hot. Earth's CO₂ levels are rising because of human activities. SDG 13 (Climate Action) is about preventing Earth from moving down a path toward Venus-like conditions!"},
+  {q:"Satellites orbiting Earth help scientists monitor rising sea levels and melting glaciers. Which SDG does this connect to?",
+   opts:['SDG 4 — satellites are used in schools','SDG 13 Climate Action — satellites give us data to track climate change','SDG 15 — satellites count trees','SDG 14 — satellites study fish'],
+   ans:1,fb:"Satellites are a product of space science and technology, and they're essential for SDG 13. They orbit Earth collecting data about sea levels, ice sheets, temperature, and extreme weather. Without this data, we couldn't understand where and how climate change is happening — or make effective plans to fight it."},
+  {q:"Which statement BEST explains why science connects to the SDGs?",
+   opts:['Science and SDGs have nothing in common','Understanding how Earth, Sun, and space work helps us protect and improve life on our planet','SDGs are only about social issues, not science','Science only helps make new technology'],
+   ans:1,fb:"Science and SDGs are deeply connected! Every SDG goal — from clean water to climate action to zero hunger — depends on understanding how Earth's systems work. Space science teaches us about the Sun (energy), the water cycle, climate patterns, and ecosystems. That knowledge is the foundation for solving the world's biggest problems."},
 ];
 function buildSDGQuiz(){
-  const list=document.getElementById('sdgQuizList');
-  list.innerHTML='';
-  sdgQuizData.forEach((q,qi)=>{
-    list.innerHTML+=`<div class="sdg-quiz-item">
-      <div class="sdg-quiz-q">Q${qi+1}: ${q.q}</div>
-      <div class="sdg-quiz-opts">
-        ${q.opts.map((o,i)=>`
-          <button class="sdg-quiz-opt" onclick="answerSDGQuiz(this,${qi},${i})">
-            <span class="opt-letter" style="color:var(--green);">${['A','B','C','D'][i]}.</span>
-            <span>${o}</span>
-          </button>`).join('')}
-      </div>
-      <div class="sdg-feedback" id="sdg-fb-${qi}"></div>
-    </div>`;
-  });
+  const list=document.getElementById('sdgQuizList');list.innerHTML='';
+  sdgQuizData.forEach((q,qi)=>list.innerHTML+=`<div class="sdg-quiz-item" id="sdgqi${qi}">
+    <div class="sdg-quiz-q">Q${qi+1}: ${q.q}</div>
+    <div class="sdg-quiz-opts">
+      ${q.opts.map((o,i)=>`<button class="sdg-quiz-opt" onclick="answerSDG(${qi},${i},this)"><span style="font-family:'Orbitron',sans-serif;font-size:.68rem;font-weight:700;color:var(--green);flex-shrink:0;margin-top:2px">${['A','B','C','D'][i]}.</span><span>${o}</span></button>`).join('')}
+    </div>
+    <div class="sdg-feedback" id="sdgfb${qi}"></div>
+  </div>`);
 }
-function answerSDGQuiz(btn,qi,i){
-  const item=btn.closest('.sdg-quiz-item');
-  if(item.dataset.answered) return;
-  item.dataset.answered='true';
+function answerSDG(qi,i,btn){
+  const item=document.getElementById(`sdgqi${qi}`);
+  if(item.dataset.done)return;item.dataset.done='y';
   const q=sdgQuizData[qi];
   item.querySelectorAll('.sdg-quiz-opt').forEach((o,idx)=>{
     o.classList.add(idx===q.ans?'correct':'disabled');
-    if(idx===i&&i!==q.ans) o.classList.add('wrong');
+    if(idx===i&&i!==q.ans)o.classList.add('wrong');
   });
-  const fb=document.getElementById(`sdg-fb-${qi}`);
+  const fb=document.getElementById(`sdgfb${qi}`);
   fb.className='sdg-feedback show '+(i===q.ans?'correct':'wrong');
-  fb.innerHTML=(i===q.ans?'✅ Correct! ':'❌ Not quite! ')+q.feedback;
-  if(i===q.ans){ addPoints(10); addDone(); showToast('+10 points! 🌍'); }
+  fb.textContent=(i===q.ans?'✅ Correct! ':'❌ Not quite! ')+q.fb;
+  if(i===q.ans){sfxCorrect();addPoints(10);showToast('+10 pts! 🌍');const r=btn.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2);}
+  else{sfxWrong();}
 }
 buildSDGQuiz();
+
+/* ─── HELPERS ─── */
+function mkEl(tag,cls){const el=document.createElement(tag);el.className=cls;el.style.marginBottom='10px';return el;}
 </script>
 </body>
 </html>

@@ -20,6 +20,7 @@
 <nav>
   <a class="nav-logo" href="index.html">Tria Liza</a>
   <ul class="nav-links">
+
     <li class="has-dropdown">
       <a href="#">Home <span class="arrow">▾</span></a>
       <ul class="dropdown">
@@ -28,17 +29,21 @@
         <li><a href="SDGs.html">SDGs</a></li>
       </ul>
     </li>
-    <li><a href="solarsystem.html" class="nav-active">Solar System</a></li>
-    <li><a href="sun.html">The Sun</a></li>
+
+    <li><a href="investigation.html">Activity</a></li>
+
     <li class="has-dropdown">
-      <a href="earth&moon.html">Earth & Moon <span class="arrow">▾</span></a>
+      <a href="#">Explore <span class="arrow">▾</span></a>
       <ul class="dropdown">
-        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
-        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+        <li><a href="solarsystem.html">Solar System</a></li>
+        <li><a href="sun.html">The Sun</a></li>
+        <li><a href="earth&moon.html">Earth & Moon</a></li>
+        <li><a href="seasons.html">Seasons</a></li>
       </ul>
     </li>
-    <li><a href="seasons.html">Seasons</a></li>
+
     <li><a href="Activity.html">Quiz</a></li>
+
   </ul>
 </nav>
 
@@ -124,6 +129,114 @@
   <div class="scroll-hint">SCROLL</div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════
+     BIG QUESTION SECTION — Paste this AFTER the #home section
+     and BEFORE the #about section in your index.html
+     ═══════════════════════════════════════════════════════ -->
+
+<section id="big-question">
+
+  <!-- Floating decorative orbs -->
+  <div class="bq-orb bq-orb-1"></div>
+  <div class="bq-orb bq-orb-2"></div>
+  <div class="bq-orb bq-orb-3"></div>
+
+  <!-- Grid lines texture -->
+  <div class="bq-grid"></div>
+
+  <div class="bq-inner">
+
+    <!-- Top eyebrow label -->
+    <div class="bq-eyebrow">
+      <span class="bq-dot"></span>
+      <span>Inquiry-Based Learning</span>
+      <span class="bq-dot"></span>
+    </div>
+
+    <!-- Main question card -->
+    <div class="bq-card">
+
+      <!-- Corner decorators -->
+      <div class="bq-corner bq-corner-tl"></div>
+      <div class="bq-corner bq-corner-tr"></div>
+      <div class="bq-corner bq-corner-bl"></div>
+      <div class="bq-corner bq-corner-br"></div>
+
+      <!-- Scan line effect -->
+      <div class="bq-scanline"></div>
+
+      <!-- Label chip -->
+      <div class="bq-chip">
+        <span class="bq-chip-icon">❓</span>
+        BIG QUESTION
+      </div>
+
+      <!-- The question text -->
+      <h2 class="bq-question">
+        <span class="bq-word" style="--i:0">How do the</span>
+        <span class="bq-word bq-sun" style="--i:1">☀️ Sun,</span>
+        <span class="bq-word bq-earth" style="--i:2">🌍 Earth,</span>
+        <span class="bq-word" style="--i:3">and</span>
+        <span class="bq-word bq-moon" style="--i:4">🌕 Moon</span>
+        <span class="bq-word" style="--i:5">work together to</span>
+        <span class="bq-word bq-highlight" style="--i:6">create changes</span>
+        <span class="bq-word" style="--i:7">on Earth?</span>
+      </h2>
+
+      <!-- Divider line -->
+      <div class="bq-divider">
+        <span class="bq-divider-line"></span>
+        <span class="bq-divider-gem">✦</span>
+        <span class="bq-divider-line"></span>
+      </div>
+
+      <!-- Sub-text -->
+      <p class="bq-sub">
+        This is the central question that guides our entire exploration.
+        As you journey through the Sun, Earth, and Moon — keep asking yourself:
+        <em>how does each piece connect to the others?</em>
+      </p>
+
+      <!-- Three pillars -->
+      <div class="bq-pillars">
+        <div class="bq-pillar bq-pillar-sun">
+          <div class="bq-pillar-icon">☀️</div>
+          <div class="bq-pillar-name">The Sun</div>
+          <div class="bq-pillar-desc">Energy source &amp; driver of seasons</div>
+        </div>
+        <div class="bq-pillar-connector">
+          <div class="bq-connector-line"></div>
+          <div class="bq-connector-arrow">⟷</div>
+          <div class="bq-connector-line"></div>
+        </div>
+        <div class="bq-pillar bq-pillar-earth">
+          <div class="bq-pillar-icon">🌍</div>
+          <div class="bq-pillar-name">Earth</div>
+          <div class="bq-pillar-desc">Our home, shaped by cosmic forces</div>
+        </div>
+        <div class="bq-pillar-connector">
+          <div class="bq-connector-line"></div>
+          <div class="bq-connector-arrow">⟷</div>
+          <div class="bq-connector-line"></div>
+        </div>
+        <div class="bq-pillar bq-pillar-moon">
+          <div class="bq-pillar-icon">🌕</div>
+          <div class="bq-pillar-name">The Moon</div>
+          <div class="bq-pillar-desc">Tides, phases &amp; night light</div>
+        </div>
+      </div>
+
+    </div><!-- /bq-card -->
+
+    <!-- Scroll cue -->
+    <div class="bq-scroll-cue">
+      <span>Explore to find answers</span>
+      <div class="bq-arrow-down">↓</div>
+    </div>
+
+  </div><!-- /bq-inner -->
+</section>
+
 <!-- ABOUT ME -->
 <section id="about">
   <div class="about-container">
@@ -155,7 +268,7 @@
         Welcome to this little space where we explore Earth and the Solar System together. I'm <strong style="color:white;">Tria Liza</strong>, a student in the International Program on Science Education at <strong style="color:white;">Universitas Pendidikan Indonesia</strong>.
       </p>
       <p class="about-desc">
-        I love turning science into something that feels simple, visual, and fun to learn. This website was created for curious junior high school students who want to understand how our planet works and how we fit into the vast universe around us.
+        I love turning science into something that feels simple, visual, and fun to learn. This website was created for you who are curious and want to explore, observe, and find out how the Sun, Earth, and Moon create changes on our planet and shape the world around us.
       </p>
       <div class="about-tags">
         <span class="tag">Solar System</span>

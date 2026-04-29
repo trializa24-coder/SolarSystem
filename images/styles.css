@@ -373,6 +373,371 @@ footer span { color: var(--glow); }
   font-size: 0.65rem; letter-spacing: 1px; color: var(--card-color, var(--cyan));
 }
 
+/* ═══════════════════════════════════════════════════════
+   BIG QUESTION SECTION — Add to your styles.css
+   (uses the same CSS variables already defined in your file)
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── SECTION WRAPPER ─── */
+#big-question {
+  position: relative;
+  z-index: 1;
+  padding: 120px 60px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── FLOATING ORBS (background atmosphere) ─── */
+.bq-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  animation: bqOrbDrift ease-in-out infinite;
+}
+.bq-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(245,158,11,0.07), transparent 70%);
+  top: -100px; left: -150px;
+  animation-duration: 12s; animation-delay: 0s;
+}
+.bq-orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(34,211,238,0.06), transparent 70%);
+  bottom: -80px; right: -100px;
+  animation-duration: 15s; animation-delay: 3s;
+}
+.bq-orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(167,139,250,0.05), transparent 70%);
+  top: 50%; right: 15%;
+  animation-duration: 10s; animation-delay: 6s;
+}
+@keyframes bqOrbDrift {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+/* ─── GRID TEXTURE ─── */
+.bq-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(167,139,250,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* ─── INNER CONTAINER ─── */
+.bq-inner {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ─── EYEBROW LABEL ─── */
+.bq-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: bqFadeUp 0.8s 0.2s ease forwards;
+}
+.bq-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+  display: inline-block;
+}
+
+/* ─── MAIN CARD ─── */
+.bq-card {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(
+    145deg,
+    rgba(245,158,11,0.05) 0%,
+    rgba(5,13,42,0.8) 30%,
+    rgba(34,211,238,0.04) 100%
+  );
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 28px;
+  padding: 60px 64px 52px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 40px 80px rgba(2,8,24,0.6),
+    0 0 60px rgba(245,158,11,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  opacity: 0;
+  animation: bqCardReveal 1s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes bqCardReveal {
+  from { opacity: 0; transform: translateY(50px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Corner brackets */
+.bq-corner {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-color: rgba(245,158,11,0.5);
+  border-style: solid;
+}
+.bq-corner-tl { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+.bq-corner-tr { top: 16px; right: 16px; border-width: 2px 2px 0 0; }
+.bq-corner-bl { bottom: 16px; left: 16px; border-width: 0 0 2px 2px; }
+.bq-corner-br { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+/* Scan-line animation */
+.bq-scanline {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,0.4), transparent);
+  animation: bqScan 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes bqScan {
+  0%   { top: 0%;   opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ─── CHIP ─── */
+.bq-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 32px;
+}
+.bq-chip-icon { font-size: 0.9rem; }
+
+/* ─── QUESTION TEXT ─── */
+.bq-question {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.35;
+  color: white;
+  margin-bottom: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: baseline;
+}
+
+/* Each word fades up with a stagger delay */
+.bq-word {
+  display: inline-block;
+  opacity: 0;
+  animation: bqFadeUp 0.6s ease forwards;
+  animation-delay: calc(0.6s + var(--i) * 0.12s);
+}
+
+/* Highlighted body words */
+.bq-sun     { color: var(--gold); text-shadow: 0 0 20px rgba(245,158,11,0.5); }
+.bq-earth   { color: var(--cyan); text-shadow: 0 0 20px rgba(34,211,238,0.4); }
+.bq-moon    { color: var(--glow); text-shadow: 0 0 20px rgba(167,139,250,0.5); }
+.bq-highlight {
+  background: linear-gradient(90deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+@keyframes bqFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── DIVIDER ─── */
+.bq-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.bq-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(245,158,11,0.25), transparent);
+}
+.bq-divider-gem {
+  color: var(--gold);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+/* ─── SUB TEXT ─── */
+.bq-sub {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 48px;
+  max-width: 680px;
+}
+.bq-sub em { color: var(--cyan); font-style: normal; font-weight: 400; }
+
+/* ─── THREE PILLARS ─── */
+.bq-pillars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.bq-pillar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.bq-pillar::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transition: transform 0.4s;
+  transform-origin: center;
+}
+.bq-pillar:hover { transform: translateY(-6px); }
+.bq-pillar:hover::before { transform: scaleX(1); }
+
+/* Per-pillar colors */
+.bq-pillar-sun   { background: rgba(245,158,11,0.05); }
+.bq-pillar-sun::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.bq-pillar-sun:hover   { border-color: rgba(245,158,11,0.3); box-shadow: 0 12px 40px rgba(245,158,11,0.12); }
+
+.bq-pillar-earth { background: rgba(34,211,238,0.05); }
+.bq-pillar-earth::before { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+.bq-pillar-earth:hover   { border-color: rgba(34,211,238,0.3); box-shadow: 0 12px 40px rgba(34,211,238,0.12); }
+
+.bq-pillar-moon  { background: rgba(167,139,250,0.05); }
+.bq-pillar-moon::before { background: linear-gradient(90deg, transparent, var(--glow), transparent); }
+.bq-pillar-moon:hover   { border-color: rgba(167,139,250,0.3); box-shadow: 0 12px 40px rgba(167,139,250,0.12); }
+
+.bq-pillar-icon {
+  font-size: 2.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.2));
+}
+.bq-pillar-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: white;
+}
+.bq-pillar-desc {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ─── CONNECTOR BETWEEN PILLARS ─── */
+.bq-pillar-connector {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  padding: 0 6px;
+}
+.bq-connector-line {
+  width: 18px; height: 1px;
+  background: linear-gradient(to right, rgba(167,139,250,0.3), rgba(245,158,11,0.3));
+}
+.bq-connector-arrow {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.25);
+  line-height: 1;
+}
+
+/* ─── SCROLL CUE ─── */
+.bq-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: bqFadeUp 0.8s 1.8s ease forwards;
+}
+.bq-arrow-down {
+  font-size: 1.1rem;
+  color: var(--cyan);
+  animation: bqBounceArrow 2s ease-in-out infinite;
+}
+@keyframes bqBounceArrow {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(8px); opacity: 0.5; }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  #big-question { padding: 80px 30px; }
+  .bq-card { padding: 40px 32px 36px; }
+  .bq-pillars {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .bq-pillar-connector {
+    flex-direction: column;
+    padding: 4px 0;
+  }
+  .bq-connector-line {
+    width: 1px; height: 12px;
+    background: linear-gradient(to bottom, rgba(167,139,250,0.3), rgba(245,158,11,0.3));
+  }
+  .bq-connector-arrow { transform: rotate(90deg); }
+  .bq-question { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+}
+
+@media (max-width: 600px) {
+  .bq-card { padding: 30px 22px 28px; }
+  .bq-corner { width: 14px; height: 14px; }
+}
+
 /* ─── ABOUT SECTION ─── */
 #about {
   position: relative; z-index: 1;

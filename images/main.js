@@ -77,3 +77,81 @@ document.addEventListener('click', function() {
     item.classList.remove('open');
   });
 });
+
+/* ═══════════════════════════════════════════════════════
+   BIG QUESTION SECTION — JavaScript
+   Add this to your main.js (or a separate bq.js file
+   linked before </body>)
+   ═══════════════════════════════════════════════════════ */
+
+// ─── BIG QUESTION: Scroll-triggered reveal ───
+(function () {
+  'use strict';
+
+  const bqCard = document.querySelector('.bq-card');
+  if (!bqCard) return;
+
+  // Reset animation so it triggers on scroll into view (not just on load)
+  // The CSS already handles initial hidden state with opacity:0
+  // This IntersectionObserver adds the "seen" class to fire CSS animations
+  // when the card enters the viewport.
+
+  const bqObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('bq-visible');
+          bqObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  bqObserver.observe(bqCard);
+})();
+
+// ─── BIG QUESTION: Pillar hover glow cursor effect ───
+(function () {
+  'use strict';
+
+  const pillars = document.querySelectorAll('.bq-pillar');
+  if (!pillars.length) return;
+
+  pillars.forEach((pillar) => {
+    pillar.addEventListener('mousemove', (e) => {
+      const rect = pillar.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      pillar.style.setProperty('--mx', x + '%');
+      pillar.style.setProperty('--my', y + '%');
+    });
+  });
+})();
+
+// ─── BIG QUESTION: Extend cursor hover for pillars & chip ───
+// This works alongside your existing cursor code in main.js.
+// Make sure this runs AFTER the cursor elements are available.
+document.addEventListener('DOMContentLoaded', function () {
+  const cursor = document.getElementById('cursor');
+  if (!cursor) return;
+
+  const bqTargets = document.querySelectorAll(
+    '.bq-pillar, .bq-chip, .bq-card'
+  );
+
+  bqTargets.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '32px';
+      cursor.style.height = '32px';
+      cursor.style.background = 'var(--gold)';
+      cursor.style.boxShadow = '0 0 24px var(--gold)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '16px';
+      cursor.style.height = '16px';
+      cursor.style.background = 'var(--cyan)';
+      cursor.style.boxShadow = '0 0 20px var(--cyan)';
+    });
+  });
+});
