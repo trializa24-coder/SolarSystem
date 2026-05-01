@@ -51,59 +51,38 @@ body::before{
 /* ══════════════════════════════
    NAV — same as sun.html
 ══════════════════════════════ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:20px 60px;display:flex;justify-content:space-between;align-items:center;
-  background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);
-  backdrop-filter:blur(10px);
-}
-.nav-logo{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none;}
-.nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
-.nav-links a{font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
-.nav-links a:hover{color:var(--cyan);}
-.nav-links a:hover::after{width:100%;}
-.nav-active{color:var(--cyan)!important;}
-.nav-active::after{width:100%!important;}
-.has-dropdown{position:relative;align-self:center;}
-.has-dropdown>a{display:flex;align-items:center;gap:6px;}
-.arrow{display:inline-block;font-size:.7rem;transition:transform .3s ease;}
-.has-dropdown.open .arrow{transform:rotate(180deg);}
-.dropdown{display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:10px 0;list-style:none;min-width:180px;backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,.25);z-index:200;animation:dropFade .25s ease forwards;}
-@keyframes dropFade{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.has-dropdown.open .dropdown{display:flex;}
-.dropdown li a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:.7rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap;}
-.dropdown li a::after{display:none;}
-.dropdown li a:hover{color:var(--cyan);background:rgba(34,211,238,.07);}
+/* NAV */
+nav { position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(2,8,24,0.9),transparent);backdrop-filter:blur(10px); }
+.nav-logo { font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none; }
+.nav-links { display:flex;gap:40px;list-style:none;align-items:center; }
+.nav-links a { font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative; }
+.nav-links a::after { content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s; }
+.nav-links a:hover { color:var(--cyan); }
+.nav-links a:hover::after { width:100%; }
+.nav-active { color:var(--gold) !important; }
+.nav-active::after { background:var(--gold) !important; width:100% !important; }
+.has-dropdown { position:relative;align-self:center; }
+.has-dropdown>a { display:flex;align-items:center;gap:6px; }
+.arrow { display:inline-block;font-size:0.7rem;transition:transform .3s ease; }
+.has-dropdown.open .arrow { transform:rotate(180deg); }
+.dropdown { display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,0.2);border-radius:14px;padding:10px 0;list-style:none;min-width:180px;backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,0.25);z-index:200; }
+.has-dropdown.open .dropdown { display:flex; }
+.dropdown li a { display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:1.5px;color:var(--muted);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap; }
+.dropdown li a::after { display:none; }
+.dropdown li a:hover { color:var(--cyan);background:rgba(34,211,238,0.07); }
 
 /* ══════════════════════════════
    HERO — text-only, no image
 ══════════════════════════════ */
-.page-hero{
-  position:relative;z-index:1;
-  padding:160px 60px 60px;text-align:center;
-}
-.page-eyebrow{
-  font-family:'Orbitron',sans-serif;font-size:.78rem;
-  letter-spacing:5px;color:var(--glow);text-transform:uppercase;
-  margin-bottom:14px;display:block;
-  opacity:0;animation:fadeUp .8s .2s ease forwards;
-}
-.page-title{
-  font-family:'Orbitron',sans-serif;
-  font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:18px;
-  opacity:0;animation:fadeUp .8s .4s ease forwards;
-}
-.page-title span{
-  background:linear-gradient(90deg,var(--glow),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.page-sub{
-  font-size:1.15rem;font-weight:300;line-height:1.9;
-  color:var(--muted);max-width:640px;margin:0 auto;
-  opacity:0;animation:fadeUp .8s .6s ease forwards;
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* HERO */
+.page-hero { position: relative; z-index: 1; padding: 160px 60px 60px; text-align: center; }
+.page-eyebrow { font-family: 'Orbitron', sans-serif; font-size: .78rem; letter-spacing: 5px; color: var(--glow); text-transform: uppercase; margin-bottom: 14px; display: block; opacity: 0; animation: fadeUp .8s .2s ease forwards; }
+.page-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 18px; opacity: 0; animation: fadeUp .8s .4s ease forwards; }
+.page-title span { background: linear-gradient(90deg, var(--glow), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-sub { font-size: 1.15rem; font-weight: 300; line-height: 1.9; color: var(--muted); max-width: 620px; margin: 0 auto; opacity: 0; animation: fadeUp .8s .6s ease forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+main { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 20px 60px 100px; }
 
 /* NAV PILLS */
 .nav-pills{
@@ -292,25 +271,31 @@ footer span{color:var(--glow);}
 <nav>
   <a class="nav-logo" href="index.html">Tria Liza</a>
   <ul class="nav-links">
+
     <li class="has-dropdown">
       <a href="#">Home <span class="arrow">▾</span></a>
       <ul class="dropdown">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="index.html#about">About Me</a></li>
-        <li><a href="SDGs.html" class="nav-active">SDGs</a></li>
+        <li><a href="SDGs.html">SDGs</a></li>
       </ul>
     </li>
-    <li><a href="solarsystem.html">Solar System</a></li>
-    <li><a href="sun.html">The Sun</a></li>
+
+    <li><a href="investigation.html">Activity</a></li>
+
     <li class="has-dropdown">
-      <a href="earth&moon.html">Earth &amp; Moon <span class="arrow">▾</span></a>
+      <a href="#">Explore <span class="arrow">▾</span></a>
       <ul class="dropdown">
-        <li><a href="earth&moon.html?tab=earth">🌍 Earth</a></li>
-        <li><a href="earth&moon.html?tab=moon">🌕 Moon</a></li>
+        <li><a href="solarsystem.html">Solar System</a></li>
+        <li><a href="sun.html">The Sun</a></li>
+        <li><a href="earth&moon.html">Earth & Moon</a></li>
+        <li><a href="seasons.html">Seasons</a></li>
       </ul>
     </li>
-    <li><a href="seasons.html">Seasons</a></li>
+
     <li><a href="Activity.html">Quiz</a></li>
+    <li><a href="Green&Blue.html">Green & Blue Curriculum</a></li>
+
   </ul>
 </nav>
 
