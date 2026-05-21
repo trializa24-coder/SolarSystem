@@ -6,6 +6,9 @@
 <title>Activity — Why Do Seasons Change? | Tria Liza</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════
+   ROOT TOKENS
+═══════════════════════════ */
 :root {
   --space:  #020818;
   --deep:   #050d2a;
@@ -27,7 +30,9 @@ body {
   font-family:'Exo 2',sans-serif; overflow-x:hidden; cursor:none;
 }
 
-/* CURSOR */
+/* ═══════════════════════════
+   CURSOR
+═══════════════════════════ */
 .cursor {
   position:fixed; width:16px; height:16px; background:var(--cyan);
   border-radius:50%; pointer-events:none; z-index:9999;
@@ -40,7 +45,9 @@ body {
   transform:translate(-50%,-50%); transition:all .1s ease; opacity:.5;
 }
 
-/* STARS */
+/* ═══════════════════════════
+   ANIMATED STARS + PARTICLES
+═══════════════════════════ */
 .stars-bg {
   position:fixed; top:0; left:0; width:100%; height:100%;
   pointer-events:none; z-index:0;
@@ -54,13 +61,40 @@ body {
     radial-gradient(1px 1px at 60% 30%,white,transparent),
     radial-gradient(2px 2px at 15% 55%,rgba(167,139,250,.6),transparent),
     radial-gradient(1px 1px at 90% 15%,rgba(255,255,255,.9),transparent),
-    radial-gradient(1px 1px at 45% 75%,white,transparent);
+    radial-gradient(1px 1px at 45% 75%,white,transparent),
+    radial-gradient(1px 1px at 5% 40%,rgba(34,211,238,.5),transparent),
+    radial-gradient(1px 1px at 78% 12%,rgba(255,255,255,.7),transparent),
+    radial-gradient(1px 1px at 33% 50%,rgba(255,255,255,.4),transparent),
+    radial-gradient(1px 1px at 92% 70%,rgba(167,139,250,.5),transparent),
+    radial-gradient(1px 1px at 18% 85%,rgba(255,255,255,.6),transparent);
 }
-.nebula { position:fixed; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0; }
-.nebula-1 { width:600px;height:600px;background:rgba(124,58,237,.05);top:-200px;right:-200px; }
-.nebula-2 { width:500px;height:500px;background:rgba(34,211,238,.04);bottom:20%;left:-150px; }
 
-/* NAV */
+/* Twinkling stars layer */
+.stars-twinkle {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0; animation:twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0%   { opacity:.4; }
+  50%  { opacity:.8; }
+  100% { opacity:.3; }
+}
+
+/* Floating particles */
+.particles-canvas {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0; opacity:.35;
+}
+
+.nebula { position:fixed; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0; }
+.nebula-1 { width:600px;height:600px;background:rgba(124,58,237,.07);top:-200px;right:-200px;animation:nebulaPulse 12s ease-in-out infinite alternate; }
+.nebula-2 { width:500px;height:500px;background:rgba(34,211,238,.05);bottom:20%;left:-150px;animation:nebulaPulse 15s ease-in-out infinite alternate-reverse; }
+.nebula-3 { width:400px;height:400px;background:rgba(245,158,11,.04);top:40%;right:10%;animation:nebulaPulse 18s ease-in-out infinite alternate; }
+@keyframes nebulaPulse { from{transform:scale(1);} to{transform:scale(1.12);} }
+
+/* ═══════════════════════════
+   NAV
+═══════════════════════════ */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:100;
   padding:20px 60px; display:flex; justify-content:space-between; align-items:center;
@@ -92,8 +126,6 @@ nav {
 .dropdown li a { display:flex; align-items:center; gap:10px; padding:10px 20px; font-family:'Orbitron',sans-serif; font-size:.68rem; letter-spacing:1.5px; color:var(--muted); text-decoration:none; transition:color .2s,background .2s; white-space:nowrap; }
 .dropdown li a::after { display:none; }
 .dropdown li a:hover { color:var(--cyan); background:rgba(34,211,238,.07); }
-
-/* TEACHER BUTTON in nav */
 .btn-teacher-nav {
   font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px;
   padding:8px 16px; border-radius:100px;
@@ -102,19 +134,46 @@ nav {
 }
 .btn-teacher-nav:hover { background:rgba(167,139,250,.25); color:white; }
 
-/* PAGE WRAP */
+/* ═══════════════════════════
+   GLOWING SECTION DIVIDER
+═══════════════════════════ */
+.section-divider {
+  position:relative; height:2px; margin:80px 0;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--cyan),var(--accent),transparent);
+  overflow:visible;
+}
+.section-divider::before {
+  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:60px; height:60px; background:radial-gradient(circle,rgba(34,211,238,.3),transparent 70%);
+  border-radius:50%; animation:dividerPulse 3s ease-in-out infinite;
+}
+.section-divider-icon {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:40px; height:40px; background:var(--deep); border:1px solid rgba(34,211,238,.4);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem;
+  box-shadow:0 0 20px rgba(34,211,238,.3);
+}
+@keyframes dividerPulse { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5;} 50%{transform:translate(-50%,-50%) scale(1.4);opacity:1;} }
+
+/* ═══════════════════════════
+   PAGE WRAP
+═══════════════════════════ */
 .page-wrap {
-  position:relative; z-index:1; padding:130px 60px 80px; max-width:1000px; margin:0 auto;
+  position:relative; z-index:1; padding:130px 60px 20px; max-width:1000px; margin:0 auto;
 }
 
-/* PAGE HEADER */
+/* ═══════════════════════════
+   PAGE HEADER
+═══════════════════════════ */
 .page-header { text-align:center; margin-bottom:50px; }
 .page-tag { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:5px; color:var(--cyan); text-transform:uppercase; margin-bottom:14px; display:block; }
 .page-title { font-family:'Orbitron',sans-serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; line-height:1.15; margin-bottom:16px; }
 .page-title span { color:var(--gold); }
 .page-intro { font-size:1rem; color:var(--muted); font-weight:300; line-height:1.7; max-width:600px; margin:0 auto 28px; }
 
-/* STUDENT NAME INPUT */
+/* ═══════════════════════════
+   STUDENT NAME INPUT
+═══════════════════════════ */
 .name-bar {
   display:flex; align-items:center; gap:14px;
   background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1);
@@ -123,13 +182,14 @@ nav {
 .name-bar label { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px; color:var(--muted); white-space:nowrap; }
 .name-bar input {
   flex:1; background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.15);
-  color:var(--text); font-family:'Exo 2',sans-serif; font-size:1rem; padding:4px 8px;
-  transition:border-color .3s;
+  color:var(--text); font-family:'Exo 2',sans-serif; font-size:1rem; padding:4px 8px; transition:border-color .3s;
 }
 .name-bar input:focus { outline:none; border-color:var(--cyan); }
 .name-bar input::placeholder { color:rgba(148,163,184,.4); }
 
-/* PROGRESS BAR */
+/* ═══════════════════════════
+   PROGRESS BAR
+═══════════════════════════ */
 .progress-wrap {
   display:flex; align-items:center; gap:0; margin-bottom:50px;
   background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
@@ -147,7 +207,9 @@ nav {
 .progress-step.active .step-num { background:var(--cyan); border-color:var(--cyan); color:#000; }
 .progress-line { width:1px; height:24px; background:rgba(255,255,255,.08); flex-shrink:0; }
 
-/* STEP CARDS */
+/* ═══════════════════════════
+   STEP CARDS
+═══════════════════════════ */
 .step-card {
   display:none; border-radius:24px; overflow:hidden;
   border:1px solid rgba(255,255,255,.07);
@@ -163,7 +225,6 @@ nav {
 .step-name { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:700; color:white; }
 .step-body { padding:32px; }
 
-/* COLOR THEMES PER STEP */
 .step-s1 .step-badge{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);} .step-s1 .step-label{color:var(--gold);}
 .step-s2 .step-badge{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.3);} .step-s2 .step-label{color:var(--glow);}
 .step-s3 .step-badge{background:rgba(34,211,238,.12);border-color:rgba(34,211,238,.3);} .step-s3 .step-label{color:var(--cyan);}
@@ -171,7 +232,9 @@ nav {
 .step-s5 .step-badge{background:rgba(244,114,182,.12);border-color:rgba(244,114,182,.3);} .step-s5 .step-label{color:var(--pink);}
 .step-s6 .step-badge{background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.3);} .step-s6 .step-label{color:var(--orange);}
 
-/* CONTENT BOXES */
+/* ═══════════════════════════
+   CONTENT BOXES (preserved)
+═══════════════════════════ */
 .scenario-box {
   background:rgba(245,158,11,.06); border:1px solid rgba(245,158,11,.2);
   border-radius:16px; padding:24px 28px; margin-bottom:24px; position:relative; overflow:hidden;
@@ -245,7 +308,9 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .reflection-input:focus { outline:none; border-color:rgba(167,139,250,.5); }
 .reflection-input::placeholder { color:rgba(148,163,184,.4); }
 
-/* NAV BUTTONS */
+/* ═══════════════════════════
+   NAV BUTTONS
+═══════════════════════════ */
 .nav-buttons { display:flex; justify-content:space-between; align-items:center; margin-top:28px; gap:14px; }
 .btn { display:inline-flex; align-items:center; gap:10px; padding:14px 28px; border-radius:100px; border:none; cursor:pointer; font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:2px; text-transform:uppercase; transition:all .3s; }
 .btn-prev { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); color:var(--muted); }
@@ -257,7 +322,9 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .btn:disabled { opacity:.35; pointer-events:none; }
 .step-counter { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--muted); }
 
-/* SUBMITTING STATE */
+/* ═══════════════════════════
+   SUBMITTING OVERLAY
+═══════════════════════════ */
 .submitting-overlay {
   display:none; position:fixed; inset:0; z-index:500;
   background:rgba(2,8,24,.85); backdrop-filter:blur(8px);
@@ -268,7 +335,9 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 @keyframes spin { to{transform:rotate(360deg);} }
 .submitting-text { font-family:'Orbitron',sans-serif; font-size:.7rem; letter-spacing:3px; color:var(--cyan); }
 
-/* SUCCESS CARD */
+/* ═══════════════════════════
+   SUCCESS CARD
+═══════════════════════════ */
 .success-card { display:none; text-align:center; padding:60px 40px; border-radius:24px; border:1px solid rgba(74,222,128,.25); background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(34,211,238,.04)); animation:slideIn .5s cubic-bezier(.22,1,.36,1) forwards; }
 .success-card.active { display:block; }
 .success-emoji { font-size:4rem; margin-bottom:20px; display:block; }
@@ -276,10 +345,425 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .success-text { font-size:1rem; color:var(--muted); line-height:1.8; max-width:500px; margin:0 auto 30px; }
 .success-key { display:inline-block; padding:10px 24px; background:rgba(74,222,128,.12); border:1px solid rgba(74,222,128,.3); border-radius:100px; font-family:'Orbitron',sans-serif; font-size:.7rem; letter-spacing:2px; color:var(--green); margin:6px; }
 
-/* ════════════════════════════════
-   TEACHER PANEL
-════════════════════════════════ */
-/* Login Modal */
+/* ═══════════════════════════════════════════════
+   ★ NEW: INQUIRY INTRO SECTION
+═══════════════════════════════════════════════ */
+.inquiry-section {
+  position:relative; z-index:1;
+  padding:140px 60px 60px; max-width:1100px; margin:0 auto;
+}
+.inquiry-hero {
+  text-align:center; margin-bottom:70px;
+}
+.inquiry-mission-badge {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 20px; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.25);
+  border-radius:100px; font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:3px;
+  color:var(--cyan); margin-bottom:24px; animation:badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.0);} 50%{box-shadow:0 0 0 8px rgba(34,211,238,.07);} }
+.inquiry-badge-dot { width:8px; height:8px; background:var(--cyan); border-radius:50%; animation:dotBlink 1.5s ease-in-out infinite; }
+@keyframes dotBlink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
+
+.inquiry-title {
+  font-family:'Orbitron',sans-serif; font-size:clamp(2rem,5vw,3.8rem); font-weight:900;
+  line-height:1.1; margin-bottom:20px; letter-spacing:-1px;
+}
+.inquiry-title .highlight-cyan { color:var(--cyan); text-shadow:0 0 40px rgba(34,211,238,.4); }
+.inquiry-title .highlight-gold { color:var(--gold); text-shadow:0 0 40px rgba(245,158,11,.4); }
+
+.inquiry-subtitle {
+  font-size:1.1rem; color:var(--muted); font-weight:300; line-height:1.8; max-width:620px; margin:0 auto 40px;
+}
+
+/* Central orbit visual */
+.inquiry-orbit-visual {
+  position:relative; width:220px; height:220px; margin:0 auto 60px;
+}
+.orbit-ring {
+  position:absolute; border-radius:50%; border:1px solid;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+}
+.orbit-ring-1 { width:220px;height:220px; border-color:rgba(34,211,238,.15); animation:orbitSpin 20s linear infinite; }
+.orbit-ring-2 { width:160px;height:160px; border-color:rgba(167,139,250,.2); animation:orbitSpin 14s linear infinite reverse; }
+.orbit-ring-3 { width:100px;height:100px; border-color:rgba(245,158,11,.2); animation:orbitSpin 9s linear infinite; }
+@keyframes orbitSpin { to{transform:translate(-50%,-50%) rotate(360deg);} }
+.orbit-sun {
+  position:absolute; width:50px; height:50px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fef3c7,#f59e0b,#d97706);
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  box-shadow:0 0 30px rgba(245,158,11,.6), 0 0 60px rgba(245,158,11,.3);
+  animation:sunGlow 3s ease-in-out infinite alternate;
+}
+@keyframes sunGlow { from{box-shadow:0 0 25px rgba(245,158,11,.6),0 0 50px rgba(245,158,11,.25);} to{box-shadow:0 0 40px rgba(245,158,11,.9),0 0 80px rgba(245,158,11,.4);} }
+.orbit-earth {
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#93c5fd,#3b82f6,#1d4ed8);
+  top:50%; left:50%; transform-origin:0 0;
+  box-shadow:0 0 10px rgba(59,130,246,.7);
+  animation:earthOrbit 12s linear infinite;
+}
+@keyframes earthOrbit {
+  from{transform:translate(calc(-50% + 80px),-50%) rotate(0deg) translate(-80px);}
+  to{transform:translate(calc(-50% + 80px),-50%) rotate(360deg) translate(-80px);}
+}
+/* simpler way */
+.earth-wrapper {
+  position:absolute; width:160px; height:160px;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  animation:earthOrbitW 12s linear infinite;
+}
+.earth-dot {
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#93c5fd,#3b82f6,#1d4ed8);
+  top:-9px; left:50%; margin-left:-9px;
+  box-shadow:0 0 10px rgba(59,130,246,.7);
+}
+@keyframes earthOrbitW { to{transform:translate(-50%,-50%) rotate(360deg);} }
+
+/* Driving questions grid */
+.driving-questions-title {
+  font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:4px;
+  color:var(--glow); text-align:center; margin-bottom:28px; text-transform:uppercase;
+}
+.driving-questions-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:60px;
+}
+.dq-card {
+  position:relative; overflow:hidden;
+  padding:28px 24px; border-radius:20px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  cursor:default; transition:all .4s;
+  animation:fadeUp .7s cubic-bezier(.22,1,.36,1) both;
+}
+.dq-card:nth-child(1){animation-delay:.1s;} .dq-card:nth-child(2){animation-delay:.2s;} .dq-card:nth-child(3){animation-delay:.3s;}
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:none;} }
+.dq-card::before {
+  content:''; position:absolute; inset:0; border-radius:20px;
+  background:radial-gradient(ellipse at top left, var(--dq-color,rgba(34,211,238,.1)), transparent 70%);
+  opacity:0; transition:opacity .4s;
+}
+.dq-card:hover { border-color:rgba(255,255,255,.18); transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,.3); }
+.dq-card:hover::before { opacity:1; }
+.dq-card-1 { --dq-color:rgba(245,158,11,.12); }
+.dq-card-2 { --dq-color:rgba(34,211,238,.12); }
+.dq-card-3 { --dq-color:rgba(167,139,250,.12); }
+
+.dq-icon { font-size:2rem; margin-bottom:14px; display:block; }
+.dq-label { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:3px; margin-bottom:10px; text-transform:uppercase; }
+.dq-card-1 .dq-label{color:var(--gold);} .dq-card-2 .dq-label{color:var(--cyan);} .dq-card-3 .dq-label{color:var(--glow);}
+.dq-question { font-size:.95rem; color:#e2e8f0; line-height:1.7; font-weight:300; }
+.dq-question strong { color:white; font-weight:600; }
+
+/* Inquiry CTA */
+.inquiry-cta {
+  text-align:center; padding:40px; border-radius:24px;
+  background:linear-gradient(135deg,rgba(34,211,238,.05),rgba(124,58,237,.05));
+  border:1px solid rgba(34,211,238,.15); position:relative; overflow:hidden;
+}
+.inquiry-cta::before {
+  content:''; position:absolute; top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+.inquiry-cta-title { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:700; color:white; margin-bottom:10px; }
+.inquiry-cta-text { font-size:.9rem; color:var(--muted); line-height:1.7; margin-bottom:24px; max-width:500px; margin-left:auto; margin-right:auto; }
+.btn-start-mission {
+  display:inline-flex; align-items:center; gap:12px; padding:16px 36px;
+  background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(124,58,237,.2));
+  border:1px solid rgba(34,211,238,.4); border-radius:100px;
+  color:var(--cyan); font-family:'Orbitron',sans-serif; font-size:.7rem; letter-spacing:2px;
+  cursor:pointer; transition:all .3s; text-transform:uppercase;
+}
+.btn-start-mission:hover {
+  background:linear-gradient(135deg,rgba(34,211,238,.35),rgba(124,58,237,.35));
+  box-shadow:0 0 40px rgba(34,211,238,.25); color:white; transform:translateY(-2px);
+}
+.btn-start-mission-arrow { transition:transform .3s; }
+.btn-start-mission:hover .btn-start-mission-arrow { transform:translateX(4px); }
+
+/* ═══════════════════════════════════════════════
+   ★ NEW: MISSION STATUS BAR
+═══════════════════════════════════════════════ */
+.mission-status-bar {
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  padding:14px 24px; border-radius:14px;
+  background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07);
+  margin-bottom:24px;
+}
+.msb-dot { width:8px; height:8px; border-radius:50%; background:var(--green); animation:dotBlink 2s ease-in-out infinite; flex-shrink:0; }
+.msb-label { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--muted); }
+.msb-value { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:1px; color:var(--text); }
+.msb-separator { width:1px; height:20px; background:rgba(255,255,255,.1); flex-shrink:0; }
+
+/* ═══════════════════════════════════════════════
+   ★ NEW: PROJECT / INVESTIGATION SECTION
+═══════════════════════════════════════════════ */
+.project-section {
+  position:relative; z-index:1; max-width:1100px; margin:0 auto;
+  padding:0 60px 80px;
+}
+.project-section-header {
+  text-align:center; margin-bottom:50px;
+}
+.project-badge-row { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
+.project-badge {
+  padding:6px 16px; border-radius:100px; font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2.5px; text-transform:uppercase;
+}
+.pb-mission { background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.25); color:var(--gold); }
+.pb-grade  { background:rgba(34,211,238,.1); border:1px solid rgba(34,211,238,.25); color:var(--cyan); }
+.pb-type   { background:rgba(167,139,250,.1); border:1px solid rgba(167,139,250,.25); color:var(--glow); }
+.project-title { font-family:'Orbitron',sans-serif; font-size:clamp(1.5rem,3.5vw,2.5rem); font-weight:900; color:white; margin-bottom:14px; }
+.project-subtitle { font-size:.95rem; color:var(--muted); font-weight:300; line-height:1.8; max-width:580px; margin:0 auto; }
+
+/* Mission objectives */
+.mission-objectives {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:40px;
+}
+.mobj-card {
+  display:flex; align-items:flex-start; gap:16px; padding:20px 22px;
+  border-radius:16px; border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.02); transition:all .3s;
+}
+.mobj-card:hover { border-color:rgba(255,255,255,.15); background:rgba(255,255,255,.04); }
+.mobj-num {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Orbitron',sans-serif; font-size:.65rem; font-weight:700;
+  background:rgba(34,211,238,.1); border:1px solid rgba(34,211,238,.3); color:var(--cyan);
+}
+.mobj-text { font-size:.9rem; color:#cbd5e1; line-height:1.6; font-weight:300; }
+.mobj-text strong { color:white; font-weight:600; }
+
+/* Investigation topics grid */
+.topics-label {
+  font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:4px; color:var(--glow);
+  text-align:center; margin-bottom:24px; text-transform:uppercase;
+}
+.topics-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:40px;
+}
+.topic-card {
+  position:relative; overflow:hidden; padding:28px 20px; border-radius:20px; text-align:center;
+  border:1px solid rgba(255,255,255,.08); cursor:pointer;
+  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  transition:all .4s; animation:fadeUp .6s both;
+}
+.topic-card:nth-child(1){animation-delay:.05s;} .topic-card:nth-child(2){animation-delay:.1s;} .topic-card:nth-child(3){animation-delay:.15s;}
+.topic-card:nth-child(4){animation-delay:.2s;} .topic-card:nth-child(5){animation-delay:.25s;} .topic-card:nth-child(6){animation-delay:.3s;}
+.topic-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--tc-color,var(--cyan)),transparent);
+  opacity:0; transition:opacity .4s;
+}
+.topic-card:hover { transform:translateY(-6px); border-color:rgba(255,255,255,.2); box-shadow:0 20px 50px rgba(0,0,0,.35); }
+.topic-card:hover::after { opacity:1; }
+.topic-card.selected-topic { border-color:var(--tc-color,var(--cyan)); box-shadow:0 0 30px rgba(34,211,238,.15); }
+.topic-card.selected-topic::after { opacity:1; }
+/* individual colors */
+.tc-seasons   { --tc-color:var(--gold); }
+.tc-lunar     { --tc-color:var(--muted); }
+.tc-solar     { --tc-color:var(--orange); }
+.tc-moon      { --tc-color:var(--pink); }
+.tc-daynight  { --tc-color:var(--cyan); }
+.tc-revolution{ --tc-color:var(--glow); }
+
+.topic-icon { font-size:2.5rem; margin-bottom:12px; display:block; }
+.topic-name { font-family:'Orbitron',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:1.5px; color:white; margin-bottom:8px; }
+.topic-desc { font-size:.78rem; color:var(--muted); line-height:1.5; }
+.topic-selected-badge {
+  position:absolute; top:12px; right:12px;
+  padding:3px 10px; border-radius:100px; font-family:'Orbitron',sans-serif; font-size:.45rem; letter-spacing:1.5px;
+  background:rgba(34,211,238,.12); border:1px solid rgba(34,211,238,.3); color:var(--cyan);
+  opacity:0; transition:opacity .3s;
+}
+.topic-card.selected-topic .topic-selected-badge { opacity:1; }
+
+/* Project steps timeline */
+.project-steps-title { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:4px; color:var(--orange); text-align:center; margin-bottom:28px; text-transform:uppercase; }
+.project-timeline { position:relative; padding-left:40px; }
+.project-timeline::before { content:''; position:absolute; left:14px; top:16px; bottom:16px; width:1px; background:linear-gradient(to bottom,var(--cyan),var(--glow),var(--orange)); opacity:.3; }
+.ptl-item {
+  position:relative; margin-bottom:24px; display:flex; gap:20px; align-items:flex-start;
+  animation:fadeUp .6s both;
+}
+.ptl-item:nth-child(1){animation-delay:.1s;} .ptl-item:nth-child(2){animation-delay:.2s;} .ptl-item:nth-child(3){animation-delay:.3s;} .ptl-item:nth-child(4){animation-delay:.4s;} .ptl-item:nth-child(5){animation-delay:.5s;}
+.ptl-dot {
+  position:absolute; left:-33px; width:16px; height:16px; border-radius:50%;
+  background:var(--ptl-color,var(--cyan)); flex-shrink:0; margin-top:4px;
+  box-shadow:0 0 12px var(--ptl-color,var(--cyan)); border:2px solid var(--space);
+}
+.ptl-content {
+  flex:1; padding:18px 22px; border-radius:16px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); transition:all .3s;
+}
+.ptl-content:hover { background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14); }
+.ptl-step-label { font-family:'Orbitron',sans-serif; font-size:.5rem; letter-spacing:3px; color:var(--ptl-color,var(--cyan)); margin-bottom:6px; text-transform:uppercase; }
+.ptl-step-name { font-family:'Orbitron',sans-serif; font-size:.8rem; font-weight:700; color:white; margin-bottom:6px; }
+.ptl-step-desc { font-size:.85rem; color:var(--muted); line-height:1.6; font-weight:300; }
+
+/* ═══════════════════════════════════════════════
+   ★ NEW: FUTURISTIC SUBMISSION TERMINAL
+═══════════════════════════════════════════════ */
+.terminal-section {
+  position:relative; z-index:1; max-width:1000px; margin:0 auto;
+  padding:0 60px 100px;
+}
+
+.terminal-header {
+  text-align:center; margin-bottom:50px;
+}
+.terminal-badge {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:8px 20px; background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.25);
+  border-radius:100px; font-family:'Orbitron',sans-serif; font-size:.58rem; letter-spacing:3px;
+  color:var(--green); margin-bottom:20px;
+}
+.terminal-title { font-family:'Orbitron',sans-serif; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; color:white; margin-bottom:10px; }
+.terminal-subtitle { font-size:.9rem; color:var(--muted); font-weight:300; line-height:1.7; }
+
+/* Main terminal frame */
+.terminal-frame {
+  background:linear-gradient(135deg,rgba(5,13,42,.98),rgba(2,8,24,.99));
+  border:1px solid rgba(74,222,128,.25);
+  border-radius:24px; overflow:hidden;
+  box-shadow:0 0 60px rgba(74,222,128,.07), 0 0 120px rgba(34,211,238,.04), inset 0 0 60px rgba(0,0,0,.4);
+  position:relative;
+}
+.terminal-frame::before {
+  content:''; position:absolute; top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--green),var(--cyan),transparent);
+}
+.terminal-frame::after {
+  content:''; position:absolute; bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--glow),transparent);
+}
+
+/* Terminal title bar */
+.terminal-titlebar {
+  display:flex; align-items:center; gap:14px; padding:16px 28px;
+  background:rgba(0,0,0,.35); border-bottom:1px solid rgba(255,255,255,.06);
+}
+.terminal-dots { display:flex; gap:7px; }
+.terminal-dot { width:12px; height:12px; border-radius:50%; }
+.terminal-dot-red  { background:#f87171; box-shadow:0 0 6px rgba(248,113,113,.5); }
+.terminal-dot-gold { background:var(--gold); box-shadow:0 0 6px rgba(245,158,11,.5); }
+.terminal-dot-green{ background:var(--green); box-shadow:0 0 6px rgba(74,222,128,.5); }
+.terminal-titlebar-text { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:3px; color:var(--muted); flex:1; text-align:center; }
+.terminal-status { display:flex; align-items:center; gap:6px; font-family:'Orbitron',sans-serif; font-size:.5rem; letter-spacing:2px; color:var(--green); }
+.terminal-status-dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:dotBlink 1.5s ease-in-out infinite; }
+
+/* Terminal body */
+.terminal-body { padding:40px; }
+
+/* Terminal section header */
+.tsection-header {
+  display:flex; align-items:center; gap:12px; margin-bottom:20px;
+}
+.tsection-line { flex:1; height:1px; background:rgba(255,255,255,.07); }
+.tsection-tag { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:3px; padding:4px 14px; border-radius:100px; white-space:nowrap; }
+.tsection-upload  { background:rgba(167,139,250,.1); border:1px solid rgba(167,139,250,.2); color:var(--glow); }
+.tsection-data    { background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.2); color:var(--cyan); }
+.tsection-reflect { background:rgba(74,222,128,.08); border:1px solid rgba(74,222,128,.2); color:var(--green); }
+.tsection-submit  { background:rgba(249,115,22,.08); border:1px solid rgba(249,115,22,.2); color:var(--orange); }
+
+/* Upload zones */
+.upload-zones { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px; }
+.upload-zone {
+  position:relative; border-radius:16px; border:2px dashed rgba(255,255,255,.1);
+  padding:32px 24px; text-align:center; cursor:pointer;
+  transition:all .35s; background:rgba(255,255,255,.02);
+}
+.upload-zone:hover { border-color:var(--uz-color,var(--glow)); background:rgba(255,255,255,.04); box-shadow:0 0 30px rgba(167,139,250,.08); }
+.upload-zone.has-file { border-color:var(--uz-color,var(--green)); border-style:solid; background:rgba(74,222,128,.04); }
+.upload-zone-1 { --uz-color:var(--glow); }
+.upload-zone-2 { --uz-color:var(--cyan); }
+.upload-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.uz-icon { font-size:2rem; margin-bottom:10px; display:block; transition:transform .3s; }
+.upload-zone:hover .uz-icon { transform:scale(1.15); }
+.uz-label { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px; margin-bottom:6px; color:var(--uz-color,var(--glow)); }
+.uz-hint { font-size:.78rem; color:var(--muted); line-height:1.5; }
+.uz-status { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--green); margin-top:8px; display:none; }
+.upload-zone.has-file .uz-status { display:block; }
+.uz-preview { margin-top:12px; max-width:100%; max-height:100px; border-radius:8px; object-fit:cover; display:none; }
+.upload-zone.has-file .uz-preview { display:block; margin:8px auto 0; }
+
+/* Terminal inputs */
+.tinput-group { margin-bottom:24px; }
+.tinput-label { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2.5px; color:var(--muted); margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+.tinput-label-dot { width:6px; height:6px; border-radius:50%; background:var(--cyan); flex-shrink:0; }
+.tinput-label-dot.gold { background:var(--gold); }
+.tinput-label-dot.green { background:var(--green); }
+.tinput-label-dot.glow { background:var(--glow); }
+.tinput-label-dot.orange { background:var(--orange); }
+
+.terminal-select {
+  width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
+  border-radius:10px; padding:12px 16px; color:var(--text);
+  font-family:'Exo 2',sans-serif; font-size:.92rem; transition:border-color .3s;
+  appearance:none; cursor:pointer;
+}
+.terminal-select:focus { outline:none; border-color:rgba(34,211,238,.5); }
+.terminal-select option { background:var(--deep); }
+
+.terminal-textarea {
+  width:100%; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:14px 18px; color:var(--text);
+  font-family:'Exo 2',sans-serif; font-size:.92rem; resize:vertical; min-height:100px; transition:border-color .3s;
+  line-height:1.7;
+}
+.terminal-textarea:focus { outline:none; border-color:rgba(34,211,238,.4); }
+.terminal-textarea::placeholder { color:rgba(148,163,184,.4); }
+
+/* Data fields grid */
+.data-fields-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+.terminal-input {
+  width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:12px 16px; color:var(--text);
+  font-family:'Exo 2',sans-serif; font-size:.92rem; transition:border-color .3s;
+}
+.terminal-input:focus { outline:none; border-color:rgba(34,211,238,.4); }
+.terminal-input::placeholder { color:rgba(148,163,184,.4); }
+
+/* Rating row */
+.confidence-row { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:24px; }
+.confidence-label { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--muted); }
+.conf-pills { display:flex; gap:8px; }
+.conf-pill {
+  padding:8px 18px; border-radius:100px; border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.03); color:var(--muted); font-family:'Orbitron',sans-serif;
+  font-size:.55rem; letter-spacing:1px; cursor:pointer; transition:all .25s;
+}
+.conf-pill:hover { border-color:rgba(34,211,238,.4); color:var(--cyan); }
+.conf-pill.selected { background:rgba(34,211,238,.12); border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 12px rgba(34,211,238,.15); }
+
+/* Terminal submit button */
+.terminal-submit-row { text-align:center; margin-top:10px; }
+.btn-terminal-submit {
+  display:inline-flex; align-items:center; gap:14px; padding:18px 44px;
+  background:linear-gradient(135deg,rgba(74,222,128,.15),rgba(34,211,238,.15));
+  border:1px solid rgba(74,222,128,.4); border-radius:100px;
+  color:var(--green); font-family:'Orbitron',sans-serif; font-size:.7rem; letter-spacing:2px;
+  cursor:pointer; transition:all .35s; text-transform:uppercase; position:relative; overflow:hidden;
+}
+.btn-terminal-submit::before {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  transition:left .5s;
+}
+.btn-terminal-submit:hover::before { left:100%; }
+.btn-terminal-submit:hover {
+  background:linear-gradient(135deg,rgba(74,222,128,.3),rgba(34,211,238,.25));
+  box-shadow:0 0 40px rgba(74,222,128,.2), 0 0 80px rgba(74,222,128,.08); color:white; transform:translateY(-2px);
+}
+.btn-terminal-submit .submit-icon { font-size:1.1rem; transition:transform .3s; }
+.btn-terminal-submit:hover .submit-icon { transform:rotate(10deg) scale(1.1); }
+
+.terminal-note { margin-top:16px; font-size:.75rem; color:rgba(148,163,184,.6); text-align:center; font-style:italic; }
+
+/* ═══════════════════════════
+   TEACHER PANEL (preserved)
+═══════════════════════════ */
 .modal-overlay {
   display:none; position:fixed; inset:0; z-index:600;
   background:rgba(2,8,24,.92); backdrop-filter:blur(12px);
@@ -309,14 +793,9 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .btn-login { width:100%; padding:14px; background:linear-gradient(135deg,rgba(167,139,250,.2),rgba(124,58,237,.3)); border:1px solid rgba(167,139,250,.4); border-radius:100px; color:var(--glow); font-family:'Orbitron',sans-serif; font-size:.7rem; letter-spacing:2px; cursor:pointer; transition:all .3s; }
 .btn-login:hover { background:linear-gradient(135deg,rgba(167,139,250,.35),rgba(124,58,237,.5)); color:white; box-shadow:0 0 24px rgba(167,139,250,.3); }
 
-/* Teacher Dashboard */
 .teacher-panel { display:none; }
 .teacher-panel.active { display:block; }
-.teacher-header {
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
-  margin-bottom:40px;
-}
-.teacher-title-block {}
+.teacher-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:40px; }
 .teacher-badge { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:3px; color:var(--glow); background:rgba(167,139,250,.1); border:1px solid rgba(167,139,250,.25); border-radius:100px; padding:4px 14px; margin-bottom:10px; display:inline-block; }
 .teacher-title { font-family:'Orbitron',sans-serif; font-size:1.5rem; font-weight:900; color:white; }
 .teacher-actions { display:flex; gap:10px; flex-wrap:wrap; }
@@ -325,37 +804,21 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .btn-logout { padding:10px 20px; background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.25); border-radius:100px; color:var(--red); font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px; cursor:pointer; transition:all .3s; }
 .btn-logout:hover { background:rgba(248,113,113,.2); }
 
-/* Stats row */
 .stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:32px; }
 .stat-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:20px; text-align:center; }
 .stat-num { font-family:'Orbitron',sans-serif; font-size:2rem; font-weight:900; }
 .stat-label { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--muted); margin-top:4px; }
 
-/* Filter / search */
 .filter-bar { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
 .filter-input { flex:1; min-width:200px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:10px 16px; color:var(--text); font-family:'Exo 2',sans-serif; font-size:.9rem; transition:border-color .3s; }
 .filter-input:focus { outline:none; border-color:rgba(34,211,238,.4); }
 .filter-input::placeholder { color:var(--muted); }
 
-/* Student response cards */
 .student-cards { display:flex; flex-direction:column; gap:20px; }
-.student-card {
-  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
-  border:1px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden;
-  transition:border-color .3s;
-}
+.student-card { background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:20px; overflow:hidden; transition:border-color .3s; }
 .student-card:hover { border-color:rgba(167,139,250,.25); }
-.student-card-header {
-  display:flex; align-items:center; gap:16px; padding:20px 24px;
-  background:rgba(255,255,255,.02); border-bottom:1px solid rgba(255,255,255,.06);
-  cursor:pointer; user-select:none;
-}
-.student-avatar {
-  width:42px; height:42px; border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--cyan));
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Orbitron',sans-serif; font-size:.75rem; font-weight:700; color:white; flex-shrink:0;
-}
+.student-card-header { display:flex; align-items:center; gap:16px; padding:20px 24px; background:rgba(255,255,255,.02); border-bottom:1px solid rgba(255,255,255,.06); cursor:pointer; user-select:none; }
+.student-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--cyan)); display:flex; align-items:center; justify-content:center; font-family:'Orbitron',sans-serif; font-size:.75rem; font-weight:700; color:white; flex-shrink:0; }
 .student-meta { flex:1; }
 .student-name { font-family:'Orbitron',sans-serif; font-size:.8rem; font-weight:700; color:white; }
 .student-time { font-size:.75rem; color:var(--muted); margin-top:2px; }
@@ -365,20 +828,14 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .status-reviewed { background:rgba(74,222,128,.12); border:1px solid rgba(74,222,128,.3); color:var(--green); }
 .card-toggle { font-size:.8rem; color:var(--muted); transition:transform .3s; }
 .student-card.expanded .card-toggle { transform:rotate(180deg); }
-
 .student-card-body { display:none; padding:24px; }
 .student-card.expanded .student-card-body { display:block; animation:slideIn .3s ease; }
-
-/* Answers inside card */
 .answer-section { margin-bottom:20px; }
 .answer-section-title { font-family:'Orbitron',sans-serif; font-size:.55rem; letter-spacing:2px; color:var(--muted); margin-bottom:8px; text-transform:uppercase; }
 .answer-pill { display:inline-block; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:8px 14px; font-size:.85rem; color:#cbd5e1; margin-right:8px; margin-bottom:8px; }
 .answer-text { font-size:.9rem; color:#cbd5e1; line-height:1.7; background:rgba(255,255,255,.03); border-radius:10px; padding:12px 16px; border:1px solid rgba(255,255,255,.06); }
 .answer-hypothesis { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:100px; border:1px solid rgba(34,211,238,.3); background:rgba(34,211,238,.07); color:var(--cyan); font-size:.85rem; }
-
-/* Feedback area */
 .feedback-divider { height:1px; background:linear-gradient(to right,transparent,rgba(167,139,250,.2),transparent); margin:20px 0; }
-.feedback-section {}
 .feedback-label { font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px; color:var(--glow); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
 .feedback-label span { font-size:.85rem; }
 .feedback-area { width:100%; background:rgba(167,139,250,.05); border:1px solid rgba(167,139,250,.2); border-radius:12px; padding:14px 16px; color:var(--text); font-family:'Exo 2',sans-serif; font-size:.95rem; resize:vertical; min-height:100px; transition:border-color .3s; }
@@ -393,25 +850,46 @@ tbody td:first-child { color:var(--gold); font-family:'Orbitron',sans-serif; fon
 .btn-save-feedback { margin-top:14px; padding:10px 22px; background:rgba(167,139,250,.15); border:1px solid rgba(167,139,250,.35); border-radius:100px; color:var(--glow); font-family:'Orbitron',sans-serif; font-size:.6rem; letter-spacing:2px; cursor:pointer; transition:all .3s; }
 .btn-save-feedback:hover { background:rgba(167,139,250,.3); color:white; }
 .btn-save-feedback.saved { background:rgba(74,222,128,.15); border-color:rgba(74,222,128,.35); color:var(--green); }
-
-/* Loading/empty states */
 .loading-state { text-align:center; padding:60px 20px; color:var(--muted); font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:2px; }
 .spinner-sm { width:30px;height:30px;border:2px solid rgba(34,211,238,.2);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px; }
 .empty-state { text-align:center; padding:60px 20px; }
 .empty-icon { font-size:3rem; margin-bottom:16px; display:block; }
 .empty-text { font-family:'Orbitron',sans-serif; font-size:.65rem; letter-spacing:2px; color:var(--muted); }
 
-/* FOOTER */
+/* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
 .cosmic-divider { height:1px; background:linear-gradient(to right,transparent,var(--accent),var(--cyan),transparent); margin:60px 60px 0; opacity:.3; position:relative; z-index:1; }
 footer { position:relative;z-index:1;text-align:center;padding:40px;font-family:'Orbitron',sans-serif;font-size:.65rem;letter-spacing:2px;color:var(--muted); }
 footer span { color:var(--glow); }
 
-/* RESPONSIVE */
+/* ═══════════════════════════
+   SCROLL REVEAL
+═══════════════════════════ */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+.reveal.revealed { opacity:1; transform:none; }
+
+/* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
 @media(max-width:768px){
   nav{padding:16px 24px;} .nav-links{gap:16px;} .nav-links a{font-size:.6rem;letter-spacing:1.5px;}
-  .page-wrap{padding:100px 20px 60px;} .step-body{padding:20px;} .observe-grid{grid-template-columns:1fr;}
+  .inquiry-section,.project-section,.terminal-section,.page-wrap{padding-left:20px;padding-right:20px;}
+  .driving-questions-grid,.topics-grid,.mission-objectives{grid-template-columns:1fr;}
+  .observe-grid,.upload-zones,.data-fields-grid{grid-template-columns:1fr;}
   .nav-buttons{flex-direction:column;} .btn{width:100%;justify-content:center;}
   .stats-row{grid-template-columns:1fr 1fr;}
+  .inquiry-title{font-size:1.8rem;}
+}
+/* Investigation Report card accent */
+.student-card.report-card {
+  border-color: rgba(74,222,128,.15);
+}
+.student-card.report-card .student-card-header {
+  background: rgba(74,222,128,.03);
+}
+.student-card.report-card:hover {
+  border-color: rgba(74,222,128,.3);
 }
 </style>
 </head>
@@ -420,13 +898,15 @@ footer span { color:var(--glow); }
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="cursorTrail"></div>
 <div class="stars-bg"></div>
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
 <div class="nebula nebula-1"></div>
 <div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div>
 
 <!-- SUBMITTING OVERLAY -->
 <div class="submitting-overlay" id="submittingOverlay">
   <div class="spinner"></div>
-  <div class="submitting-text">Sending your answers...</div>
+  <div class="submitting-text">Transmitting to Mission Control...</div>
 </div>
 
 <!-- TEACHER LOGIN MODAL -->
@@ -465,12 +945,83 @@ footer span { color:var(--glow); }
       </ul>
     </li>
     <li><a href="Activity.html">Quiz</a></li>
+    <li><a href="Green&Blue.html">Green & Blue Curriculum</a></li>
   </ul>
   <button class="btn-teacher-nav" onclick="openTeacherModal()">👩‍🏫 Teacher View</button>
 </nav>
 
+
+<!-- ═══════════════════════════════════════════════════
+     ★ NEW SECTION 1 — INQUIRY / CURIOSITY INTRO
+═══════════════════════════════════════════════════ -->
+<section class="inquiry-section" id="inquirySection">
+
+  <div class="inquiry-hero">
+    <div class="inquiry-mission-badge">
+      <div class="inquiry-badge-dot"></div>
+      Science Mission · Grade VII · Astronomy Unit
+    </div>
+
+    <h1 class="inquiry-title">
+      The Universe<br>
+      Is Asking You <span class="highlight-cyan">Questions</span>.<br>
+      Are You Ready to <span class="highlight-gold">Investigate?</span>
+    </h1>
+
+    <p class="inquiry-subtitle">
+      Real scientists don't start with answers — they start with <em>curiosity</em>. 
+      Before you begin your investigation, let these questions spark your thinking.
+    </p>
+
+    <!-- Tiny orbit animation -->
+    <div class="inquiry-orbit-visual" aria-hidden="true">
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2"></div>
+      <div class="orbit-ring orbit-ring-3"></div>
+      <div class="orbit-sun"></div>
+      <div class="earth-wrapper"><div class="earth-dot"></div></div>
+    </div>
+  </div>
+
+  <!-- Driving Questions -->
+  <div class="driving-questions-title reveal">🔭 Driving Questions</div>
+  <div class="driving-questions-grid">
+    <div class="dq-card dq-card-1 reveal">
+      <span class="dq-icon">🌍</span>
+      <div class="dq-label">Phenomenon 01</div>
+      <p class="dq-question">Why do <strong>seasons change</strong> throughout the year? Is Earth getting closer to or farther from the Sun?</p>
+    </div>
+    <div class="dq-card dq-card-2 reveal">
+      <span class="dq-icon">🌏</span>
+      <div class="dq-label">Phenomenon 02</div>
+      <p class="dq-question">How can countries experience <strong>opposite seasons</strong> at the same time — summer in Australia while Europe has winter?</p>
+    </div>
+    <div class="dq-card dq-card-3 reveal">
+      <span class="dq-icon">🌑</span>
+      <div class="dq-label">Phenomenon 03</div>
+      <p class="dq-question">How do the <strong>movements of Earth, Moon, and Sun</strong> together create eclipses, moon phases, and tides?</p>
+    </div>
+  </div>
+
+  <!-- CTA to begin -->
+  <div class="inquiry-cta reveal">
+    <div class="inquiry-cta-title">Your Scientific Investigation Starts Here</div>
+    <p class="inquiry-cta-text">You're about to use real astronomical tools — just like professional astronomers — to discover the answers for yourself. Follow the steps, observe with Stellarium, build your model, and submit your evidence.</p>
+    <button class="btn-start-mission" onclick="scrollToActivity()">
+      🚀 Begin the Investigation <span class="btn-start-mission-arrow">→</span>
+    </button>
+  </div>
+
+</section>
+
+<!-- Divider -->
+<div class="section-divider" style="margin:0 60px;">
+  <div class="section-divider-icon">🔬</div>
+</div>
+
+
 <!-- ═══════════════════════════════
-     STUDENT ACTIVITY
+     ORIGINAL STUDENT ACTIVITY
 ═══════════════════════════════ -->
 <div class="page-wrap" id="studentView">
 
@@ -480,10 +1031,25 @@ footer span { color:var(--glow); }
     <p class="page-intro">Let's find out together — step by step, just like real scientists do!</p>
   </div>
 
+  <!-- Mission status bar (NEW) -->
+  <div class="mission-status-bar" id="missionStatusBar">
+    <div class="msb-dot"></div>
+    <span class="msb-label">Mission Status</span>
+    <div class="msb-separator"></div>
+    <span class="msb-label">Student</span>
+    <span class="msb-value" id="msbStudentName">—</span>
+    <div class="msb-separator"></div>
+    <span class="msb-label">Phase</span>
+    <span class="msb-value" id="msbPhase">Pre-Launch</span>
+    <div class="msb-separator"></div>
+    <span class="msb-label">Progress</span>
+    <span class="msb-value" id="msbProgress">0 / 6 Steps</span>
+  </div>
+
   <!-- Student name -->
   <div class="name-bar">
     <label>Your Name</label>
-    <input type="text" id="studentName" placeholder="Type your full name here..." />
+    <input type="text" id="studentName" placeholder="Type your full name here..." oninput="updateMissionStatus()" />
   </div>
 
   <!-- Progress Bar -->
@@ -502,7 +1068,7 @@ footer span { color:var(--glow); }
   </div>
 
   <!-- STEP 1 -->
-  <div class="step-card step-s1 active" data-step="1">
+  <div class="step-card step-s1 active" data-step="1" id="activityArea">
     <div class="step-header">
       <div class="step-badge">🌍</div>
       <div class="step-titles">
@@ -685,15 +1251,322 @@ footer span { color:var(--glow); }
     </div>
     <div style="margin-top:36px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <button class="btn btn-next" onclick="resetActivity()" style="border-radius:100px;">🔄 Try Again</button>
-      <a href="quiz.html" class="btn btn-submit" style="text-decoration:none;border-radius:100px;">📝 Take the Quiz →</a>
+      <button class="btn btn-submit" onclick="scrollToTerminal()" style="border-radius:100px;">📡 Submit Investigation Report →</button>
     </div>
   </div>
 
 </div><!-- /studentView -->
 
-<!-- ═══════════════════════════════
+
+<!-- Divider -->
+<div class="section-divider" style="margin:0 60px;">
+  <div class="section-divider-icon">🚀</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     ★ NEW SECTION 2 — PROJECT / INVESTIGATION SECTION
+═══════════════════════════════════════════════════ -->
+<section class="project-section" id="projectSection">
+
+  <div class="project-section-header reveal">
+    <div class="project-badge-row">
+      <span class="project-badge pb-mission">🛸 Cosmic Investigation</span>
+      <span class="project-badge pb-grade">Grade VII Science</span>
+      <span class="project-badge pb-type">Project-Based Learning</span>
+    </div>
+    <h2 class="project-title">Astronomy Lab Mission</h2>
+    <p class="project-subtitle">Science isn't just reading — it's <em>doing</em>. Choose your investigation topic, build a physical model, simulate it in Stellarium, and submit your evidence report.</p>
+  </div>
+
+  <!-- Mission objectives -->
+  <div class="topics-label reveal">🎯 Mission Objectives — What You Must Do</div>
+  <div class="mission-objectives reveal">
+    <div class="mobj-card">
+      <div class="mobj-num">01</div>
+      <div class="mobj-text"><strong>Build a Physical Model</strong> — Use everyday materials to create a 3D model of your chosen phenomenon. Document it with photos.</div>
+    </div>
+    <div class="mobj-card">
+      <div class="mobj-num">02</div>
+      <div class="mobj-text"><strong>Simulate with Stellarium</strong> — Use the Stellarium app to virtually observe and verify your phenomenon from Earth.</div>
+    </div>
+    <div class="mobj-card">
+      <div class="mobj-num">03</div>
+      <div class="mobj-text"><strong>Record Observations</strong> — Write detailed notes about what you observe — both in your model and in the simulation.</div>
+    </div>
+    <div class="mobj-card">
+      <div class="mobj-num">04</div>
+      <div class="mobj-text"><strong>Compare & Conclude</strong> — Does your model match reality? Write a final conclusion and submit your evidence.</div>
+    </div>
+  </div>
+
+  <!-- Topic selection -->
+  <div class="topics-label reveal">🌌 Choose Your Investigation Topic</div>
+  <div class="topics-grid">
+    <div class="topic-card tc-seasons reveal" onclick="selectTopic(this,'Seasons')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🌦️</span>
+      <div class="topic-name">Seasons</div>
+      <p class="topic-desc">Investigate why Earth experiences different seasons — axial tilt, sunlight angle, and hemispheres.</p>
+    </div>
+    <div class="topic-card tc-lunar reveal" onclick="selectTopic(this,'Lunar Eclipse')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🌑</span>
+      <div class="topic-name">Lunar Eclipse</div>
+      <p class="topic-desc">Model the alignment of Earth, Moon, and Sun that creates the shadow of a lunar eclipse.</p>
+    </div>
+    <div class="topic-card tc-solar reveal" onclick="selectTopic(this,'Solar Eclipse')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🌒</span>
+      <div class="topic-name">Solar Eclipse</div>
+      <p class="topic-desc">Simulate the moment the Moon passes between Earth and the Sun, blocking sunlight.</p>
+    </div>
+    <div class="topic-card tc-moon reveal" onclick="selectTopic(this,'Moon Phases')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🌙</span>
+      <div class="topic-name">Moon Phases</div>
+      <p class="topic-desc">Build a model showing the 8 phases of the Moon as it orbits Earth each month.</p>
+    </div>
+    <div class="topic-card tc-daynight reveal" onclick="selectTopic(this,'Day & Night')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🌅</span>
+      <div class="topic-name">Day & Night</div>
+      <p class="topic-desc">Demonstrate how Earth's rotation on its axis creates the cycle of day and night.</p>
+    </div>
+    <div class="topic-card tc-revolution reveal" onclick="selectTopic(this,'Earth\'s Revolution')">
+      <div class="topic-selected-badge">✓ SELECTED</div>
+      <span class="topic-icon">🔄</span>
+      <div class="topic-name">Earth's Revolution</div>
+      <p class="topic-desc">Explore Earth's 365-day journey around the Sun and what that means for our calendar year.</p>
+    </div>
+  </div>
+
+  <!-- Investigation steps timeline -->
+  <div class="project-steps-title reveal">📋 Investigation Workflow</div>
+  <div class="project-timeline">
+    <div class="ptl-item" style="--ptl-color:var(--cyan);">
+      <div class="ptl-dot" style="--ptl-color:var(--cyan);"></div>
+      <div class="ptl-content">
+        <div class="ptl-step-label" style="color:var(--cyan);">Phase 01 · Research</div>
+        <div class="ptl-step-name">Understand the Phenomenon</div>
+        <div class="ptl-step-desc">Read about your topic on this website. Note key vocabulary and the science behind it. What forces or movements are involved?</div>
+      </div>
+    </div>
+    <div class="ptl-item" style="--ptl-color:var(--glow);">
+      <div class="ptl-dot" style="--ptl-color:var(--glow);"></div>
+      <div class="ptl-content">
+        <div class="ptl-step-label" style="color:var(--glow);">Phase 02 · Model</div>
+        <div class="ptl-step-name">Build Your Physical Model</div>
+        <div class="ptl-step-desc">Use materials from home — balls, lamps, craft supplies — to create a 3D model. Take clear photographs from multiple angles.</div>
+      </div>
+    </div>
+    <div class="ptl-item" style="--ptl-color:var(--gold);">
+      <div class="ptl-dot" style="--ptl-color:var(--gold);"></div>
+      <div class="ptl-content">
+        <div class="ptl-step-label" style="color:var(--gold);">Phase 03 · Simulate</div>
+        <div class="ptl-step-name">Observe with Stellarium</div>
+        <div class="ptl-step-desc">Open Stellarium Web, set your location and the relevant dates, and observe what the sky shows. Take a screenshot of your simulation.</div>
+      </div>
+    </div>
+    <div class="ptl-item" style="--ptl-color:var(--orange);">
+      <div class="ptl-dot" style="--ptl-color:var(--orange);"></div>
+      <div class="ptl-content">
+        <div class="ptl-step-label" style="color:var(--orange);">Phase 04 · Analyze</div>
+        <div class="ptl-step-name">Compare Model vs Simulation</div>
+        <div class="ptl-step-desc">Does your physical model accurately represent what Stellarium shows? What matches? What would you improve?</div>
+      </div>
+    </div>
+    <div class="ptl-item" style="--ptl-color:var(--green);">
+      <div class="ptl-dot" style="--ptl-color:var(--green);"></div>
+      <div class="ptl-content">
+        <div class="ptl-step-label" style="color:var(--green);">Phase 05 · Report</div>
+        <div class="ptl-step-name">Submit Your Evidence</div>
+        <div class="ptl-step-desc">Upload your model photo, Stellarium screenshot, and written observations using the Investigation Report Terminal below.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- Divider -->
+<div class="section-divider" style="margin:0 60px;">
+  <div class="section-divider-icon">📡</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     ★ NEW SECTION 3 — INVESTIGATION REPORT TERMINAL
+═══════════════════════════════════════════════════ -->
+<section class="terminal-section" id="terminalSection">
+
+  <div class="terminal-header reveal">
+    <div class="terminal-badge">
+      <div class="inquiry-badge-dot"></div>
+      Investigation Report System · Active
+    </div>
+    <h2 class="terminal-title">Submit Your Investigation Report</h2>
+    <p class="terminal-subtitle">Upload your model, simulation screenshot, and analysis. This is your scientific evidence — make it count.</p>
+  </div>
+
+  <div class="terminal-frame reveal">
+
+    <!-- Title bar -->
+    <div class="terminal-titlebar">
+      <div class="terminal-dots">
+        <div class="terminal-dot terminal-dot-red"></div>
+        <div class="terminal-dot terminal-dot-gold"></div>
+        <div class="terminal-dot terminal-dot-green"></div>
+      </div>
+      <div class="terminal-titlebar-text">ASTRONOMY LAB · INVESTIGATION REPORT TERMINAL v2.4</div>
+      <div class="terminal-status"><div class="terminal-status-dot"></div>SYSTEM READY</div>
+    </div>
+
+    <div class="terminal-body">
+
+      <!-- Student info row -->
+      <div class="data-fields-grid" style="margin-bottom:32px;">
+        <div class="tinput-group" style="margin:0;">
+          <div class="tinput-label"><div class="tinput-label-dot cyan"></div>Member Group Name</div>
+          <input class="terminal-input" id="rep-name" placeholder="Your full name" />
+        </div>
+        <div class="tinput-group" style="margin:0;">
+          <div class="tinput-label"><div class="tinput-label-dot gold"></div>Investigation Topic</div>
+          <select class="terminal-select" id="rep-topic">
+            <option value="">— Select your topic —</option>
+            <option>Seasons</option>
+            <option>Lunar Eclipse</option>
+            <option>Solar Eclipse</option>
+            <option>Moon Phases</option>
+            <option>Day &amp; Night</option>
+            <option>Earth's Revolution</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Section: Upload Evidence -->
+      <div class="tsection-header">
+        <div class="tsection-line"></div>
+        <div class="tsection-tag tsection-upload">📁 Upload Evidence</div>
+        <div class="tsection-line"></div>
+      </div>
+
+      <!-- Ganti upload-zones dengan ini -->
+<div class="upload-zones">
+  <div class="upload-zone upload-zone-1" style="cursor:default;">
+    <span class="uz-icon">📸</span>
+    <div class="uz-label">Model Photo Link</div>
+    <p class="uz-hint">Upload the photo to Google Drive, set it to "Anyone with the link can view", then paste the link below.</p>
+    <input class="terminal-input" id="uz1-link" placeholder="https://drive.google.com/..." style="margin-top:12px;" />
+  </div>
+  <div class="upload-zone upload-zone-2" style="cursor:default;">
+    <span class="uz-icon">🖥️</span>
+    <div class="uz-label">Stellarium Screenshot Link</div>
+    <p class="uz-hint">Upload the screenshot to Google Drive, set it to "Anyone with the link can view", then paste the link below.</p>
+    <input class="terminal-input" id="uz2-link" placeholder="https://drive.google.com/..." style="margin-top:12px;" />
+  </div>
+</div>
+
+      <!-- Section: Observation Data -->
+      <div class="tsection-header">
+        <div class="tsection-line"></div>
+        <div class="tsection-tag tsection-data">📊 Observation Data</div>
+        <div class="tsection-line"></div>
+      </div>
+
+      <div class="tinput-group">
+        <div class="tinput-label"><div class="tinput-label-dot cyan"></div>What I Observed in My Physical Model</div>
+        <textarea class="terminal-textarea" id="rep-model-obs" placeholder="Describe what you saw when you demonstrated your model. What happened? What did it show?"></textarea>
+      </div>
+
+      <div class="tinput-group">
+        <div class="tinput-label"><div class="tinput-label-dot gold"></div>What I Observed in Stellarium</div>
+        <textarea class="terminal-textarea" id="rep-stell-obs" placeholder="Describe what you saw in Stellarium. What date / location did you use? What did the sky look like?"></textarea>
+      </div>
+
+      <div class="tinput-group">
+        <div class="tinput-label"><div class="tinput-label-dot glow"></div>Comparison — Does My Model Match Reality?</div>
+        <textarea class="terminal-textarea" id="rep-compare" placeholder="How well did your physical model represent what you saw in Stellarium? What was accurate? What was different?"></textarea>
+      </div>
+
+      <!-- Section: Reflection -->
+      <div class="tsection-header">
+        <div class="tsection-line"></div>
+        <div class="tsection-tag tsection-reflect">🪞 Final Reflection</div>
+        <div class="tsection-line"></div>
+      </div>
+
+      <div class="tinput-group">
+        <div class="tinput-label"><div class="tinput-label-dot green"></div>Scientific Conclusion</div>
+        <textarea class="terminal-textarea" id="rep-conclusion" placeholder="Write 2–4 sentences summarizing what you discovered. Start with: 'Based on my investigation, I conclude that...'"></textarea>
+      </div>
+
+      <div class="tinput-group">
+        <div class="tinput-label"><div class="tinput-label-dot orange"></div>New Questions I'm Wondering About</div>
+        <textarea class="terminal-textarea" id="rep-newq" placeholder="Now that you've finished, what new questions do you have? What would you investigate next?"></textarea>
+      </div>
+
+      <!-- Confidence rating -->
+      <div class="confidence-row">
+        <span class="confidence-label">Confidence Level:</span>
+        <div class="conf-pills">
+          <div class="conf-pill" onclick="selectConf(this)">🌱 Still Learning</div>
+          <div class="conf-pill" onclick="selectConf(this)">🔭 Getting There</div>
+          <div class="conf-pill" onclick="selectConf(this)">⭐ Confident</div>
+          <div class="conf-pill" onclick="selectConf(this)">🚀 Expert Mode</div>
+        </div>
+      </div>
+
+      <!-- Section: Submit -->
+      <div class="tsection-header">
+        <div class="tsection-line"></div>
+        <div class="tsection-tag tsection-submit">🛸 Transmit Report</div>
+        <div class="tsection-line"></div>
+      </div>
+
+      <div class="terminal-submit-row">
+        <button class="btn-terminal-submit" onclick="submitReport()">
+          <span class="submit-icon">📡</span>
+          Transmit Investigation Report to Mission Control
+        </button>
+        <p class="terminal-note">Your report will be sent directly to your teacher. Make sure all fields are filled in before transmitting!</p>
+      </div>
+
+    </div><!-- /terminal-body -->
+  </div><!-- /terminal-frame -->
+
+ <!-- Success card after terminal submit -->
+<div id="terminalSuccessCard" style="display:none;text-align:center;padding:60px 40px;border-radius:24px;border:1px solid rgba(74,222,128,.25);background:linear-gradient(135deg,rgba(74,222,128,.06),rgba(34,211,238,.04));margin-top:30px;animation:slideIn .5s cubic-bezier(.22,1,.36,1);">
+  <span style="font-size:4rem;margin-bottom:20px;display:block;">📡</span>
+  <div style="font-family:'Orbitron',sans-serif;font-size:1.4rem;font-weight:900;color:var(--green);margin-bottom:14px;">Report Transmitted!</div>
+  <p style="font-size:.95rem;color:var(--muted);line-height:1.8;max-width:480px;margin:0 auto 28px;">Your investigation report has been sent to Mission Control (your teacher). Outstanding work, Scientist! 🌟</p>
+
+  <!-- Feedback banner -->
+  <div id="reportFeedbackBanner" style="margin:0 auto 28px;max-width:520px;padding:20px 24px;border-radius:14px;background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);text-align:left;display:none;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:3px;color:var(--glow);margin-bottom:10px;">✏️ TEACHER FEEDBACK</div>
+    <div id="reportFeedbackScore" style="margin-bottom:10px;display:none;">
+      <span id="reportScoreLabel" style="padding:5px 16px;border-radius:100px;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);font-family:'Orbitron',sans-serif;font-size:.62rem;color:var(--glow);"></span>
+    </div>
+    <div id="reportFeedbackText" style="font-size:.92rem;color:#e2e8f0;line-height:1.8;"></div>
+  </div>
+
+  <div id="reportFeedbackPending" style="margin:0 auto 28px;max-width:520px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);display:none;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:.55rem;letter-spacing:3px;color:var(--muted);margin-bottom:6px;">✏️ TEACHER FEEDBACK</div>
+    <div style="font-size:.85rem;color:var(--muted);font-style:italic;">No feedback yet — check back after your teacher reviews your work! 🌟</div>
+  </div>
+
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <button class="btn btn-prev" onclick="checkReportFeedback()" style="border-radius:100px;display:inline-flex;">🔍 Check My Feedback</button>
+    <button class="btn btn-next" onclick="resetReport()" style="border-radius:100px;display:inline-flex;">🔄 Submit Another Topic</button>
+  </div>
+</div>
+
+</section>
+
+
+<!-- ════════════════════════════════════
      TEACHER DASHBOARD
-═══════════════════════════════ -->
+════════════════════════════════════ -->
 <div class="page-wrap teacher-panel" id="teacherView">
 
   <div class="teacher-header">
@@ -707,34 +1580,32 @@ footer span { color:var(--glow); }
     </div>
   </div>
 
-  <!-- Stats -->
   <div class="stats-row" id="statsRow">
     <div class="stat-card"><div class="stat-num" id="statTotal" style="color:var(--cyan);">—</div><div class="stat-label">Total Submissions</div></div>
     <div class="stat-card"><div class="stat-num" id="statReviewed" style="color:var(--green);">—</div><div class="stat-label">Reviewed</div></div>
     <div class="stat-card"><div class="stat-num" id="statPending" style="color:var(--gold);">—</div><div class="stat-label">Needs Feedback</div></div>
   </div>
 
-  <!-- Search -->
   <div class="filter-bar">
     <input class="filter-input" id="searchInput" placeholder="🔍 Search by student name..." oninput="filterCards()" />
   </div>
 
-  <!-- Student cards container -->
   <div class="student-cards" id="studentCards">
     <div class="loading-state"><div class="spinner-sm"></div>Loading student responses...</div>
   </div>
+</div>
 
-</div><!-- /teacherView -->
 
 <div class="cosmic-divider"></div>
 <footer><span>Tria Liza</span> · Universitas Pendidikan Indonesia · Exploring the Universe Together 🌌</footer>
+
 
 <script>
 // ═══════════════════════════════════════════
 // CONFIG
 // ═══════════════════════════════════════════
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwukC_Gl8-6uwcbIgfgMj-4x1-_8h7sYjbmALV0t1iBzXtP5DU8kMmS11EjicCaFi_C/exec';
-const TEACHER_PASS = 'trializa2025'; // ← Change this to your preferred password
+const TEACHER_PASS = 'trializa2025';
 
 // ═══════════════════════════════════════════
 // CURSOR
@@ -745,10 +1616,62 @@ document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
   setTimeout(() => { trail.style.left = e.clientX + 'px'; trail.style.top = e.clientY + 'px'; }, 80);
 });
-document.querySelectorAll('a,button,.choice-item,.score-pill').forEach(el => {
+document.querySelectorAll('a,button,.choice-item,.score-pill,.topic-card,.conf-pill,.upload-zone').forEach(el => {
   el.addEventListener('mouseenter', () => { cursor.style.width='24px'; cursor.style.height='24px'; cursor.style.background='var(--glow)'; });
   el.addEventListener('mouseleave', () => { cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--cyan)'; });
 });
+
+// ═══════════════════════════════════════════
+// PARTICLES
+// ═══════════════════════════════════════════
+(function initParticles() {
+  const canvas = document.getElementById('particlesCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.5 + 0.3,
+      vx: (Math.random() - .5) * 0.12,
+      vy: (Math.random() - .5) * 0.12,
+      a: Math.random()
+    });
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      p.a = .3 + .4 * Math.sin(Date.now() / 2000 + p.x);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(167,139,250,${p.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ═══════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ═══════════════════════════════════════════
 // DROPDOWN
@@ -757,6 +1680,25 @@ document.querySelectorAll('.has-dropdown > a').forEach(a => {
   a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); a.parentElement.classList.toggle('open'); });
 });
 document.addEventListener('click', () => document.querySelectorAll('.has-dropdown').forEach(el => el.classList.remove('open')));
+
+// ═══════════════════════════════════════════
+// SCROLL HELPERS
+// ═══════════════════════════════════════════
+function scrollToActivity() {
+  document.getElementById('activityArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function scrollToTerminal() {
+  document.getElementById('terminalSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ═══════════════════════════════════════════
+// MISSION STATUS BAR
+// ═══════════════════════════════════════════
+const phaseNames = ['Pre-Launch','Observation','Question','Hypothesis','Data Collect','Conclusion','Complete'];
+function updateMissionStatus() {
+  const name = document.getElementById('studentName').value.trim();
+  document.getElementById('msbStudentName').textContent = name || '—';
+}
 
 // ═══════════════════════════════════════════
 // STUDENT ACTIVITY LOGIC
@@ -774,15 +1716,34 @@ function showStep(n) {
     s.classList.remove('active','done');
     if (sn === n) s.classList.add('active');
     if (sn < n)  s.classList.add('done');
-    if (sn < n)  s.querySelector('.step-num').textContent = '✓';
-    else          s.querySelector('.step-num').textContent = sn;
+    s.querySelector('.step-num').textContent = sn < n ? '✓' : sn;
   });
   currentStep = n;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+ 
+  // update content step
+  document.getElementById('msbPhase').textContent =
+    phaseNames[n] || 'Active';
+
+  document.getElementById('msbProgress').textContent =
+    `${n} / ${totalSteps} Steps`;
+
+  // scroll ke section step
+  document.querySelector('.mission-step')
+    ?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
 }
 
-function nextStep() { if (currentStep < totalSteps) showStep(currentStep + 1); }
-function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
+function nextStep() {
+  if (currentStep < totalSteps)
+    showStep(currentStep + 1);
+}
+
+function prevStep() {
+  if (currentStep > 1)
+    showStep(currentStep - 1);
+}
 
 function selectChoice(el, group) {
   document.querySelectorAll(`#${group}Group .choice-item`).forEach(c => c.classList.remove('selected'));
@@ -810,12 +1771,10 @@ function submitActivity() {
     reflection3:    document.getElementById('r3').value.trim(),
   };
 
-  // Show spinner
   document.getElementById('submittingOverlay').classList.add('active');
 
   fetch(SHEET_URL, {
-    method: 'POST',
-    mode: 'no-cors',
+    method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   })
@@ -825,7 +1784,6 @@ function submitActivity() {
   })
   .catch(() => {
     document.getElementById('submittingOverlay').classList.remove('active');
-    // Still show success — no-cors means we can't confirm but submission likely went through
     showSuccessCard();
   });
 }
@@ -834,6 +1792,8 @@ function showSuccessCard() {
   document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
   document.getElementById('progressBar').style.display = 'none';
   document.getElementById('successCard').classList.add('active');
+  document.getElementById('msbPhase').textContent = 'Complete ✓';
+  document.getElementById('msbProgress').textContent = '6 / 6 Steps';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -845,6 +1805,105 @@ function resetActivity() {
   document.getElementById('successCard').classList.remove('active');
   document.getElementById('progressBar').style.display = '';
   showStep(1);
+}
+
+// ═══════════════════════════════════════════
+// TOPIC SELECTION
+// ═══════════════════════════════════════════
+function selectTopic(el, name) {
+  document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected-topic'));
+  el.classList.add('selected-topic');
+  const sel = document.getElementById('rep-topic');
+  if (sel) {
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text === name || sel.options[i].value === name) { sel.selectedIndex = i; break; }
+    }
+  }
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ═══════════════════════════════════════════
+// UPLOAD HANDLER
+// ═══════════════════════════════════════════
+function handleUpload(input, zoneId, previewId, statusId) {
+  const file = input.files[0];
+  if (!file) return;
+  const zone = document.getElementById(zoneId);
+  zone.classList.add('has-file');
+  document.getElementById(statusId).textContent = '✓ ' + file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById(previewId);
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══════════════════════════════════════════
+// CONFIDENCE PILLS
+// ═══════════════════════════════════════════
+function selectConf(el) {
+  document.querySelectorAll('.conf-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ═══════════════════════════════════════════
+// INVESTIGATION REPORT SUBMIT
+// ═══════════════════════════════════════════
+function submitReport() {
+  const name  = document.getElementById('rep-name').value.trim();
+  const topic = document.getElementById('rep-topic').value;
+  if (!name)  { alert('Please enter your name in the report! 😊'); document.getElementById('rep-name').focus(); return; }
+  if (!topic) { alert('Please select your investigation topic! 🔭'); document.getElementById('rep-topic').focus(); return; }
+  lastReportName  = name;
+  lastReportTopic = topic;
+  const confEl = document.querySelector('.conf-pill.selected');
+  const payload = {
+    type: 'investigationReport',
+    studentName:   name,
+    topic:         topic,
+    timestamp:     new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
+    modelPhotoLink:    document.getElementById('uz1-link').value.trim(), 
+  stellariumLink:    document.getElementById('uz2-link').value.trim(),
+    modelObs:      document.getElementById('rep-model-obs').value.trim(),
+    stellariumObs: document.getElementById('rep-stell-obs').value.trim(),
+    comparison:    document.getElementById('rep-compare').value.trim(),
+    conclusion:    document.getElementById('rep-conclusion').value.trim(),
+    newQuestions:  document.getElementById('rep-newq').value.trim(),
+    confidence:    confEl ? confEl.textContent.trim() : '',
+  };
+
+  document.getElementById('submittingOverlay').classList.add('active');
+
+  fetch(SHEET_URL, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    document.getElementById('submittingOverlay').classList.remove('active');
+    document.querySelector('.terminal-frame').style.display = 'none';
+    document.getElementById('terminalSuccessCard').style.display = 'block';
+    document.getElementById('terminalSuccessCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  })
+  .catch(() => {
+    document.getElementById('submittingOverlay').classList.remove('active');
+    document.querySelector('.terminal-frame').style.display = 'none';
+    document.getElementById('terminalSuccessCard').style.display = 'block';
+    document.getElementById('terminalSuccessCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+}
+
+function resetReport() {
+  document.querySelectorAll('#terminalSection textarea, #terminalSection input[type=text], #terminalSection select').forEach(i => i.value = '');
+  document.querySelectorAll('.conf-pill').forEach(p => p.classList.remove('selected'));
+  document.querySelectorAll('.upload-zone').forEach(z => z.classList.remove('has-file'));
+  document.querySelectorAll('.uz-preview').forEach(i => { i.src=''; });
+  document.querySelector('.terminal-frame').style.display = '';
+  document.getElementById('terminalSuccessCard').style.display = 'none';
+  window.scrollTo({ top: document.getElementById('terminalSection').offsetTop - 80, behavior: 'smooth' });
+  document.getElementById('uz1-link').value = '';
+  document.getElementById('uz2-link').value = '';
 }
 
 // ═══════════════════════════════════════════
@@ -862,8 +1921,14 @@ function closeTeacherModal() {
 function loginTeacher() {
   const pw = document.getElementById('teacherPassword').value;
   if (pw === TEACHER_PASS) {
+    let lastReportName  = '';
+    let lastReportTopic = '';
     closeTeacherModal();
-    document.getElementById('studentView').style.display = 'none';
+    document.getElementById('inquirySection').style.display  = 'none';
+    document.getElementById('projectSection').style.display  = 'none';
+    document.getElementById('terminalSection').style.display = 'none';
+    document.getElementById('studentView').style.display     = 'none';
+    document.querySelectorAll('.section-divider').forEach(d => d.style.display = 'none');
     document.getElementById('teacherView').classList.add('active');
     loadStudentData();
   } else {
@@ -874,16 +1939,18 @@ function loginTeacher() {
 }
 function logoutTeacher() {
   document.getElementById('teacherView').classList.remove('active');
-  document.getElementById('studentView').style.display = '';
+  document.getElementById('inquirySection').style.display  = '';
+  document.getElementById('projectSection').style.display  = '';
+  document.getElementById('terminalSection').style.display = '';
+  document.getElementById('studentView').style.display     = '';
+  document.querySelectorAll('.section-divider').forEach(d => d.style.display = '');
 }
-
-// Close modal on overlay click
 document.getElementById('teacherModal').addEventListener('click', function(e) {
   if (e.target === this) closeTeacherModal();
 });
 
 // ═══════════════════════════════════════════
-// LOAD STUDENT DATA FROM GOOGLE SHEETS
+// LOAD STUDENT DATA
 // ═══════════════════════════════════════════
 let allStudents = [];
 
@@ -923,20 +1990,103 @@ function renderStudentCards(students) {
     container.innerHTML = `<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-text">No student submissions yet.<br>Share the activity link with your students!</div></div>`;
     return;
   }
-
   container.innerHTML = students.map((s, idx) => {
     const initials   = (s.studentName || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
     const hasReview  = s.feedback && s.feedback.trim();
     const scoreLabel = s.score ? s.score : '';
-    const hypoText   = s.hypothesis || '—';
+    const isReport   = s.type === 'investigationReport';
+
+    const bodyHTML = isReport ? `
+      <div class="answer-section">
+        <div class="answer-section-title">🛸 Submission Type</div>
+        <span class="answer-pill" style="color:var(--glow);border-color:rgba(167,139,250,.4);">Investigation Report — Lab Mission</span>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">🌌 Investigation Topic</div>
+        <div class="answer-hypothesis">🔬 ${s.topic || '—'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">📸 Physical Model Observation</div>
+        <div class="answer-text">${s.modelObs || '<em style="color:var(--muted)">Not filled in</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">🔭 Stellarium Observation</div>
+        <div class="answer-text">${s.stellariumObs || '<em style="color:var(--muted)">Not filled in</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">⚖️ Model vs Simulation Comparison</div>
+        <div class="answer-text">${s.comparison || '<em style="color:var(--muted)">Not filled in</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">🏆 Scientific Conclusion</div>
+        <div class="answer-text">${s.conclusion || '<em style="color:var(--muted)">Not filled in</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">💭 New Questions</div>
+        <div class="answer-text">${s.newQuestions || '<em style="color:var(--muted)">Not filled in</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">⭐ Confidence Level</div>
+        <span class="answer-pill">${s.confidence || '—'}</span>
+      </div>
+    ` : `
+      <div class="answer-section">
+        <div class="answer-section-title">📋 Observation (Step 3)</div>
+        <div class="answer-text">${s.observation || '<em style="color:var(--muted)">Not answered</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">💡 Hypothesis (Step 4)</div>
+        <div class="answer-hypothesis">🔬 ${s.hypothesis || '—'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">📊 Data Table (Step 5)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="answer-text"><strong style="color:var(--gold);font-size:.7rem;">JUNE 21</strong><br>Sun: ${s.sunJune||'—'}<br>Season: ${s.seasonJune||'—'}</div>
+          <div class="answer-text"><strong style="color:var(--cyan);font-size:.7rem;">DECEMBER 21</strong><br>Sun: ${s.sunDec||'—'}<br>Season: ${s.seasonDec||'—'}</div>
+        </div>
+      </div>
+      <div class="answer-section">
+  <div class="answer-section-title">📸 Model Photo</div>
+  ${s.modelPhotoLink 
+    ? `<a href="${s.modelPhotoLink}" target="_blank" style="color:var(--cyan);font-size:.88rem;">🔗 View Model Photo</a>`
+    : '<em style="color:var(--muted);font-size:.88rem;">No link provided</em>'}
+</div>
+<div class="answer-section">
+  <div class="answer-section-title">🖥️ Stellarium Screenshot</div>
+  ${s.stellariumLink 
+    ? `<a href="${s.stellariumLink}" target="_blank" style="color:var(--cyan);font-size:.88rem;">🔗 View Screenshot</a>`
+    : '<em style="color:var(--muted);font-size:.88rem;">No link provided</em>'}
+</div>
+      <div class="answer-section">
+        <div class="answer-section-title">🔍 Analysis</div>
+        <div class="answer-text">${s.analysis || '<em style="color:var(--muted)">Not answered</em>'}</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">🏆 Conclusion</div>
+        <div class="answer-text">Seasons change because of Earth's <strong style="color:var(--gold);">${s.conclusion || '___'}</strong>.</div>
+      </div>
+      <div class="answer-section">
+        <div class="answer-section-title">🪞 Reflections</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">Most Surprising:</strong><br>${s.reflection1||'—'}</div>
+          <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">Hypothesis Check:</strong><br>${s.reflection2||'—'}</div>
+          <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">New Question:</strong><br>${s.reflection3||'—'}</div>
+        </div>
+      </div>
+    `;
 
     return `
-    <div class="student-card" id="card-${idx}">
+    <div class="student-card${isReport ? ' report-card' : ''}" id="card-${idx}">
       <div class="student-card-header" onclick="toggleCard(${idx})">
-        <div class="student-avatar">${initials}</div>
+        <div class="student-avatar" style="${isReport ? 'background:linear-gradient(135deg,var(--green),var(--cyan));' : ''}">${initials}</div>
         <div class="student-meta">
           <div class="student-name">${s.studentName || 'Unknown Student'}</div>
-          <div class="student-time">📅 ${s.timestamp || '—'}</div>
+          <div class="student-time">
+            📅 ${s.timestamp || '—'}
+            ${isReport
+              ? `&nbsp;·&nbsp;<span style="color:var(--glow);font-size:.72rem;">🛸 Lab Mission${s.topic ? ' · ' + s.topic : ''}</span>`
+              : `&nbsp;·&nbsp;<span style="color:var(--cyan);font-size:.72rem;">🔬 Activity</span>`}
+          </div>
         </div>
         <div class="student-status">
           ${scoreLabel ? `<span class="answer-pill" style="color:var(--glow);border-color:rgba(167,139,250,.3);">Score: ${scoreLabel}</span>` : ''}
@@ -945,49 +2095,11 @@ function renderStudentCards(students) {
         </div>
       </div>
       <div class="student-card-body">
-
-        <div class="answer-section">
-          <div class="answer-section-title">📋 Observation (Step 3)</div>
-          <div class="answer-text">${s.observation || '<em style="color:var(--muted)">Not answered</em>'}</div>
-        </div>
-
-        <div class="answer-section">
-          <div class="answer-section-title">💡 Hypothesis (Step 4)</div>
-          <div class="answer-hypothesis">🔬 ${hypoText}</div>
-        </div>
-
-        <div class="answer-section">
-          <div class="answer-section-title">📊 Data Table (Step 5)</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="answer-text"><strong style="color:var(--gold);font-size:.7rem;">JUNE 21</strong><br>Sun: ${s.sunJune||'—'}<br>Season: ${s.seasonJune||'—'}</div>
-            <div class="answer-text"><strong style="color:var(--cyan);font-size:.7rem;">DECEMBER 21</strong><br>Sun: ${s.sunDec||'—'}<br>Season: ${s.seasonDec||'—'}</div>
-          </div>
-        </div>
-
-        <div class="answer-section">
-          <div class="answer-section-title">🔍 Analysis</div>
-          <div class="answer-text">${s.analysis || '<em style="color:var(--muted)">Not answered</em>'}</div>
-        </div>
-
-        <div class="answer-section">
-          <div class="answer-section-title">🏆 Conclusion</div>
-          <div class="answer-text">Seasons change because of Earth's <strong style="color:var(--gold);">${s.conclusion || '___'}</strong>.</div>
-        </div>
-
-        <div class="answer-section">
-          <div class="answer-section-title">🪞 Reflections</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">Most Surprising:</strong><br>${s.reflection1||'—'}</div>
-            <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">Hypothesis Check:</strong><br>${s.reflection2||'—'}</div>
-            <div class="answer-text"><strong style="font-size:.7rem;color:var(--glow);">New Question:</strong><br>${s.reflection3||'—'}</div>
-          </div>
-        </div>
-
+        ${bodyHTML}
         <div class="feedback-divider"></div>
-
         <div class="feedback-section">
           <div class="feedback-label"><span>✏️</span> Teacher Feedback</div>
-          <textarea class="feedback-area" id="fb-${idx}" placeholder="Write your feedback for ${s.studentName || 'this student'} here... What did they do well? What can they improve? Any encouragement goes a long way!">${s.feedback || ''}</textarea>
+          <textarea class="feedback-area" id="fb-${idx}" placeholder="Write your feedback here...">${s.feedback || ''}</textarea>
           <div class="feedback-score-row">
             <span class="score-label">Score:</span>
             <div class="score-pills" id="score-pills-${idx}">
@@ -999,68 +2111,78 @@ function renderStudentCards(students) {
             💾 Save Feedback
           </button>
         </div>
-
       </div>
     </div>`;
   }).join('');
 }
 
-function toggleCard(idx) {
-  const card = document.getElementById(`card-${idx}`);
-  card.classList.toggle('expanded');
-}
+function toggleCard(idx) { document.getElementById(`card-${idx}`).classList.toggle('expanded'); }
 
 function selectScore(idx, grade) {
   document.querySelectorAll(`#score-pills-${idx} .score-pill`).forEach(p => p.classList.remove('selected'));
   const target = [...document.querySelectorAll(`#score-pills-${idx} .score-pill`)].find(p => p.textContent === grade);
   if (target) target.classList.add('selected');
 }
-
 function getSelectedScore(idx) {
-  const selected = document.querySelector(`#score-pills-${idx} .score-pill.selected`);
-  return selected ? selected.textContent : '';
+  const s = document.querySelector(`#score-pills-${idx} .score-pill.selected`);
+  return s ? s.textContent : '';
 }
-
 function saveFeedback(idx, studentName, timestamp) {
   const feedback = document.getElementById(`fb-${idx}`).value.trim();
   const score    = getSelectedScore(idx);
   const btn      = document.getElementById(`save-btn-${idx}`);
-
-  btn.textContent = '⏳ Saving...';
-  btn.disabled    = true;
-
-  const payload = {
-    action:      'feedback',
-    studentName: studentName,
-    timestamp:   timestamp,
-    feedback:    feedback,
-    score:       score
-  };
-
+  btn.textContent = '⏳ Saving...'; btn.disabled = true;
   fetch(SHEET_URL, {
-    method: 'POST',
-    mode: 'no-cors',
+    method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ action:'feedback', studentName, timestamp, feedback, score, submissionType: allStudents[idx]?.type || 'activity' })
   })
   .then(() => {
-    btn.textContent = '✅ Saved!';
-    btn.classList.add('saved');
+    btn.textContent = '✅ Saved!'; btn.classList.add('saved');
     setTimeout(() => { btn.textContent = '💾 Save Feedback'; btn.disabled = false; btn.classList.remove('saved'); }, 2500);
-    // Update local record
     if (allStudents[idx]) { allStudents[idx].feedback = feedback; allStudents[idx].score = score; }
     updateStats(allStudents);
   })
-  .catch(() => {
-    btn.textContent = '⚠️ Try Again';
-    btn.disabled    = false;
-  });
+  .catch(() => { btn.textContent = '⚠️ Try Again'; btn.disabled = false; });
 }
-
 function filterCards() {
   const q = document.getElementById('searchInput').value.toLowerCase();
-  const filtered = allStudents.filter(s => (s.studentName || '').toLowerCase().includes(q));
-  renderStudentCards(filtered);
+  renderStudentCards(allStudents.filter(s => (s.studentName || '').toLowerCase().includes(q)));
+}
+
+function checkReportFeedback() {
+  const name  = lastReportName;
+  const topic = lastReportTopic;
+  if (!name) return;
+
+  fetch(SHEET_URL + '?action=getAll')
+    .then(r => r.json())
+    .then(data => {
+      const match = (data.rows || []).find(s =>
+        s.studentName.trim().toLowerCase() === name.toLowerCase() &&
+        s.type === 'investigationReport' &&
+        (!topic || s.topic === topic)
+      );
+
+      const banner  = document.getElementById('reportFeedbackBanner');
+      const pending = document.getElementById('reportFeedbackPending');
+
+      if (match && match.feedback && match.feedback.trim()) {
+        document.getElementById('reportFeedbackText').textContent = match.feedback;
+        if (match.score) {
+          document.getElementById('reportScoreLabel').textContent = 'Score: ' + match.score;
+          document.getElementById('reportFeedbackScore').style.display = 'block';
+        }
+        banner.style.display  = 'block';
+        pending.style.display = 'none';
+      } else {
+        banner.style.display  = 'none';
+        pending.style.display = 'block';
+      }
+    })
+    .catch(() => {
+      document.getElementById('reportFeedbackPending').style.display = 'block';
+    });
 }
 </script>
 </body>
