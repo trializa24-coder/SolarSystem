@@ -540,7 +540,7 @@ footer span { color: var(--glow); }
 /* ─── QUESTION TEXT ─── */
 .bq-question {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.5rem, 3.0vw, 2.5rem);
   font-weight: 900;
   line-height: 1.35;
   color: white;

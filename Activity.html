@@ -22,6 +22,9 @@
   --gold:#FFD200;
   --red:#e74c3c;
   --border:rgba(255,255,255,0.15);
+  --tf-true:#22c55e;
+  --tf-false:#ef4444;
+  --sa-blue:#38bdf8;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -32,37 +35,21 @@ body{
   font-family:'Exo 2',sans-serif;
   overflow-x:hidden;
   font-size:17px;
-  /* NO cursor:none — let the default cursor work */
 }
 
-/* CUSTOM CURSOR — purely cosmetic overlay, pointer-events:none so clicks pass through */
 .cursor{
-  position:fixed;
-  width:14px;height:14px;
-  background:var(--cyan);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99999;
-  transform:translate(-50%,-50%);
+  position:fixed;width:14px;height:14px;background:var(--cyan);border-radius:50%;
+  pointer-events:none;z-index:99999;transform:translate(-50%,-50%);
   transition:width .15s,height .15s,background .15s,opacity .2s;
-  box-shadow:0 0 18px var(--cyan);
-  mix-blend-mode:screen;
-  opacity:0; /* hidden until first mouse move */
+  box-shadow:0 0 18px var(--cyan);mix-blend-mode:screen;opacity:0;
 }
 .cursor-trail{
-  position:fixed;
-  width:38px;height:38px;
-  border:1.5px solid rgba(196,181,253,.5);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99998;
-  transform:translate(-50%,-50%);
-  transition:left .06s ease,top .06s ease;
-  opacity:0;
+  position:fixed;width:38px;height:38px;border:1.5px solid rgba(196,181,253,.5);border-radius:50%;
+  pointer-events:none;z-index:99998;transform:translate(-50%,-50%);
+  transition:left .06s ease,top .06s ease;opacity:0;
 }
-body:hover .cursor, body:hover .cursor-trail{ opacity:1; }
+body:hover .cursor,body:hover .cursor-trail{opacity:1;}
 
-/* BACKGROUND STARS */
 .stars{
   position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
@@ -84,18 +71,10 @@ body:hover .cursor, body:hover .cursor-trail{ opacity:1; }
 /* =========================================
    SHARED UI COMPONENTS
    ========================================= */
-.btn {
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 12px 24px;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all .35s;
-  border: 1px solid rgba(255,255,255,.15);
-  color: var(--muted);
-  background: transparent;
+.btn{
+  font-family:'Orbitron',sans-serif;letter-spacing:2px;text-transform:uppercase;
+  padding:12px 24px;border-radius:100px;font-size:0.75rem;cursor:pointer;
+  transition:all .35s;border:1px solid rgba(255,255,255,.15);color:var(--muted);background:transparent;
 }
 .btn:hover{border-color:rgba(255,255,255,.4);color:white;}
 .btn-yellow{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
@@ -105,31 +84,16 @@ body:hover .cursor, body:hover .cursor-trail{ opacity:1; }
 .btn-red{background:var(--accent);color:#fff;border-color:var(--accent);}
 .btn-ghost{background:transparent;border:1px solid var(--border);}
 
-/* INPUTS */
-.join-input,.f-input,.opt-input{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:12px;
-  padding:14px 18px;
-  color:#fff;
-  font-family:'Exo 2',sans-serif;
-  font-size:1rem;
-  width:100%;
-  outline:none;
-  transition:border-color 0.2s;
-  margin-bottom:12px;
+.join-input,.f-input,.opt-input,.sa-textarea{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:12px;
+  padding:14px 18px;color:#fff;font-family:'Exo 2',sans-serif;font-size:1rem;
+  width:100%;outline:none;transition:border-color 0.2s;margin-bottom:12px;
 }
-.join-input:focus,.f-input:focus,.opt-input:focus{border-color:var(--gold);}
+.join-input:focus,.f-input:focus,.opt-input:focus,.sa-textarea:focus{border-color:var(--gold);}
 
-/* CARDS */
 .role-card{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:18px;
-  padding:30px;
-  transition:all 0.25s;
-  cursor:pointer;
-  min-width:180px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:18px;
+  padding:30px;transition:all 0.25s;cursor:pointer;min-width:180px;
 }
 .role-card:hover{background:rgba(124,58,237,0.1);border-color:var(--glow);transform:translateY(-5px);}
 .role-card .icon{font-size:42px;margin-bottom:12px;}
@@ -137,71 +101,68 @@ body:hover .cursor, body:hover .cursor-trail{ opacity:1; }
 .role-card .r-sub{font-size:0.9rem;color:var(--muted);}
 
 .info-chip{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:100px;
-  padding:8px 18px;
-  font-size:0.85rem;
-  color:var(--gold);
-  font-family:'Orbitron',sans-serif;
-  letter-spacing:1px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:100px;
+  padding:8px 18px;font-size:0.85rem;color:var(--gold);font-family:'Orbitron',sans-serif;letter-spacing:1px;
 }
+
+/* Question type badge */
+.qtype-badge{
+  display:inline-flex;align-items:center;gap:6px;border-radius:100px;
+  padding:5px 14px;font-family:'Orbitron',sans-serif;font-size:0.65rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;
+}
+.qtype-mc{background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.5);color:var(--glow);}
+.qtype-tf{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#4ade80;}
+.qtype-sa{background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.4);color:var(--sa-blue);}
+
+/* Bloom level badge */
+.bloom-badge{
+  display:inline-flex;align-items:center;gap:5px;border-radius:6px;
+  padding:3px 10px;font-size:0.65rem;font-weight:700;letter-spacing:0.5px;margin-left:8px;
+}
+.bloom-1{background:rgba(59,130,246,0.2);color:#60a5fa;}   /* Remember */
+.bloom-2{background:rgba(168,85,247,0.2);color:#c084fc;}   /* Understand */
+.bloom-3{background:rgba(234,179,8,0.2);color:#facc15;}    /* Apply */
+.bloom-4{background:rgba(239,68,68,0.2);color:#f87171;}    /* Analyze */
+.bloom-5{background:rgba(249,115,22,0.2);color:#fb923c;}   /* Evaluate */
 
 /* =========================================
    NAVBAR
    ========================================= */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:20px 60px;
+  position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 60px;
   display:flex;justify-content:space-between;align-items:center;
-  background:linear-gradient(to bottom,rgba(2,8,24,0.95),transparent);
-  backdrop-filter:blur(10px);
+  background:linear-gradient(to bottom,rgba(2,8,24,0.95),transparent);backdrop-filter:blur(10px);
 }
 .nav-logo{
   font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:2px;
-  color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none;
-  cursor:pointer;
+  color:var(--glow);text-shadow:0 0 20px var(--accent);text-decoration:none;cursor:pointer;
 }
 .nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
 .nav-links a{
   font-family:'Orbitron',sans-serif;font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;transition:color 0.3s;position:relative;
-  cursor:pointer;
+  color:var(--muted);text-decoration:none;transition:color 0.3s;position:relative;cursor:pointer;
 }
-.nav-links a::after{
-  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;
-  background:var(--cyan);transition:width 0.3s;
-}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width 0.3s;}
 .nav-links a:hover{color:var(--cyan);}
 .nav-links a:hover::after{width:100%;}
-
 .has-dropdown{position:relative;align-self:center;}
 .has-dropdown>a{display:flex;align-items:center;gap:6px;cursor:pointer;}
 .arrow{display:inline-block;font-size:0.7rem;transition:transform 0.3s ease;}
 .has-dropdown.open .arrow{transform:rotate(180deg);}
-
 .dropdown{
-  display:none;flex-direction:column;
-  position:absolute;top:calc(100% + 14px);left:50%;
-  transform:translateX(-50%);
-  background:rgba(5,13,42,0.97);
-  border:1px solid rgba(167,139,250,0.2);
-  border-radius:14px;padding:10px 0;
-  list-style:none;min-width:200px;
-  backdrop-filter:blur(16px);
-  box-shadow:0 8px 40px rgba(124,58,237,0.25);
-  z-index:1001;
+  display:none;flex-direction:column;position:absolute;top:calc(100% + 14px);left:50%;
+  transform:translateX(-50%);background:rgba(5,13,42,0.97);border:1px solid rgba(167,139,250,0.2);
+  border-radius:14px;padding:10px 0;list-style:none;min-width:200px;
+  backdrop-filter:blur(16px);box-shadow:0 8px 40px rgba(124,58,237,0.25);z-index:1001;
 }
 .has-dropdown.open .dropdown{display:flex;}
 .dropdown li a{
   display:flex;align-items:center;gap:10px;padding:10px 20px;
   font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:1.5px;
-  color:var(--muted);text-decoration:none;transition:color 0.2s,background 0.2s;
-  white-space:nowrap;
+  color:var(--muted);text-decoration:none;transition:color 0.2s,background 0.2s;white-space:nowrap;
 }
 .dropdown li a:hover{color:var(--cyan);background:rgba(34,211,238,0.07);}
-
-/* Mobile nav toggle */
 .nav-toggle{display:none;background:none;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:1rem;}
 
 /* =========================================
@@ -217,17 +178,17 @@ nav{
   width:100px;height:100px;border-radius:50%;
   background:radial-gradient(circle at 38% 35%,#fff6cc,#FFD200 40%,#F7971E 75%,#c0392b);
   box-shadow:0 0 40px rgba(255,210,0,0.6),0 0 80px rgba(255,150,0,0.3);
-  position:absolute;top:10px;left:10px;
-  animation:sunPulse 3s ease-in-out infinite;
+  position:absolute;top:10px;left:10px;animation:sunPulse 3s ease-in-out infinite;
 }
 @keyframes sunPulse{
   0%,100%{box-shadow:0 0 40px rgba(255,210,0,0.6),0 0 80px rgba(255,150,0,0.3);}
   50%{box-shadow:0 0 60px rgba(255,210,0,0.9),0 0 120px rgba(255,150,0,0.5);}
 }
 .logo{font-family:'Orbitron',sans-serif;font-size:clamp(28px,5vw,44px);font-weight:800;color:var(--gold);letter-spacing:2px;}
-.subtitle{font-size:1.1rem;color:var(--muted);max-width:500px;line-height:1.6;margin-bottom:10px;}
+.subtitle{font-size:1.1rem;color:var(--muted);max-width:540px;line-height:1.6;margin-bottom:10px;}
 .info-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .role-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.qtype-legend{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
 
 /* TEACHER LOGIN */
 #teacher-login{align-items:center;justify-content:center;}
@@ -255,6 +216,7 @@ nav{
 .q-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.15s;}
 .q-item:hover,.q-item.active{background:rgba(124,58,237,0.2);border-color:var(--glow);}
 .q-item .qn{font-size:0.7rem;color:var(--gold);font-family:'Orbitron',sans-serif;margin-bottom:4px;}
+.q-item .qt-tag{font-size:0.62rem;padding:2px 7px;border-radius:20px;display:inline-block;margin-left:4px;}
 .q-editor-panel{flex:1;padding:30px;overflow-y:auto;}
 .field-label{font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;font-family:'Orbitron',sans-serif;}
 .field-group{margin-bottom:20px;}
@@ -267,31 +229,24 @@ nav{
 .monitor-body{display:flex;flex:1;overflow:hidden;min-height:0;}
 .monitor-main{flex:1;padding:20px;overflow-y:auto;}
 .monitor-side{width:280px;background:rgba(0,0,0,0.3);border-left:1px solid rgba(255,255,255,0.1);padding:20px;overflow-y:auto;}
-
 .code-banner{
   background:linear-gradient(90deg,rgba(255,210,0,0.15),rgba(255,150,0,0.05));
   border-bottom:2px solid rgba(255,210,0,0.3);
-  padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-  margin-top:60px;
+  padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px;
 }
 .code-banner .cb-code{font-family:'Orbitron',sans-serif;font-size:38px;font-weight:800;color:var(--gold);letter-spacing:8px;}
 .code-copy-btn{
-  background:rgba(255,210,0,0.15);border:2px solid rgba(255,210,0,0.4);
-  color:var(--gold);padding:10px 20px;border-radius:100px;cursor:pointer;
-  font-family:'Orbitron',sans-serif;font-size:0.75rem;transition:all 0.2s;
+  background:rgba(255,210,0,0.15);border:2px solid rgba(255,210,0,0.4);color:var(--gold);
+  padding:10px 20px;border-radius:100px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:0.75rem;transition:all 0.2s;
 }
 .code-copy-btn:hover{background:rgba(255,210,0,0.3);}
-
 .timer-ring{
-  width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,0.06);
-  border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;
-  font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--gold);transition:all 0.3s;
-  flex-shrink:0;
+  width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,0.06);border:3px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;
+  font-size:18px;font-weight:700;color:var(--gold);transition:all 0.3s;flex-shrink:0;
 }
 .timer-ring.urgent{border-color:#e74c3c;color:#e74c3c;animation:shake 0.5s infinite;}
 @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-2px);}75%{transform:translateX(2px);}}
-
-/* PROGRESS BAR */
 .prog-bar-wrap{height:4px;background:rgba(255,255,255,0.07);border-radius:0;overflow:hidden;}
 .prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));transition:width 0.5s ease;width:0%;}
 
@@ -304,10 +259,7 @@ nav{
 .dist-opt-label{font-size:0.75rem;color:var(--muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 /* JOINED CHIPS */
-.j-chip{
-  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
-  border-radius:100px;padding:5px 14px;font-size:0.8rem;transition:all 0.2s;
-}
+.j-chip{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:5px 14px;font-size:0.8rem;transition:all 0.2s;}
 .j-chip.answered{background:rgba(46,204,113,0.15);border-color:#2ecc71;color:#2ecc71;}
 
 /* LEADERBOARD */
@@ -319,22 +271,24 @@ nav{
 .lb-name{flex:1;font-size:0.85rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .lb-pts{font-family:'Orbitron',sans-serif;font-size:0.85rem;color:var(--gold);font-weight:700;}
 
-/* STUDENT QUIZ */
+/* =========================================
+   STUDENT QUIZ SCREENS
+   ========================================= */
 .quiz-topbar{
   display:flex;align-items:center;justify-content:space-between;
-  padding:15px 25px;background:rgba(0,0,0,0.6);
-  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:15px 25px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(255,255,255,0.1);
   position:fixed;top:0;left:0;right:0;z-index:90;
 }
 .quiz-content{
-  flex:1;padding:90px 20px 40px;max-width:720px;margin:0 auto;width:100%;
+  flex:1;padding:90px 20px 40px;max-width:760px;margin:0 auto;width:100%;
   display:flex;flex-direction:column;gap:20px;
 }
 .q-badge{background:rgba(255,255,255,0.09);border-radius:100px;padding:6px 16px;font-family:'Orbitron',sans-serif;font-size:0.8rem;color:var(--muted);}
 .score-pill{background:rgba(255,210,0,0.15);border:1px solid rgba(255,210,0,0.35);border-radius:50px;padding:7px 17px;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:var(--gold);}
 .question-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;}
-.question-card .q-text{font-size:1.25rem;font-weight:600;line-height:1.5;}
+.question-card .q-text{font-size:1.2rem;font-weight:600;line-height:1.6;}
 
+/* ---- MULTIPLE CHOICE ---- */
 .answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .ans-btn{
   display:flex;align-items:center;gap:13px;padding:15px 18px;border-radius:13px;
@@ -348,11 +302,61 @@ nav{
 .ans-btn.correct{background:#1e8449!important;border:2px solid #2ecc71;}
 .ans-btn.wrong{background:#922b21!important;border:2px solid #c0392b;}
 
+/* ---- TRUE / FALSE ---- */
+.tf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tf-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  padding:24px 20px;border-radius:16px;border:2px solid rgba(255,255,255,0.1);
+  cursor:pointer;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:#fff;
+  background:rgba(255,255,255,0.04);transition:all 0.2s;
+}
+.tf-btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.3);}
+.tf-btn:disabled{cursor:not-allowed;opacity:0.65;}
+.tf-btn .tf-icon{font-size:2.5rem;}
+.tf-true{border-color:rgba(34,197,94,0.3);}
+.tf-true:hover:not(:disabled){background:rgba(34,197,94,0.15);border-color:rgba(34,197,94,0.7);}
+.tf-false{border-color:rgba(239,68,68,0.3);}
+.tf-false:hover:not(:disabled){background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.7);}
+.tf-btn.correct{background:rgba(34,197,94,0.2)!important;border-color:#22c55e!important;}
+.tf-btn.wrong{background:rgba(239,68,68,0.2)!important;border-color:#ef4444!important;}
+
+/* ---- SHORT ANSWER ---- */
+.sa-wrap{display:flex;flex-direction:column;gap:12px;}
+.sa-textarea{
+  resize:vertical;min-height:100px;border-radius:12px;margin-bottom:0;
+  font-size:1rem;line-height:1.6;
+}
+.sa-hint{font-size:0.82rem;color:var(--muted);font-style:italic;padding:8px 14px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);border-radius:8px;}
+.sa-submit-btn{
+  background:var(--sa-blue);color:#000;border:none;border-radius:100px;
+  padding:12px 28px;font-family:'Orbitron',sans-serif;font-size:0.75rem;font-weight:700;
+  letter-spacing:2px;cursor:pointer;transition:all 0.2s;align-self:flex-end;
+}
+.sa-submit-btn:hover:not(:disabled){background:#7dd3fc;transform:translateY(-2px);}
+.sa-submit-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+/* ---- FEEDBACK & EXPLANATION ---- */
 .feedback-bar{border-radius:13px;padding:14px 20px;font-size:0.95rem;font-weight:600;text-align:center;display:none;}
 .feedback-bar.show{display:block;animation:fadeUp .4s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .fb-correct{background:rgba(46,204,113,0.15);border:1px solid #2ecc71;color:#2ecc71;}
 .fb-wrong{background:rgba(192,57,43,0.15);border:1px solid #c0392b;color:#e74c3c;}
+.fb-partial{background:rgba(255,210,0,0.12);border:1px solid rgba(255,210,0,0.4);color:var(--gold);}
+
+.explanation-box{
+  display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px;padding:16px 20px;font-size:0.9rem;line-height:1.7;color:var(--muted);
+}
+.explanation-box.show{display:block;animation:fadeUp .5s ease .1s both;}
+.explanation-box strong{color:var(--gold);}
+.model-answer{margin-top:10px;padding:10px 14px;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);border-radius:8px;color:var(--sa-blue);font-size:0.88rem;}
+
+/* SA review in results */
+.sa-review-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px 16px;margin-bottom:8px;}
+.sa-review-card .sa-q{font-size:0.82rem;color:var(--muted);margin-bottom:6px;}
+.sa-review-card .sa-resp{font-size:0.9rem;color:#fff;margin-bottom:8px;}
+.sa-review-card .sa-key{font-size:0.82rem;color:var(--sa-blue);}
 
 /* WAITING */
 #student-waiting{align-items:center;justify-content:center;gap:20px;text-align:center;}
@@ -366,8 +370,6 @@ nav{
 .res-stat-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 20px;min-width:110px;}
 .res-stat-card .rv{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:700;color:var(--gold);}
 .res-stat-card .rl{font-size:0.7rem;color:var(--muted);margin-top:4px;}
-
-/* RESULT TABLE */
 .result-table-wrap{width:100%;max-width:900px;overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:0.9rem;}
 th{font-family:'Orbitron',sans-serif;font-size:0.65rem;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.1);}
@@ -382,8 +384,6 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 .waiting-state{text-align:center;padding:50px;color:var(--muted);}
 .waiting-state .ws-icon{font-size:60px;margin-bottom:16px;}
 .waiting-state h3{font-family:'Orbitron',sans-serif;color:var(--gold);margin-bottom:8px;}
-
-/* CURRENT Q CARD */
 .current-q-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:20px;}
 .cq-label{font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--muted);margin-bottom:8px;}
 .cq-text{font-size:1.1rem;font-weight:600;line-height:1.5;}
@@ -392,9 +392,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 .hidden{display:none!important;}
 .toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
-  background:rgba(255,210,0,0.15);border:1.5px solid rgba(255,210,0,0.5);
-  color:var(--gold);padding:12px 24px;border-radius:50px;
-  font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:700;
+  background:rgba(255,210,0,0.15);border:1.5px solid rgba(255,210,0,0.5);color:var(--gold);
+  padding:12px 24px;border-radius:50px;font-family:'Orbitron',sans-serif;font-size:0.85rem;font-weight:700;
   z-index:99999;transition:transform 0.3s ease;pointer-events:none;
 }
 .toast.show{transform:translateX(-50%) translateY(0);}
@@ -407,7 +406,7 @@ tr:hover td{background:rgba(255,255,255,0.02);}
   .nav-toggle{display:block;}
   .has-dropdown{width:100%;}
   .dropdown{position:static;transform:none;border:none;background:transparent;box-shadow:none;padding:4px 0 4px 16px;}
-  .answers-grid{grid-template-columns:1fr;}
+  .answers-grid,.tf-grid{grid-template-columns:1fr;}
   .opts-grid{grid-template-columns:1fr;}
   .monitor-body{flex-direction:column;}
   .monitor-side{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,0.1);}
@@ -418,7 +417,6 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 </head>
 <body>
 
-<!-- Custom cursor overlays — pointer-events:none so they never block clicks -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="cursorTrail"></div>
 <div class="stars"></div>
@@ -461,11 +459,16 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 <div id="landing" class="screen active">
   <div class="planet-ring"><div class="sun"></div></div>
   <div class="logo">SOLAR QUIZ</div>
-  <p class="subtitle">Test your knowledge of the Solar System!<br>Answer quickly to earn more points and climb the leaderboard.</p>
+  <p class="subtitle">A multi-format assessment of the Solar System.<br>Answer quickly and accurately to climb the leaderboard!</p>
   <div class="info-row">
-    <div class="info-chip">🪐 TOPIC: Solar System</div>
-    <div class="info-chip">❓ QUESTIONS: 10</div>
-    <div class="info-chip">⏱ TIMER: 20s / q</div>
+    <div class="info-chip">🪐 Solar System</div>
+    <div class="info-chip">❓ 10 Questions</div>
+    <div class="info-chip">🔀 3 Question Types</div>
+  </div>
+  <div class="qtype-legend">
+    <span class="qtype-badge qtype-mc">🔘 Multiple Choice</span>
+    <span class="qtype-badge qtype-tf">✓✗ True / False</span>
+    <span class="qtype-badge qtype-sa">✏️ Short Answer</span>
   </div>
   <div class="role-row">
     <div class="role-card" onclick="showScreen('teacher-login')">
@@ -510,10 +513,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <button class="btn btn-ghost" style="padding:6px 16px;font-size:0.7rem;" onclick="showScreen('landing')">← Exit</button>
     <div class="bar-title">Quiz Editor</div>
     <div class="spacer"></div>
-    <div class="timer-cfg">
-      ⏱ Time/Q: <input type="number" id="global-timer" value="20" min="5" max="120"> sec
-    </div>
-    <button class="btn btn-yellow" onclick="addQuestion()" style="padding:8px 16px;font-size:0.65rem;">+ Add Question</button>
+    <div class="timer-cfg">⏱ Default Time/Q: <input type="number" id="global-timer" value="30" min="5" max="120"> sec</div>
+    <button class="btn btn-yellow" onclick="addQuestion()" style="padding:8px 16px;font-size:0.65rem;">+ Add Q</button>
     <button class="btn btn-green" onclick="startQuiz()" style="padding:8px 16px;font-size:0.65rem;">▶ Start</button>
   </div>
   <div class="editor-wrap">
@@ -618,20 +619,25 @@ tr:hover td{background:rgba(255,255,255,0.02);}
 <div id="student-quiz" class="screen" style="padding-top:0;">
   <div class="quiz-topbar">
     <div style="font-weight:600;font-family:'Orbitron',sans-serif;" id="quiz-pname">Student</div>
-    <div class="timer-ring" id="student-timer-ring">20</div>
+    <div class="timer-ring" id="student-timer-ring">30</div>
     <div class="score-pill">⭐ <span id="student-score">0</span></div>
   </div>
   <div class="quiz-content">
     <div class="prog-bar-wrap" style="border-radius:100px;"><div class="prog-bar-fill" id="student-prog"></div></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <div class="q-badge" id="q-num-label">Question 1 / 10</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="q-badge" id="q-num-label">Question 1 / 10</div>
+        <div id="qtype-indicator"></div>
+        <div id="bloom-indicator"></div>
+      </div>
       <div class="hidden" id="streak-label" style="color:var(--gold);font-weight:700;">🔥 Streak 0</div>
     </div>
     <div class="question-card">
       <div class="q-text" id="q-text-display">Loading question...</div>
     </div>
-    <div class="answers-grid" id="answers-grid"></div>
+    <div id="answers-area"></div>
     <div class="feedback-bar" id="feedback-bar"></div>
+    <div class="explanation-box" id="explanation-box"></div>
   </div>
 </div>
 
@@ -649,7 +655,8 @@ tr:hover td{background:rgba(255,255,255,0.02);}
     <div class="res-stat-card"><div class="rv" id="r-streak">0</div><div class="rl">BEST STREAK</div></div>
     <div class="res-stat-card"><div class="rv" id="r-accuracy">0%</div><div class="rl">ACCURACY</div></div>
   </div>
-  <button class="btn btn-yellow" style="margin-top:30px;" onclick="showScreen('landing')">Main Menu</button>
+  <div id="sa-review-section" style="max-width:680px;width:100%;margin-top:10px;text-align:left;"></div>
+  <button class="btn btn-yellow" style="margin-top:20px;" onclick="showScreen('landing')">Main Menu</button>
 </div>
 
 <!-- ============================================================
@@ -671,44 +678,28 @@ tr:hover td{background:rgba(255,255,255,0.02);}
      SCRIPTS
      ============================================================ -->
 <script>
-/* ---- Custom cursor (purely visual, pointer-events:none) ---- */
+/* ---- Custom cursor ---- */
 (function(){
-  const c  = document.getElementById('cursor');
-  const ct = document.getElementById('cursorTrail');
+  const c=document.getElementById('cursor'),ct=document.getElementById('cursorTrail');
   let tx=0,ty=0,cx2=0,cy2=0;
-  document.addEventListener('mousemove',e=>{
-    tx=e.clientX; ty=e.clientY;
-    c.style.left=tx+'px'; c.style.top=ty+'px';
-  });
-  function animTrail(){
-    cx2+=(tx-cx2)*0.12; cy2+=(ty-cy2)*0.12;
-    ct.style.left=cx2+'px'; ct.style.top=cy2+'px';
-    requestAnimationFrame(animTrail);
-  }
+  document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;c.style.left=tx+'px';c.style.top=ty+'px';});
+  function animTrail(){cx2+=(tx-cx2)*0.12;cy2+=(ty-cy2)*0.12;ct.style.left=cx2+'px';ct.style.top=cy2+'px';requestAnimationFrame(animTrail);}
   animTrail();
   document.addEventListener('mousedown',()=>{c.style.transform='translate(-50%,-50%) scale(0.7)';});
-  document.addEventListener('mouseup',  ()=>{c.style.transform='translate(-50%,-50%) scale(1)';});
+  document.addEventListener('mouseup',()=>{c.style.transform='translate(-50%,-50%) scale(1)';});
 })();
 
 /* ---- Navigation dropdowns ---- */
-function toggleDropdown(id, e){
-  if(e){ e.preventDefault(); e.stopPropagation(); }
-  const el = document.getElementById(id);
-  const isOpen = el.classList.contains('open');
-  // close all
+function toggleDropdown(id,e){
+  if(e){e.preventDefault();e.stopPropagation();}
+  const el=document.getElementById(id),isOpen=el.classList.contains('open');
   document.querySelectorAll('.has-dropdown').forEach(d=>d.classList.remove('open'));
-  if(!isOpen) el.classList.add('open');
+  if(!isOpen)el.classList.add('open');
 }
-document.addEventListener('click', e=>{
-  if(!e.target.closest('.has-dropdown')) {
-    document.querySelectorAll('.has-dropdown').forEach(d=>d.classList.remove('open'));
-  }
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.has-dropdown'))document.querySelectorAll('.has-dropdown').forEach(d=>d.classList.remove('open'));
 });
-
-/* ---- Mobile nav toggle ---- */
-document.getElementById('nav-toggle').addEventListener('click', ()=>{
-  document.getElementById('nav-links').classList.toggle('open');
-});
+document.getElementById('nav-toggle').addEventListener('click',()=>{document.getElementById('nav-links').classList.toggle('open');});
 </script>
 
 <!-- ============================================================
@@ -733,21 +724,166 @@ const db  = getDatabase(app);
 /* ============================================================
    CONSTANTS
    ============================================================ */
-const COLORS_BAR = ['#e74c3c','#3498db','#2ecc71','#e67e22'];
-const LETTERS    = ['A','B','C','D'];
+const COLORS_BAR     = ['#e74c3c','#3498db','#2ecc71','#e67e22'];
+const LETTERS        = ['A','B','C','D'];
 const TEACHER_PASSWORD = 'trializa2025';
 
+/* ============================================================
+   QUESTION BANK
+   Learning Objectives (aligned to each question):
+   LO1 — Recall basic facts about planets, satellites, and the Sun
+   LO2 — Explain why planets have different characteristics (temperature, rotation, tilt)
+   LO3 — Describe the cause-effect of axial tilt on seasons
+   LO4 — Analyse how Moon's motion relates to Earth observation
+   LO5 — Evaluate the consequences of changing Earth's physical properties
+   ============================================================ */
 const SOLAR_QUESTIONS = [
-  { text:"A planet experiences extremely long winters and summers because its rotation axis is tilted almost sideways (~98°). Which planet is it?",                    options:["Saturn","Uranus","Neptune","Mars"],       correct:1, time:35 },
-  { text:"Why is Venus hotter than Mercury even though Mercury is closer to the Sun?",                                 options:["Venus rotates faster","Venus has a thick atmosphere that traps heat","Mercury has no gravity","Mercury reflects more sunlight"],           correct:1, time:30 },
-  { text:"If Earth had no axial tilt, what would MOST likely happen?",                            options:["There would be no seasons","Earth would stop rotating","The Moon would disappear","Days would become longer each year"],          correct:0, time:35 },
-  { text:"Astronauts observe that one side of the Moon always faces Earth. What is the BEST explanation?",                     options:["The Moon does not rotate","The Moon rotates at the same rate it revolves around Earth","Earth’s gravity stops the Moon from spinning","The Sun illuminates only one side of the Moon"],                           correct:1, time:30 },
-  { text:"During December, Australia experiences summer while Canada experiences winter. What causes this difference?",                                    options:["Earth is closer to the Sun in Australia","The Moon blocks sunlight from Canada","Earth’s axial tilt causes different sunlight angles","Australia rotates faster than Canada"],      correct:2, time:35 },
-  { text:"What is the name of Earth's natural satellite?",                      options:["Phobos","Europa","Titan","The Moon"],       correct:3, time:20 },
-  { text:"Which planet is famous for its beautiful ring system?",               options:["Uranus","Neptune","Saturn","Jupiter"],      correct:2, time:20 },
-  { text:"Which is the hottest planet in our Solar System?",                    options:["Mercury","Mars","Earth","Venus"],           correct:3, time:25 },
-  { text:"Which planet rotates on its side (axial tilt ~98°)?",                options:["Neptune","Saturn","Uranus","Jupiter"],      correct:2, time:25 },
-  { text:"What is at the center of our Solar System?",                          options:["Earth","The Moon","A black hole","The Sun"],correct:3, time:15 }
+  /* ── Q1 ── MULTIPLE CHOICE | Remember (LO1) */
+  {
+    type: 'mc',
+    bloom: 'Remember',
+    bloomLevel: 1,
+    lo: 'LO1',
+    text: "Which planet is closest to the Sun in our Solar System?",
+    options: ["Venus","Earth","Mercury","Mars"],
+    correct: 2,
+    time: 20,
+    explanation: "Mercury is the first planet from the Sun, at an average distance of about 57.9 million km. It has no significant atmosphere, causing extreme temperature swings — from –180°C at night to 430°C during the day."
+  },
+
+  /* ── Q2 ── MULTIPLE CHOICE | Understand (LO2) */
+  {
+    type: 'mc',
+    bloom: 'Understand',
+    bloomLevel: 2,
+    lo: 'LO2',
+    text: "Why is Venus hotter than Mercury even though Mercury is closer to the Sun?",
+    options: [
+      "Venus rotates much faster than Mercury",
+      "Venus has a thick CO₂ atmosphere that traps heat (greenhouse effect)",
+      "Mercury has stronger gravity that repels solar radiation",
+      "Venus is made of materials that generate internal heat"
+    ],
+    correct: 1,
+    time: 30,
+    explanation: "Venus's thick atmosphere — over 96% carbon dioxide — creates a powerful greenhouse effect. Heat from the Sun enters but cannot escape, driving surface temperatures to ~465°C. Mercury has almost no atmosphere, so it cannot retain heat despite being closer to the Sun."
+  },
+
+  /* ── Q3 ── TRUE / FALSE | Remember (LO1) */
+  {
+    type: 'tf',
+    bloom: 'Remember',
+    bloomLevel: 1,
+    lo: 'LO1',
+    text: "Saturn is the only planet in the Solar System that has rings.",
+    correctTF: false,
+    time: 20,
+    explanation: "FALSE. All four gas giants — Jupiter, Saturn, Uranus, and Neptune — have ring systems. Saturn's rings are simply the most visible and prominent, made largely of ice particles and rocky debris. Jupiter's rings were discovered by Voyager 1 in 1979."
+  },
+
+  /* ── Q4 ── MULTIPLE CHOICE | Apply (LO3) */
+  {
+    type: 'mc',
+    bloom: 'Apply',
+    bloomLevel: 3,
+    lo: 'LO3',
+    text: "In December, Australia experiences summer while Canada experiences winter. What is the BEST explanation for this difference?",
+    options: [
+      "Australia is physically closer to the Sun in December",
+      "The Moon blocks sunlight from reaching Canada",
+      "Earth's axial tilt causes each hemisphere to receive different amounts of solar energy",
+      "Australia rotates on its axis faster than Canada"
+    ],
+    correct: 2,
+    time: 35,
+    explanation: "Earth's axis is tilted ~23.5°. In December, Earth's southern hemisphere is tilted toward the Sun — receiving more direct sunlight and experiencing summer. At the same time, the northern hemisphere is tilted away, causing winter. This is purely about tilt and angle of sunlight, not distance from the Sun."
+  },
+
+  /* ── Q5 ── TRUE / FALSE | Understand (LO4) */
+  {
+    type: 'tf',
+    bloom: 'Understand',
+    bloomLevel: 2,
+    lo: 'LO4',
+    text: "The same side of the Moon always faces Earth because the Moon does NOT rotate on its own axis.",
+    correctTF: false,
+    time: 25,
+    explanation: "FALSE. The Moon DOES rotate on its own axis, but it takes exactly as long to rotate once as it does to complete one orbit around Earth (~27.3 days). This synchronisation — called tidal locking — means the same hemisphere always faces us. It is not that the Moon stops spinning."
+  },
+
+  /* ── Q6 ── MULTIPLE CHOICE | Analyse (LO5) */
+  {
+    type: 'mc',
+    bloom: 'Analyse',
+    bloomLevel: 4,
+    lo: 'LO5',
+    text: "A planet has an axial tilt of nearly 98°, meaning it rotates on its side. Which planet is this, and what extreme seasonal consequence does this tilt cause?",
+    options: [
+      "Saturn — its rings change visibility from Earth",
+      "Neptune — it spins so fast that its day lasts only 16 hours",
+      "Uranus — each pole experiences approximately 42 years of continuous sunlight followed by 42 years of darkness",
+      "Jupiter — its Great Red Spot storms are produced by the tilt"
+    ],
+    correct: 2,
+    time: 40,
+    explanation: "Uranus has an axial tilt of ~97.8°, causing extreme seasons. When one pole faces the Sun, it receives sunlight for roughly 42 Earth-years continuously, while the other pole endures 42 years of darkness. This makes Uranus's seasonal cycle the most extreme in the Solar System."
+  },
+
+  /* ── Q7 ── SHORT ANSWER | Understand (LO3) */
+  {
+    type: 'sa',
+    bloom: 'Understand',
+    bloomLevel: 2,
+    lo: 'LO3',
+    text: "Explain in your own words: if Earth had NO axial tilt (0°), what would happen to the seasons? Why?",
+    hint: "Think about what axial tilt does to the angle of sunlight across the year.",
+    modelAnswer: "If Earth had no axial tilt, every location on Earth would receive the same angle of sunlight all year round. There would be no seasons — no summer or winter — because the Sun's rays would hit each latitude at a constant angle. Temperatures would be stable throughout the year in any given location.",
+    keywords: ["no seasons","same angle","tilt","constant","no summer","no winter","sunlight"],
+    time: 60
+  },
+
+  /* ── Q8 ── TRUE / FALSE | Apply (LO2) */
+  {
+    type: 'tf',
+    bloom: 'Apply',
+    bloomLevel: 3,
+    lo: 'LO2',
+    text: "If Earth suddenly rotated much more slowly, days and nights on Earth would become much longer.",
+    correctTF: true,
+    time: 25,
+    explanation: "TRUE. The length of a day is determined by Earth's rotation speed. A slower rotation means each full spin (360°) takes longer to complete, making both the daylight period and the night period significantly longer. For example, Mercury takes about 59 Earth-days to complete one rotation."
+  },
+
+  /* ── Q9 ── SHORT ANSWER | Analyse (LO4) */
+  {
+    type: 'sa',
+    bloom: 'Analyse',
+    bloomLevel: 4,
+    lo: 'LO4',
+    text: "Describe TWO observable effects we would notice on Earth if the Moon suddenly disappeared.",
+    hint: "Consider what the Moon currently affects: tides, light at night, Earth's stability...",
+    modelAnswer: "1. Ocean tides would become much weaker — the Moon's gravity is the main cause of tidal cycles. Without it, tides would be much smaller (only solar tides). 2. Earth's axial tilt might become unstable over time — the Moon helps stabilise Earth's axis, so without it, the tilt could vary wildly, causing extreme and unpredictable seasons.",
+    keywords: ["tides","weaker tides","axial tilt","stability","night light","stabilise","orbit"],
+    time: 70
+  },
+
+  /* ── Q10 ── MULTIPLE CHOICE | Evaluate (LO5) */
+  {
+    type: 'mc',
+    bloom: 'Evaluate',
+    bloomLevel: 5,
+    lo: 'LO5',
+    text: "A student claims: 'Earth is closer to the Sun in summer, which is why it gets warmer.' What is WRONG with this reasoning?",
+    options: [
+      "Nothing is wrong — Earth IS closer to the Sun in summer",
+      "The student confused summer with winter — Earth is farther in summer",
+      "Distance to the Sun changes seasons is wrong; it is Earth's axial tilt that determines how directly sunlight hits a hemisphere",
+      "The Sun moves closer to Earth during summer, not the other way around"
+    ],
+    correct: 2,
+    time: 35,
+    explanation: "The student's reasoning is a very common misconception! Earth is actually CLOSER to the Sun in January (perihelion) and FARTHER in July (aphelion). Seasons are caused by Earth's 23.5° axial tilt — in summer, your hemisphere is tilted toward the Sun so sunlight hits more directly and over more hours. Distance to the Sun has almost no effect on seasonal temperature."
+  }
 ];
 
 /* ============================================================
@@ -761,7 +897,7 @@ let state = {
   timerInterval:   null,
   timerLeft:       0,
   ended:           false,
-  globalTimer:     20,
+  globalTimer:     30,
   sessionListener: null
 };
 
@@ -769,16 +905,16 @@ let state = {
    STUDENT STATE
    ============================================================ */
 let stu = {
-  name:'', code:'', score:0,
-  answers:[], streak:0, bestStreak:0,
-  currentQ:0, answered:false,
-  timerInterval:null, timerLeft:0,
+  name:'',code:'',score:0,
+  answers:[],streak:0,bestStreak:0,
+  currentQ:0,answered:false,
+  timerInterval:null,timerLeft:0,
   questions:[],
   sessionListener:null
 };
 
 /* ============================================================
-   EXPOSE TO GLOBAL (for onclick= attributes)
+   EXPOSE TO GLOBAL
    ============================================================ */
 function exposeGlobal(){
   window.showScreen    = showScreen;
@@ -793,6 +929,8 @@ function exposeGlobal(){
   window.copyCode      = copyCode;
   window.joinQuiz      = joinQuiz;
   window.studentAnswer = studentAnswer;
+  window.studentTFAnswer = studentTFAnswer;
+  window.studentSASubmit  = studentSASubmit;
   window.exportCSV     = exportCSV;
 }
 
@@ -808,147 +946,213 @@ function showScreen(id){
    TOAST
    ============================================================ */
 function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
 }
-
 function copyCode(){
   navigator.clipboard.writeText(state.sessionCode).catch(()=>{});
-  showToast('✅ Code copied: ' + state.sessionCode);
+  showToast('✅ Code copied: '+state.sessionCode);
 }
 
 /* ============================================================
    TEACHER LOGIN
    ============================================================ */
 function verifyTeacher(){
-  const pass = document.getElementById('teacher-pass').value;
-  const err  = document.getElementById('teacher-err');
-  if(pass === TEACHER_PASSWORD){
-    err.textContent = '';
-    document.getElementById('teacher-pass').value = '';
+  const pass=document.getElementById('teacher-pass').value;
+  const err=document.getElementById('teacher-err');
+  if(pass===TEACHER_PASSWORD){
+    err.textContent='';
+    document.getElementById('teacher-pass').value='';
     showScreen('teacher-setup');
     renderSidebar();
   } else {
-    err.textContent = '⚠️ Incorrect access code. Please try again.';
-    document.getElementById('teacher-pass').value = '';
+    err.textContent='⚠️ Incorrect access code.';
+    document.getElementById('teacher-pass').value='';
   }
 }
 
 /* ============================================================
    TEACHER SETUP — sidebar
    ============================================================ */
+const BLOOM_COLORS={1:'#60a5fa',2:'#c084fc',3:'#facc15',4:'#f87171',5:'#fb923c'};
+const TYPE_LABELS={mc:'MC',tf:'T/F',sa:'SA'};
+const TYPE_COLORS={mc:'rgba(124,58,237,0.5)',tf:'rgba(34,197,94,0.4)',sa:'rgba(56,189,248,0.4)'};
+
 function renderSidebar(){
-  const el = document.getElementById('q-list-sidebar');
-  el.innerHTML = '';
+  const el=document.getElementById('q-list-sidebar');
+  el.innerHTML='';
   state.questions.forEach((q,i)=>{
-    const d = document.createElement('div');
-    d.className = 'q-item' + (state.editingIdx===i?' active':'');
-    d.innerHTML = `<div class="qn">Q${i+1} · ⏱${q.time}s</div>${q.text.substring(0,52)}${q.text.length>52?'…':''}`;
-    d.onclick = ()=>editQ(i);
+    const d=document.createElement('div');
+    d.className='q-item'+(state.editingIdx===i?' active':'');
+    d.innerHTML=`<div class="qn">Q${i+1} · ⏱${q.time}s
+      <span class="qt-tag" style="background:${TYPE_COLORS[q.type]||'rgba(255,255,255,0.1)'};color:#fff;">${TYPE_LABELS[q.type]||q.type.toUpperCase()}</span>
+      <span class="qt-tag" style="background:rgba(255,255,255,0.08);color:${BLOOM_COLORS[q.bloomLevel]||'#fff'}">${q.bloom||''}</span>
+    </div>${q.text.substring(0,50)}${q.text.length>50?'…':''}`;
+    d.onclick=()=>editQ(i);
     el.appendChild(d);
   });
 }
 
 function editQ(idx){
-  state.editingIdx = idx;
+  state.editingIdx=idx;
   renderSidebar();
-  const q = state.questions[idx];
-  const p = document.getElementById('q-editor-panel');
-  p.innerHTML = `
+  const q=state.questions[idx];
+  const p=document.getElementById('q-editor-panel');
+
+  const typeSelectHtml=`
+    <select class="f-input" id="q-type-ed" style="margin-bottom:12px;" onchange="saveQ(${idx});editQ(${idx})">
+      <option value="mc" ${q.type==='mc'?'selected':''}>🔘 Multiple Choice</option>
+      <option value="tf" ${q.type==='tf'?'selected':''}>✓✗ True / False</option>
+      <option value="sa" ${q.type==='sa'?'selected':''}>✏️ Short Answer</option>
+    </select>`;
+
+  let typeSpecific='';
+  if(q.type==='mc'){
+    typeSpecific=`
+      <div class="field-group">
+        <div class="field-label">Answer Options — tick the correct one</div>
+        <div class="opts-grid">
+          ${q.options.map((opt,oi)=>`
+            <div class="opt-row">
+              <div class="opt-letter opt-${LETTERS[oi]}">${LETTERS[oi]}</div>
+              <input class="opt-input" id="opt${oi}" value="${opt}" onchange="saveQ(${idx})">
+              <label style="cursor:pointer;white-space:nowrap;color:var(--muted);font-size:0.8rem;">
+                <input type="radio" name="cr${idx}" value="${oi}" ${q.correct===oi?'checked':''} onchange="saveQ(${idx})"> ✓
+              </label>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+  } else if(q.type==='tf'){
+    typeSpecific=`
+      <div class="field-group">
+        <div class="field-label">Correct Answer</div>
+        <div style="display:flex;gap:12px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#4ade80;">
+            <input type="radio" name="tf${idx}" value="true" ${q.correctTF===true?'checked':''} onchange="saveQ(${idx})"> ✅ TRUE
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#f87171;">
+            <input type="radio" name="tf${idx}" value="false" ${q.correctTF===false?'checked':''} onchange="saveQ(${idx})"> ❌ FALSE
+          </label>
+        </div>
+      </div>`;
+  } else if(q.type==='sa'){
+    typeSpecific=`
+      <div class="field-group">
+        <div class="field-label">Hint for Students</div>
+        <input class="f-input" id="sa-hint-ed" value="${q.hint||''}" onchange="saveQ(${idx})" placeholder="Optional hint...">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Model Answer (shown after submission)</div>
+        <textarea class="f-input" rows="3" id="sa-model-ed" onchange="saveQ(${idx})">${q.modelAnswer||''}</textarea>
+      </div>
+      <div class="field-group">
+        <div class="field-label">Keywords for auto-scoring (comma separated)</div>
+        <input class="f-input" id="sa-kw-ed" value="${(q.keywords||[]).join(', ')}" onchange="saveQ(${idx})" placeholder="season,tilt,axis...">
+      </div>`;
+  }
+
+  p.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
       <div style="font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;color:var(--gold);">Question ${idx+1}</div>
       <button class="btn btn-red" onclick="deleteQ(${idx})">🗑 Delete</button>
     </div>
     <div class="field-group">
+      <div class="field-label">Question Type</div>
+      ${typeSelectHtml}
+    </div>
+    <div class="field-group">
+      <div class="field-label">Bloom's Level</div>
+      <select class="f-input" id="bloom-ed" onchange="saveQ(${idx})">
+        ${[['Remember',1],['Understand',2],['Apply',3],['Analyse',4],['Evaluate',5]].map(([b,l])=>
+          `<option value="${b}|${l}" ${q.bloom===b?'selected':''}>${b}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field-group">
       <div class="field-label">Question Text</div>
       <textarea class="f-input" rows="3" id="q-text-ed" onchange="saveQ(${idx})">${q.text}</textarea>
     </div>
+    ${typeSpecific}
     <div class="field-group">
-      <div class="field-label">Answer Options — tick the correct one</div>
-      <div class="opts-grid">
-        ${q.options.map((opt,oi)=>`
-          <div class="opt-row">
-            <div class="opt-letter opt-${LETTERS[oi]}">${LETTERS[oi]}</div>
-            <input class="opt-input" id="opt${oi}" value="${opt}" onchange="saveQ(${idx})">
-            <label style="cursor:pointer;white-space:nowrap;color:var(--muted);font-size:0.8rem;">
-              <input type="radio" name="cr${idx}" value="${oi}" ${q.correct===oi?'checked':''} onchange="saveQ(${idx})"> ✓
-            </label>
-          </div>
-        `).join('')}
-      </div>
+      <div class="field-label">Explanation / Feedback (shown after answering)</div>
+      <textarea class="f-input" rows="3" id="q-expl-ed" onchange="saveQ(${idx})">${q.explanation||''}</textarea>
     </div>
     <div class="field-group">
       <div class="field-label">Time Limit (seconds)</div>
-      <input type="number" class="f-input" style="width:110px;" id="q-time-ed" value="${q.time}" min="5" max="120" onchange="saveQ(${idx})">
+      <input type="number" class="f-input" style="width:110px;" id="q-time-ed" value="${q.time}" min="10" max="120" onchange="saveQ(${idx})">
     </div>
   `;
 }
 
 function saveQ(idx){
-  const q  = state.questions[idx];
-  const t  = document.getElementById('q-text-ed');   if(t)  q.text = t.value;
+  const q=state.questions[idx];
+  const t=document.getElementById('q-text-ed');         if(t)  q.text=t.value;
+  const typeEl=document.getElementById('q-type-ed');    if(typeEl) q.type=typeEl.value;
+  const ti=document.getElementById('q-time-ed');        if(ti) q.time=parseInt(ti.value)||30;
+  const expl=document.getElementById('q-expl-ed');      if(expl) q.explanation=expl.value;
+  const bloomEl=document.getElementById('bloom-ed');    if(bloomEl){ const [b,l]=bloomEl.value.split('|'); q.bloom=b; q.bloomLevel=parseInt(l); }
+  // MC
   [0,1,2,3].forEach(i=>{ const el=document.getElementById('opt'+i); if(el) q.options[i]=el.value; });
-  const r  = document.querySelector(`input[name="cr${idx}"]:checked`); if(r) q.correct=parseInt(r.value);
-  const ti = document.getElementById('q-time-ed');   if(ti) q.time=parseInt(ti.value)||20;
+  const r=document.querySelector(`input[name="cr${idx}"]:checked`); if(r) q.correct=parseInt(r.value);
+  // TF
+  const tfr=document.querySelector(`input[name="tf${idx}"]:checked`); if(tfr) q.correctTF=(tfr.value==='true');
+  // SA
+  const hint=document.getElementById('sa-hint-ed');     if(hint) q.hint=hint.value;
+  const model=document.getElementById('sa-model-ed');   if(model) q.modelAnswer=model.value;
+  const kw=document.getElementById('sa-kw-ed');         if(kw) q.keywords=kw.value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
   renderSidebar();
 }
 
 function addQuestion(){
-  state.questions.push({ text:'New question...', options:['Option A','Option B','Option C','Option D'], correct:0, time:20 });
-  editQ(state.questions.length - 1);
+  state.questions.push({
+    type:'mc',bloom:'Remember',bloomLevel:1,lo:'',
+    text:'New question...',options:['Option A','Option B','Option C','Option D'],
+    correct:0,correctTF:true,hint:'',modelAnswer:'',keywords:[],time:30,explanation:''
+  });
+  editQ(state.questions.length-1);
   renderSidebar();
 }
 
 function deleteQ(idx){
-  if(state.questions.length <= 1){ alert('At least 1 question is required!'); return; }
-  state.questions.splice(idx, 1);
-  state.editingIdx = null;
+  if(state.questions.length<=1){alert('At least 1 question required!');return;}
+  state.questions.splice(idx,1);
+  state.editingIdx=null;
   renderSidebar();
-  document.getElementById('q-editor-panel').innerHTML =
-    '<div style="color:var(--muted);font-size:14px;padding:50px;text-align:center;">Select a question to edit.</div>';
+  document.getElementById('q-editor-panel').innerHTML='<div style="color:var(--muted);font-size:14px;padding:50px;text-align:center;">Select a question to edit.</div>';
 }
 
 /* ============================================================
    TEACHER — START QUIZ
    ============================================================ */
 async function startQuiz(){
-  if(!state.questions.length){ alert('Add at least 1 question!'); return; }
-  state.globalTimer = parseInt(document.getElementById('global-timer').value) || 20;
-  state.sessionCode = Math.random().toString(36).substring(2,8).toUpperCase();
-  state.currentQ    = -1;
-  state.ended       = false;
-
-  await set(ref(db,'sessions/'+state.sessionCode), {
-    code:      state.sessionCode,
-    currentQ:  -1,
-    ended:     false,
-    questions: state.questions
+  if(!state.questions.length){alert('Add at least 1 question!');return;}
+  state.globalTimer=parseInt(document.getElementById('global-timer').value)||30;
+  state.sessionCode=Math.random().toString(36).substring(2,8).toUpperCase();
+  state.currentQ=-1;
+  state.ended=false;
+  await set(ref(db,'sessions/'+state.sessionCode),{
+    code:state.sessionCode,currentQ:-1,ended:false,questions:state.questions
   });
-
-  document.getElementById('sc-display').textContent = state.sessionCode;
-  document.getElementById('next-btn').textContent   = '▶ Start Q1';
+  document.getElementById('sc-display').textContent=state.sessionCode;
+  document.getElementById('next-btn').textContent='▶ Start Q1';
   showScreen('teacher-monitor');
   listenToStudents();
   updateMonitor();
 }
 
 /* ============================================================
-   TEACHER — listen to students (real-time)
+   TEACHER — listen to students
    ============================================================ */
 function listenToStudents(){
-  const studentsRef = ref(db,'sessions/'+state.sessionCode+'/students');
-  if(state.sessionListener) state.sessionListener();
-  state.sessionListener = onValue(studentsRef, snap=>{
-    window._fbStudents = snap.val() || {};
-    renderJoined();
-    refreshStats();
-    renderLB();
+  const studentsRef=ref(db,'sessions/'+state.sessionCode+'/students');
+  if(state.sessionListener)state.sessionListener();
+  state.sessionListener=onValue(studentsRef,snap=>{
+    window._fbStudents=snap.val()||{};
+    renderJoined();refreshStats();renderLB();
   });
 }
-
-function getStudents(){ return window._fbStudents || {}; }
+function getStudents(){return window._fbStudents||{};}
 
 /* ============================================================
    TEACHER — advance question
@@ -956,117 +1160,116 @@ function getStudents(){ return window._fbStudents || {}; }
 function teacherNext(){
   clearInterval(state.timerInterval);
   state.currentQ++;
-  if(state.currentQ >= state.questions.length){ endQuiz(); return; }
-  document.getElementById('next-btn').textContent = 'Next Question →';
-  update(ref(db,'sessions/'+state.sessionCode), { currentQ: state.currentQ });
+  if(state.currentQ>=state.questions.length){endQuiz();return;}
+  document.getElementById('next-btn').textContent='Next Question →';
+  update(ref(db,'sessions/'+state.sessionCode),{currentQ:state.currentQ});
   startTeacherTimer();
   updateMonitor();
 }
 
 function startTeacherTimer(){
-  const q = state.questions[state.currentQ];
-  state.timerLeft = q.time;
-  const el = document.getElementById('monitor-timer-ring');
-  el.textContent = state.timerLeft;
-  el.className   = 'timer-ring';
-  state.timerInterval = setInterval(()=>{
+  const q=state.questions[state.currentQ];
+  state.timerLeft=q.time;
+  const el=document.getElementById('monitor-timer-ring');
+  el.textContent=state.timerLeft;el.className='timer-ring';
+  state.timerInterval=setInterval(()=>{
     state.timerLeft--;
-    el.textContent = state.timerLeft;
-    if(state.timerLeft <= 5) el.className = 'timer-ring urgent';
-    if(state.timerLeft <= 0){
+    el.textContent=state.timerLeft;
+    if(state.timerLeft<=5)el.className='timer-ring urgent';
+    if(state.timerLeft<=0){
       clearInterval(state.timerInterval);
       setTimeout(()=>{
         if(!state.ended){
-          if(state.currentQ < state.questions.length-1) teacherNext();
+          if(state.currentQ<state.questions.length-1)teacherNext();
           else endQuiz();
         }
-      }, 2500);
+      },3000);
     }
-  }, 1000);
+  },1000);
 }
 
 /* ============================================================
    TEACHER — monitor UI helpers
    ============================================================ */
+const TYPE_ICON={mc:'🔘',tf:'✓✗',sa:'✏️'};
+
 function renderJoined(){
-  const students = getStudents();
-  const el       = document.getElementById('joined-chips');
-  const names    = Object.keys(students);
-  if(!names.length){
-    el.innerHTML = '<span style="color:var(--muted);font-size:13px;">No students yet...</span>';
-    document.getElementById('st-students').textContent = '0';
-    return;
-  }
-  el.innerHTML = names.map(n=>{
-    const answered = students[n].answers && students[n].answers[state.currentQ] != null;
+  const students=getStudents(),el=document.getElementById('joined-chips'),names=Object.keys(students);
+  if(!names.length){el.innerHTML='<span style="color:var(--muted);font-size:13px;">No students yet...</span>';document.getElementById('st-students').textContent='0';return;}
+  el.innerHTML=names.map(n=>{
+    const answered=students[n].answers&&students[n].answers[state.currentQ]!=null;
     return `<div class="j-chip ${answered?'answered':''}">${n}${answered?' ✓':''}</div>`;
   }).join('');
-  document.getElementById('st-students').textContent = names.length;
+  document.getElementById('st-students').textContent=names.length;
 }
 
 function refreshStats(){
-  const students = getStudents();
-  const names    = Object.keys(students);
-  const qi       = state.currentQ;
-  if(qi < 0 || !names.length) return;
-  const answered = names.filter(n=>students[n].answers?.[qi]!=null).length;
-  const correct  = names.filter(n=>students[n].answers?.[qi]?.correct).length;
-  document.getElementById('st-answered').textContent = Math.round(answered/names.length*100)+'%';
-  document.getElementById('st-correct').textContent  = answered ? Math.round(correct/answered*100)+'%' : '0%';
+  const students=getStudents(),names=Object.keys(students),qi=state.currentQ;
+  if(qi<0||!names.length)return;
+  const answered=names.filter(n=>students[n].answers?.[qi]!=null).length;
+  const correct=names.filter(n=>students[n].answers?.[qi]?.correct).length;
+  document.getElementById('st-answered').textContent=Math.round(answered/names.length*100)+'%';
+  document.getElementById('st-correct').textContent=answered?Math.round(correct/answered*100)+'%':'0%';
   renderDist();
 }
 
 function updateMonitor(){
-  const qi  = state.currentQ;
-  const el  = document.getElementById('monitor-q-val');
-  const cqd = document.getElementById('current-q-display');
-  const ds  = document.getElementById('dist-section');
-  const prog = document.getElementById('monitor-prog');
-  if(qi < 0){
-    el.textContent = 'Waiting for first question...';
-    cqd.innerHTML  = `<div class="waiting-state"><div class="ws-icon">🎯</div><h3>Quiz Ready!</h3><p>Session code is active. Students can join now.<br>Click <strong>"Start Q1"</strong> when everyone is ready.</p></div>`;
-    ds.style.display = 'none';
-    if(prog) prog.style.width='0%';
-    return;
+  const qi=state.currentQ,el=document.getElementById('monitor-q-val'),cqd=document.getElementById('current-q-display'),ds=document.getElementById('dist-section'),prog=document.getElementById('monitor-prog');
+  if(qi<0){
+    el.textContent='Waiting for first question...';
+    cqd.innerHTML=`<div class="waiting-state"><div class="ws-icon">🎯</div><h3>Quiz Ready!</h3><p>Students can join now. Click <strong>"Start Q1"</strong> when ready.</p></div>`;
+    ds.style.display='none';if(prog)prog.style.width='0%';return;
   }
-  const q = state.questions[qi];
-  el.innerHTML = `Question <span style="color:var(--gold)">${qi+1}</span> / ${state.questions.length}`;
-  if(prog) prog.style.width = ((qi+1)/state.questions.length*100)+'%';
-  cqd.innerHTML = `<div class="current-q-card"><div class="cq-label">Question ${qi+1} of ${state.questions.length}</div><div class="cq-text">${q.text}</div></div>`;
-  ds.style.display = 'block';
+  const q=state.questions[qi];
+  el.innerHTML=`${TYPE_ICON[q.type]||''} Q<span style="color:var(--gold)">${qi+1}</span>/${state.questions.length} · ${q.bloom}`;
+  if(prog)prog.style.width=((qi+1)/state.questions.length*100)+'%';
+  cqd.innerHTML=`<div class="current-q-card"><div class="cq-label">Q${qi+1} · ${q.type.toUpperCase()} · ${q.bloom} · ${q.lo||''}</div><div class="cq-text">${q.text}</div>${q.type==='sa'?`<div style="margin-top:10px;font-size:0.8rem;color:var(--sa-blue);">Model: ${q.modelAnswer||'—'}</div>`:''}</div>`;
+  ds.style.display='block';
   renderDist();
 }
 
 function renderDist(){
-  const qi = state.currentQ; if(qi<0) return;
-  const students = getStudents();
-  const names    = Object.keys(students);
-  const q        = state.questions[qi];
-  const counts   = [0,0,0,0];
-  names.forEach(n=>{ const a=students[n].answers?.[qi]; if(a!=null && a.chosen>=0) counts[a.chosen]++; });
-  const tot = Math.max(names.length,1);
-  document.getElementById('answer-dist-wrap').innerHTML = q.options.map((opt,i)=>`
-    <div class="dist-bar">
-      <div class="dl" style="color:${COLORS_BAR[i]}">${LETTERS[i]}</div>
-      <div class="dist-track"><div class="dist-fill" style="width:${Math.round(counts[i]/tot*100)}%;background:${COLORS_BAR[i]}"></div></div>
-      <div class="dc">${counts[i]}</div>
-      <div class="dist-opt-label">${opt.substring(0,22)}</div>
-      ${i===q.correct?'<span style="color:#2ecc71;font-size:11px;font-weight:800;">✓ Correct</span>':''}
-    </div>
-  `).join('');
+  const qi=state.currentQ;if(qi<0)return;
+  const students=getStudents(),names=Object.keys(students),q=state.questions[qi];
+  const wrap=document.getElementById('answer-dist-wrap');
+
+  if(q.type==='mc'){
+    const counts=[0,0,0,0];
+    names.forEach(n=>{const a=students[n].answers?.[qi];if(a!=null&&a.chosen>=0)counts[a.chosen]++;});
+    const tot=Math.max(names.length,1);
+    wrap.innerHTML=q.options.map((opt,i)=>`
+      <div class="dist-bar">
+        <div class="dl" style="color:${COLORS_BAR[i]}">${LETTERS[i]}</div>
+        <div class="dist-track"><div class="dist-fill" style="width:${Math.round(counts[i]/tot*100)}%;background:${COLORS_BAR[i]}"></div></div>
+        <div class="dc">${counts[i]}</div>
+        <div class="dist-opt-label">${opt.substring(0,22)}</div>
+        ${i===q.correct?'<span style="color:#2ecc71;font-size:11px;font-weight:800;">✓ Correct</span>':''}
+      </div>`).join('');
+
+  } else if(q.type==='tf'){
+    const cT=names.filter(n=>students[n].answers?.[qi]?.chosen===true).length;
+    const cF=names.filter(n=>students[n].answers?.[qi]?.chosen===false).length;
+    const tot=Math.max(names.length,1);
+    wrap.innerHTML=`
+      <div class="dist-bar"><div class="dl" style="color:#22c55e">T</div><div class="dist-track"><div class="dist-fill" style="width:${Math.round(cT/tot*100)}%;background:#22c55e"></div></div><div class="dc">${cT}</div><div class="dist-opt-label">True</div>${q.correctTF===true?'<span style="color:#2ecc71;font-size:11px;font-weight:800;">✓ Correct</span>':''}</div>
+      <div class="dist-bar"><div class="dl" style="color:#ef4444">F</div><div class="dist-track"><div class="dist-fill" style="width:${Math.round(cF/tot*100)}%;background:#ef4444"></div></div><div class="dc">${cF}</div><div class="dist-opt-label">False</div>${q.correctTF===false?'<span style="color:#2ecc71;font-size:11px;font-weight:800;">✓ Correct</span>':''}</div>`;
+
+  } else if(q.type==='sa'){
+    const submitted=names.filter(n=>students[n].answers?.[qi]!=null).length;
+    wrap.innerHTML=`<div style="color:var(--muted);font-size:0.85rem;padding:8px 0;">
+      ✏️ Short Answer: ${submitted} / ${names.length} submitted.<br>
+      <span style="color:var(--sa-blue);font-size:0.8rem;">Model Answer: ${q.modelAnswer||'—'}</span>
+    </div>`;
+  }
 }
 
 function renderLB(){
-  const students = getStudents();
-  const sorted   = Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0));
-  const el       = document.getElementById('live-lb');
-  if(!sorted.length){
-    el.innerHTML='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">No data yet...</div>';
-    return;
-  }
-  el.innerHTML = sorted.slice(0,10).map((s,i)=>{
-    const cls   = i===0?'r1':i===1?'r2':i===2?'r3':'';
-    const medal = ['🥇','🥈','🥉'][i]||`#${i+1}`;
+  const students=getStudents(),sorted=Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0));
+  const el=document.getElementById('live-lb');
+  if(!sorted.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px;">No data yet...</div>';return;}
+  el.innerHTML=sorted.slice(0,10).map((s,i)=>{
+    const cls=i===0?'r1':i===1?'r2':i===2?'r3':'';
+    const medal=['🥇','🥈','🥉'][i]||`#${i+1}`;
     return `<div class="lb-item ${cls}"><div class="lb-rank">${medal}</div><div class="lb-name">${s.name}</div><div class="lb-pts">${s.score||0}</div></div>`;
   }).join('');
 }
@@ -1076,62 +1279,70 @@ function renderLB(){
    ============================================================ */
 async function endQuiz(){
   clearInterval(state.timerInterval);
-  state.ended = true;
-  if(state.sessionListener){ state.sessionListener(); state.sessionListener=null; }
-  await update(ref(db,'sessions/'+state.sessionCode), { ended: true });
+  state.ended=true;
+  if(state.sessionListener){state.sessionListener();state.sessionListener=null;}
+  await update(ref(db,'sessions/'+state.sessionCode),{ended:true});
   buildTeacherResult();
   showScreen('teacher-result');
 }
 
 function buildTeacherResult(){
-  const students = getStudents();
-  const sorted   = Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0));
-  const qs       = state.questions;
-
-  const tableRows = sorted.map((s,i)=>{
-    const answers  = s.answers || [];
-    const times    = Object.values(s.times||{});
-    const correct  = answers.filter(a=>a?.correct).length;
-    const answered = answers.filter(Boolean).length;
-    const avgT     = times.length ? (times.reduce((a,b)=>a+b,0)/times.length).toFixed(1) : '—';
-    const acc      = answered ? Math.round(correct/answered*100) : 0;
-    const medal    = ['🥇','🥈','🥉'][i]||'';
-    const chip     = acc>=70?'chip-g':acc>=40?'chip-y':'chip-r';
-    return `<tr>
-      <td>${medal} ${i+1}</td>
-      <td><strong>${s.name}</strong></td>
-      <td style="font-family:'Orbitron',sans-serif;color:var(--gold)">${s.score||0}</td>
-      <td>${correct}/${qs.length}</td>
-      <td>${avgT}s</td>
-      <td><span class="chip ${chip}">${acc}%</span></td>
-    </tr>`;
+  const students=getStudents(),sorted=Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0)),qs=state.questions;
+  const tableRows=sorted.map((s,i)=>{
+    const answers=s.answers||[];
+    const times=Object.values(s.times||{});
+    const correct=answers.filter(a=>a?.correct).length;
+    const answered=answers.filter(Boolean).length;
+    const avgT=times.length?(times.reduce((a,b)=>a+b,0)/times.length).toFixed(1):'—';
+    const acc=answered?Math.round(correct/answered*100):0;
+    const medal=['🥇','🥈','🥉'][i]||'';
+    const chip=acc>=70?'chip-g':acc>=40?'chip-y':'chip-r';
+    return `<tr><td>${medal} ${i+1}</td><td><strong>${s.name}</strong></td><td style="font-family:'Orbitron',sans-serif;color:var(--gold)">${s.score||0}</td><td>${correct}/${qs.length}</td><td>${avgT}s</td><td><span class="chip ${chip}">${acc}%</span></td></tr>`;
   }).join('');
 
-  const perQRows = qs.map((q,i)=>{
-    const names    = Object.keys(students);
-    const answered = names.filter(n=>students[n].answers?.[i]).length;
-    const correct  = names.filter(n=>students[n].answers?.[i]?.correct).length;
-    const pct      = answered ? Math.round(correct/answered*100) : 0;
-    const chip     = pct>=70?'chip-g':pct>=40?'chip-y':'chip-r';
+  const perQRows=qs.map((q,i)=>{
+    const names=Object.keys(students);
+    const answered=names.filter(n=>students[n].answers?.[i]).length;
+    const correct=names.filter(n=>students[n].answers?.[i]?.correct).length;
+    const pct=answered?Math.round(correct/answered*100):0;
+    const chip=pct>=70?'chip-g':pct>=40?'chip-y':'chip-r';
+    const icon=TYPE_ICON[q.type]||'';
     return `<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">
       <div style="width:30px;font-size:12px;color:var(--muted);flex-shrink:0">Q${i+1}</div>
-      <div style="flex:1;font-size:13px;">${q.text.substring(0,50)}${q.text.length>50?'…':''}</div>
-      <span class="chip ${chip}">${pct}% correct</span>
+      <span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,0.07);color:var(--muted);">${icon} ${q.type.toUpperCase()}</span>
+      <span class="bloom-badge bloom-${q.bloomLevel}" style="font-size:0.65rem;">${q.bloom}</span>
+      <div style="flex:1;font-size:13px;">${q.text.substring(0,45)}…</div>
+      ${q.type!=='sa'?`<span class="chip ${chip}">${pct}% correct</span>`:'<span style="color:var(--sa-blue);font-size:0.75rem;">see SA responses</span>'}
     </div>`;
   }).join('');
 
-  document.getElementById('result-body-content').innerHTML = `
+  // SA responses per student
+  const saQs=qs.map((q,i)=>({q,i})).filter(({q})=>q.type==='sa');
+  const saSection=saQs.length?`
+    <div style="margin-top:30px;max-width:900px;">
+      <div style="font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--sa-blue);margin-bottom:10px;">✏️ SHORT ANSWER RESPONSES</div>
+      ${saQs.map(({q,i})=>`
+        <div style="margin-bottom:20px;">
+          <div style="font-size:0.85rem;color:var(--gold);margin-bottom:8px;font-weight:700;">Q${i+1}: ${q.text.substring(0,60)}…</div>
+          <div style="font-size:0.8rem;color:var(--sa-blue);margin-bottom:8px;">Model Answer: ${q.modelAnswer}</div>
+          ${sorted.map(s=>`
+            <div class="sa-review-card">
+              <div class="sa-q"><strong>${s.name}</strong> ${s.answers?.[i]?.correct?'<span style="color:#22c55e">✓ Partial credit</span>':'<span style="color:#94a3b8">—</span>'}</div>
+              <div class="sa-resp">"${s.answers?.[i]?.text||'(no answer)'}"</div>
+            </div>`).join('')}
+        </div>`).join('')}
+    </div>`:''
+
+  document.getElementById('result-body-content').innerHTML=`
     <div class="result-table-wrap" style="margin-bottom:30px;">
       <div style="font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--gold);margin-bottom:10px;">🏆 FINAL LEADERBOARD</div>
-      <table>
-        <thead><tr><th>Rank</th><th>Name</th><th>Score</th><th>Correct</th><th>Avg Time</th><th>Accuracy</th></tr></thead>
-        <tbody>${tableRows}</tbody>
-      </table>
+      <table><thead><tr><th>Rank</th><th>Name</th><th>Score</th><th>Correct</th><th>Avg Time</th><th>Accuracy</th></tr></thead><tbody>${tableRows}</tbody></table>
     </div>
     <div style="max-width:900px;">
       <div style="font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--gold);margin-bottom:10px;">📊 PER-QUESTION ANALYSIS</div>
       ${perQRows}
     </div>
+    ${saSection}
   `;
 }
 
@@ -1139,177 +1350,245 @@ function buildTeacherResult(){
    STUDENT — join quiz
    ============================================================ */
 async function joinQuiz(){
-  const code = document.getElementById('code-input').value.trim().toUpperCase();
-  const name = document.getElementById('name-input').value.trim();
-  const err  = document.getElementById('join-err');
-  if(!code){ err.textContent='⚠️ Please enter a session code!'; return; }
-  if(!name){ err.textContent='⚠️ Please enter your name!';      return; }
-  err.textContent = 'Connecting...';
-
-  const snap = await get(ref(db,'sessions/'+code));
-  if(!snap.exists()){ err.textContent=`⚠️ Code "${code}" not found.`; return; }
-  const session = snap.val();
-  if(session.ended){ err.textContent='⚠️ This quiz has already ended.'; return; }
-
-  stu.name       = name;
-  stu.code       = code;
-  stu.score      = 0;
-  stu.answers    = [];
-  stu.streak     = 0;
-  stu.bestStreak = 0;
-  stu.currentQ   = 0;
-  stu.answered   = false;
-  stu.questions  = session.questions || [];
-
-  await set(ref(db,`sessions/${code}/students/${name}`), {
-    name, score:0, answers:[], times:[], bestStreak:0
-  });
-
-  document.getElementById('wait-name').textContent = `Hello, ${name}! 👋`;
-  document.getElementById('wait-code').textContent = code;
-  showScreen('student-waiting');
-  err.textContent = '';
-
-  if(stu.sessionListener){ stu.sessionListener(); stu.sessionListener=null; }
-  stu.sessionListener = onValue(ref(db,`sessions/${code}`), snap2=>{
-    const s = snap2.val(); if(!s) return;
-    if(s.ended){
-      if(stu.sessionListener){ stu.sessionListener(); stu.sessionListener=null; }
-      showStudentResult();
-      return;
-    }
-    stu.questions = s.questions || stu.questions;
-    if(s.currentQ >= 0){
-      const currentScreen = document.querySelector('.screen.active')?.id;
-      if(currentScreen === 'student-waiting'){
-        document.getElementById('quiz-pname').textContent = stu.name;
-        stu.currentQ = s.currentQ;
-        showScreen('student-quiz');
-        showStudentQ();
-      } else if(currentScreen === 'student-quiz' && s.currentQ > stu.currentQ && stu.answered){
-        stu.currentQ = s.currentQ;
-        showStudentQ();
+  const code=document.getElementById('code-input').value.trim().toUpperCase();
+  const name=document.getElementById('name-input').value.trim();
+  const err=document.getElementById('join-err');
+  if(!code){err.textContent='⚠️ Please enter a session code!';return;}
+  if(!name){err.textContent='⚠️ Please enter your name!';return;}
+  err.textContent='Connecting...';
+  const snap=await get(ref(db,'sessions/'+code));
+  if(!snap.exists()){err.textContent=`⚠️ Code "${code}" not found.`;return;}
+  const session=snap.val();
+  if(session.ended){err.textContent='⚠️ This quiz has already ended.';return;}
+  stu.name=name;stu.code=code;stu.score=0;stu.answers=[];
+  stu.streak=0;stu.bestStreak=0;stu.currentQ=0;stu.answered=false;
+  stu.questions=session.questions||[];
+  await set(ref(db,`sessions/${code}/students/${name}`),{name,score:0,answers:[],times:[],bestStreak:0});
+  document.getElementById('wait-name').textContent=`Hello, ${name}! 👋`;
+  document.getElementById('wait-code').textContent=code;
+  showScreen('student-waiting');err.textContent='';
+  if(stu.sessionListener){stu.sessionListener();stu.sessionListener=null;}
+  stu.sessionListener=onValue(ref(db,`sessions/${code}`),snap2=>{
+    const s=snap2.val();if(!s)return;
+    if(s.ended){if(stu.sessionListener){stu.sessionListener();stu.sessionListener=null;}showStudentResult();return;}
+    stu.questions=s.questions||stu.questions;
+    if(s.currentQ>=0){
+      const currentScreen=document.querySelector('.screen.active')?.id;
+      if(currentScreen==='student-waiting'){
+        document.getElementById('quiz-pname').textContent=stu.name;
+        stu.currentQ=s.currentQ;showScreen('student-quiz');showStudentQ();
+      } else if(currentScreen==='student-quiz'&&s.currentQ>stu.currentQ&&stu.answered){
+        stu.currentQ=s.currentQ;showStudentQ();
       }
     }
   });
 }
 
 /* ============================================================
-   STUDENT — show question
+   STUDENT — show question (multi-type)
    ============================================================ */
+const BLOOM_LABELS={1:'Remember',2:'Understand',3:'Apply',4:'Analyse',5:'Evaluate'};
+const BLOOM_CLASS={1:'bloom-1',2:'bloom-2',3:'bloom-3',4:'bloom-4',5:'bloom-5'};
+
 function showStudentQ(){
-  const qi = stu.currentQ;
-  const questions = stu.questions;
-  if(qi >= questions.length){ showStudentResult(); return; }
-  const q = questions[qi];
-  stu.answered = false;
+  const qi=stu.currentQ,questions=stu.questions;
+  if(qi>=questions.length){showStudentResult();return;}
+  const q=questions[qi];
+  stu.answered=false;
   clearInterval(stu.timerInterval);
 
-  document.getElementById('q-num-label').textContent        = `Question ${qi+1} / ${questions.length}`;
-  const prog = document.getElementById('student-prog');
-  if(prog) prog.style.width = (qi/questions.length*100)+'%';
-  document.getElementById('q-text-display').textContent     = q.text;
-  document.getElementById('student-score').textContent      = stu.score;
-  document.getElementById('feedback-bar').className         = 'feedback-bar';
+  document.getElementById('q-num-label').textContent=`Question ${qi+1} / ${questions.length}`;
+  const prog=document.getElementById('student-prog');
+  if(prog)prog.style.width=(qi/questions.length*100)+'%';
+  document.getElementById('q-text-display').textContent=q.text;
+  document.getElementById('student-score').textContent=stu.score;
+  document.getElementById('feedback-bar').className='feedback-bar';
+  document.getElementById('feedback-bar').textContent='';
+  document.getElementById('explanation-box').className='explanation-box';
+  document.getElementById('explanation-box').innerHTML='';
 
-  const sl = document.getElementById('streak-label');
-  if(stu.streak >= 2){ sl.classList.remove('hidden'); sl.textContent=`🔥 Streak ${stu.streak}`; }
+  // Question type badge
+  const typeMap={mc:{cls:'qtype-mc',label:'🔘 Multiple Choice'},tf:{cls:'qtype-tf',label:'✓✗ True / False'},sa:{cls:'qtype-sa',label:'✏️ Short Answer'}};
+  const ti=typeMap[q.type]||{cls:'',label:q.type};
+  document.getElementById('qtype-indicator').innerHTML=`<span class="qtype-badge ${ti.cls}">${ti.label}</span>`;
+  // Bloom badge
+  document.getElementById('bloom-indicator').innerHTML=`<span class="bloom-badge ${BLOOM_CLASS[q.bloomLevel]||''}">${q.bloom||''}</span>`;
+
+  // Streak display
+  const sl=document.getElementById('streak-label');
+  if(stu.streak>=2){sl.classList.remove('hidden');sl.textContent=`🔥 Streak ${stu.streak}`;}
   else sl.classList.add('hidden');
 
-  document.getElementById('answers-grid').innerHTML = q.options.map((opt,i)=>`
-    <button class="ans-btn ans-${LETTERS[i]}" id="ab${i}" onclick="studentAnswer(${i})">
-      <div class="al">${LETTERS[i]}</div>${opt}
-    </button>
-  `).join('');
+  // Render answer area based on type
+  const area=document.getElementById('answers-area');
+  if(q.type==='mc'){
+    area.innerHTML=`<div class="answers-grid">${q.options.map((opt,i)=>`
+      <button class="ans-btn ans-${LETTERS[i]}" id="ab${i}" onclick="studentAnswer(${i})">
+        <div class="al">${LETTERS[i]}</div>${opt}
+      </button>`).join('')}</div>`;
+  } else if(q.type==='tf'){
+    area.innerHTML=`<div class="tf-grid">
+      <button class="tf-btn tf-true" id="tf-T" onclick="studentTFAnswer(true)">
+        <div class="tf-icon">✅</div>TRUE
+      </button>
+      <button class="tf-btn tf-false" id="tf-F" onclick="studentTFAnswer(false)">
+        <div class="tf-icon">❌</div>FALSE
+      </button>
+    </div>`;
+  } else if(q.type==='sa'){
+    area.innerHTML=`<div class="sa-wrap">
+      ${q.hint?`<div class="sa-hint">💡 Hint: ${q.hint}</div>`:''}
+      <textarea class="sa-textarea" id="sa-input" placeholder="Type your answer here..." maxlength="500"></textarea>
+      <button class="sa-submit-btn" id="sa-submit" onclick="studentSASubmit()">Submit Answer →</button>
+    </div>`;
+  }
 
-  stu.timerLeft = q.time;
-  const tr = document.getElementById('student-timer-ring');
-  tr.textContent = stu.timerLeft;
-  tr.className   = 'timer-ring';
-
-  stu.timerInterval = setInterval(()=>{
+  // Timer
+  stu.timerLeft=q.time;
+  const tr=document.getElementById('student-timer-ring');
+  tr.textContent=stu.timerLeft;tr.className='timer-ring';
+  stu.timerInterval=setInterval(()=>{
     stu.timerLeft--;
-    tr.textContent = stu.timerLeft;
-    if(stu.timerLeft<=5) tr.className='timer-ring urgent';
-    if(stu.timerLeft<=0){
-      clearInterval(stu.timerInterval);
-      if(!stu.answered) timeoutStudent();
-    }
-  }, 1000);
+    tr.textContent=stu.timerLeft;
+    if(stu.timerLeft<=5)tr.className='timer-ring urgent';
+    if(stu.timerLeft<=0){clearInterval(stu.timerInterval);if(!stu.answered)timeoutStudent();}
+  },1000);
 }
 
 /* ============================================================
-   STUDENT — answer
+   STUDENT — answer handlers
    ============================================================ */
-function studentAnswer(idx){
-  if(stu.answered) return;
-  stu.answered = true;
-  clearInterval(stu.timerInterval);
-
-  const qi      = stu.currentQ;
-  const q       = stu.questions[qi];
-  const ok      = idx === q.correct;
-  const elapsed = q.time - stu.timerLeft;
-  const pts     = ok ? Math.max(100, Math.round(1000 - (elapsed/q.time)*500)) : 0;
-
-  [0,1,2,3].forEach(i=>{
-    const b=document.getElementById('ab'+i); if(!b) return;
-    b.disabled = true;
-    if(i===q.correct)       b.classList.add('correct');
-    else if(i===idx && !ok) b.classList.add('wrong');
-  });
-
-  if(ok){ stu.streak++; stu.bestStreak=Math.max(stu.bestStreak,stu.streak); stu.score+=pts; }
-  else  { stu.streak=0; }
-
-  stu.answers[qi] = { chosen:idx, correct:ok, points:pts, time:elapsed };
-  document.getElementById('student-score').textContent = stu.score;
-
-  const fb = document.getElementById('feedback-bar');
-  if(ok){
+function showFeedbackAndExplanation(ok,q,pts,isPartial){
+  const fb=document.getElementById('feedback-bar');
+  const eb=document.getElementById('explanation-box');
+  if(isPartial){
+    fb.className='feedback-bar fb-partial show';
+    fb.innerHTML=`⚡ +${pts} pts — partial credit for keywords found!`;
+  } else if(ok){
     fb.className='feedback-bar fb-correct show';
     fb.innerHTML=`✅ Correct! +${pts} pts${stu.streak>1?` 🔥 Streak ${stu.streak}`:''}`;
   } else {
     fb.className='feedback-bar fb-wrong show';
-    fb.innerHTML=`❌ Wrong! Correct answer: <strong>${LETTERS[q.correct]} — ${q.options[q.correct]}</strong>`;
+    if(q.type==='mc') fb.innerHTML=`❌ Wrong! Correct answer: <strong>${LETTERS[q.correct]} — ${q.options[q.correct]}</strong>`;
+    else if(q.type==='tf') fb.innerHTML=`❌ Wrong! Correct answer: <strong>${q.correctTF?'TRUE':'FALSE'}</strong>`;
+    else fb.innerHTML=`📝 Answer submitted. See the model answer below.`;
   }
+  if(q.explanation){
+    let modelHtml='';
+    if(q.type==='sa'&&q.modelAnswer) modelHtml=`<div class="model-answer">📖 Model Answer: ${q.modelAnswer}</div>`;
+    eb.innerHTML=`<strong>📚 Explanation:</strong> ${q.explanation}${modelHtml}`;
+    eb.className='explanation-box show';
+  } else if(q.type==='sa'&&q.modelAnswer){
+    eb.innerHTML=`<div class="model-answer">📖 Model Answer: ${q.modelAnswer}</div>`;
+    eb.className='explanation-box show';
+  }
+}
 
-  update(ref(db,`sessions/${stu.code}/students/${stu.name}`), {
-    [`answers/${qi}`]: { chosen:idx, correct:ok, points:pts, time:elapsed },
-    score:      stu.score,
-    bestStreak: stu.bestStreak,
-    [`times/${qi}`]: elapsed
+function studentAnswer(idx){
+  if(stu.answered)return;
+  stu.answered=true;clearInterval(stu.timerInterval);
+  const qi=stu.currentQ,q=stu.questions[qi];
+  const ok=idx===q.correct;
+  const elapsed=q.time-stu.timerLeft;
+  const pts=ok?Math.max(100,Math.round(1000-(elapsed/q.time)*500)):0;
+  [0,1,2,3].forEach(i=>{const b=document.getElementById('ab'+i);if(!b)return;b.disabled=true;if(i===q.correct)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');});
+  if(ok){stu.streak++;stu.bestStreak=Math.max(stu.bestStreak,stu.streak);stu.score+=pts;}else{stu.streak=0;}
+  stu.answers[qi]={chosen:idx,correct:ok,points:pts,time:elapsed};
+  document.getElementById('student-score').textContent=stu.score;
+  showFeedbackAndExplanation(ok,q,pts,false);
+  update(ref(db,`sessions/${stu.code}/students/${stu.name}`),{
+    [`answers/${qi}`]:{chosen:idx,correct:ok,points:pts,time:elapsed},
+    score:stu.score,bestStreak:stu.bestStreak,[`times/${qi}`]:elapsed
   });
+  setTimeout(()=>advanceStudent(),3500);
+}
 
-  setTimeout(()=>{
-    stu.currentQ++;
-    if(stu.currentQ >= stu.questions.length) showStudentResult();
-    else showStudentQ();
-  }, 2300);
+function studentTFAnswer(val){
+  if(stu.answered)return;
+  stu.answered=true;clearInterval(stu.timerInterval);
+  const qi=stu.currentQ,q=stu.questions[qi];
+  const ok=val===q.correctTF;
+  const elapsed=q.time-stu.timerLeft;
+  const pts=ok?Math.max(100,Math.round(800-(elapsed/q.time)*400)):0;
+  ['T','F'].forEach(id=>{
+    const b=document.getElementById('tf-'+id);if(!b)return;
+    b.disabled=true;
+    const isTrue=(id==='T');
+    if(isTrue===q.correctTF)b.classList.add('correct');
+    else if(isTrue===val&&!ok)b.classList.add('wrong');
+  });
+  if(ok){stu.streak++;stu.bestStreak=Math.max(stu.bestStreak,stu.streak);stu.score+=pts;}else{stu.streak=0;}
+  stu.answers[qi]={chosen:val,correct:ok,points:pts,time:elapsed};
+  document.getElementById('student-score').textContent=stu.score;
+  showFeedbackAndExplanation(ok,q,pts,false);
+  update(ref(db,`sessions/${stu.code}/students/${stu.name}`),{
+    [`answers/${qi}`]:{chosen:val,correct:ok,points:pts,time:elapsed},
+    score:stu.score,bestStreak:stu.bestStreak,[`times/${qi}`]:elapsed
+  });
+  setTimeout(()=>advanceStudent(),3500);
+}
+
+function studentSASubmit(){
+  if(stu.answered)return;
+  const textEl=document.getElementById('sa-input');
+  const text=(textEl?textEl.value:'').trim();
+  if(!text){showToast('⚠️ Please write an answer first!');return;}
+  stu.answered=true;clearInterval(stu.timerInterval);
+  const qi=stu.currentQ,q=stu.questions[qi];
+  const elapsed=q.time-stu.timerLeft;
+  const lower=text.toLowerCase();
+  const hits=(q.keywords||[]).filter(kw=>lower.includes(kw)).length;
+  const total=(q.keywords||[]).length||1;
+  const ratio=hits/total;
+  const pts=ratio>=0.6?Math.max(50,Math.round(600*ratio)):ratio>0?Math.max(30,Math.round(300*ratio)):0;
+  const ok=ratio>=0.5;
+  const isPartial=hits>0&&!ok;
+  if(ok||isPartial){stu.streak++;stu.bestStreak=Math.max(stu.bestStreak,stu.streak);}else{stu.streak=0;}
+  stu.score+=pts;
+  stu.answers[qi]={text,correct:ok,points:pts,time:elapsed,hits,total};
+  document.getElementById('student-score').textContent=stu.score;
+  if(textEl)textEl.disabled=true;
+  const sb=document.getElementById('sa-submit');if(sb)sb.disabled=true;
+  showFeedbackAndExplanation(ok,q,pts,isPartial);
+  update(ref(db,`sessions/${stu.code}/students/${stu.name}`),{
+    [`answers/${qi}`]:{text,correct:ok,points:pts,time:elapsed},
+    score:stu.score,bestStreak:stu.bestStreak,[`times/${qi}`]:elapsed
+  });
+  setTimeout(()=>advanceStudent(),4500);
 }
 
 function timeoutStudent(){
-  stu.answered = true;
-  const qi = stu.currentQ;
-  const q  = stu.questions[qi];
-  [0,1,2,3].forEach(i=>{ const b=document.getElementById('ab'+i); if(b){ b.disabled=true; if(i===q.correct) b.classList.add('correct'); } });
+  stu.answered=true;
+  const qi=stu.currentQ,q=stu.questions[qi];
   stu.streak=0;
-  stu.answers[qi]={ chosen:-1, correct:false, points:0, time:q.time };
-
+  stu.answers[qi]={chosen:-1,correct:false,points:0,time:q.time};
+  // Mark correct answer
+  if(q.type==='mc'){
+    [0,1,2,3].forEach(i=>{const b=document.getElementById('ab'+i);if(b){b.disabled=true;if(i===q.correct)b.classList.add('correct');}});
+  } else if(q.type==='tf'){
+    ['T','F'].forEach(id=>{const b=document.getElementById('tf-'+id);if(b){b.disabled=true;if((id==='T')===q.correctTF)b.classList.add('correct');}});
+  } else if(q.type==='sa'){
+    const sb=document.getElementById('sa-submit');if(sb)sb.disabled=true;
+  }
   const fb=document.getElementById('feedback-bar');
   fb.className='feedback-bar fb-wrong show';
-  fb.innerHTML=`⏱ Time's up! Correct answer: <strong>${LETTERS[q.correct]} — ${q.options[q.correct]}</strong>`;
+  if(q.type==='sa') fb.innerHTML=`⏱ Time's up! Model answer shown below.`;
+  else if(q.type==='tf') fb.innerHTML=`⏱ Time's up! Correct: <strong>${q.correctTF?'TRUE':'FALSE'}</strong>`;
+  else fb.innerHTML=`⏱ Time's up! Correct: <strong>${LETTERS[q.correct]} — ${q.options[q.correct]}</strong>`;
 
-  update(ref(db,`sessions/${stu.code}/students/${stu.name}`), {
-    [`answers/${qi}`]: { chosen:-1, correct:false, points:0, time:q.time },
-    score: stu.score
-  });
+  if(q.explanation||q.modelAnswer){
+    const eb=document.getElementById('explanation-box');
+    eb.innerHTML=`${q.explanation?`<strong>📚 Explanation:</strong> ${q.explanation}`:''}${q.type==='sa'&&q.modelAnswer?`<div class="model-answer">📖 Model Answer: ${q.modelAnswer}</div>`:''}`;
+    eb.className='explanation-box show';
+  }
+  update(ref(db,`sessions/${stu.code}/students/${stu.name}`),{[`answers/${qi}`]:{chosen:-1,correct:false,points:0,time:q.time},score:stu.score});
+  setTimeout(()=>advanceStudent(),4500);
+}
 
-  setTimeout(()=>{
-    stu.currentQ++;
-    if(stu.currentQ >= stu.questions.length) showStudentResult();
-    else showStudentQ();
-  }, 2300);
+function advanceStudent(){
+  stu.currentQ++;
+  if(stu.currentQ>=stu.questions.length)showStudentResult();
+  else showStudentQ();
 }
 
 /* ============================================================
@@ -1317,24 +1596,37 @@ function timeoutStudent(){
    ============================================================ */
 async function showStudentResult(){
   clearInterval(stu.timerInterval);
-  if(stu.sessionListener){ stu.sessionListener(); stu.sessionListener=null; }
+  if(stu.sessionListener){stu.sessionListener();stu.sessionListener=null;}
+  const snap=await get(ref(db,`sessions/${stu.code}/students`));
+  const all=snap.val()||{};
+  const sorted=Object.values(all).sort((a,b)=>(b.score||0)-(a.score||0));
+  const rank=sorted.findIndex(s=>s.name===stu.name)+1||1;
+  const correct=stu.answers.filter(a=>a?.correct).length;
+  const answered=stu.answers.filter(Boolean).length;
+  const acc=answered?Math.round(correct/answered*100):0;
+  document.getElementById('res-trophy').textContent=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🎓';
+  document.getElementById('res-player-name').textContent=stu.name;
+  document.getElementById('res-rank').textContent=`#${rank}`;
+  document.getElementById('r-score').textContent=stu.score;
+  document.getElementById('r-correct').textContent=`${correct}/${stu.questions.length}`;
+  document.getElementById('r-streak').textContent=stu.bestStreak;
+  document.getElementById('r-accuracy').textContent=acc+'%';
 
-  const snap = await get(ref(db,`sessions/${stu.code}/students`));
-  const all  = snap.val() || {};
-  const sorted = Object.values(all).sort((a,b)=>(b.score||0)-(a.score||0));
-  const rank   = sorted.findIndex(s=>s.name===stu.name)+1 || 1;
-
-  const correct  = stu.answers.filter(a=>a?.correct).length;
-  const answered = stu.answers.filter(Boolean).length;
-  const acc      = answered ? Math.round(correct/answered*100) : 0;
-
-  document.getElementById('res-trophy').textContent      = rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':'🎓';
-  document.getElementById('res-player-name').textContent = stu.name;
-  document.getElementById('res-rank').textContent        = `#${rank}`;
-  document.getElementById('r-score').textContent         = stu.score;
-  document.getElementById('r-correct').textContent       = `${correct}/${stu.questions.length}`;
-  document.getElementById('r-streak').textContent        = stu.bestStreak;
-  document.getElementById('r-accuracy').textContent      = acc+'%';
+  // SA review
+  const saSection=document.getElementById('sa-review-section');
+  const saQs=stu.questions.map((q,i)=>({q,i})).filter(({q})=>q.type==='sa');
+  if(saQs.length){
+    saSection.innerHTML=`
+      <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--sa-blue);margin-bottom:10px;text-align:center;">✏️ YOUR SHORT ANSWERS</div>
+      ${saQs.map(({q,i})=>{
+        const a=stu.answers[i]||{};
+        return `<div class="sa-review-card">
+          <div class="sa-q"><strong>Q${i+1}:</strong> ${q.text.substring(0,60)}…</div>
+          <div class="sa-resp">${a.text||'(no answer)'}</div>
+          <div class="sa-key">📖 Model: ${q.modelAnswer||'—'}</div>
+        </div>`;
+      }).join('')}`;
+  } else saSection.innerHTML='';
   showScreen('student-result');
 }
 
@@ -1342,24 +1634,24 @@ async function showStudentResult(){
    EXPORT
    ============================================================ */
 function exportCSV(){
-  const students = getStudents();
-  const sorted   = Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0));
-  const qs       = state.questions;
-  const headers  = ['Rank','Name','Total_Score',...qs.map((_,i)=>`Q${i+1}_Correct`),...qs.map((_,i)=>`Q${i+1}_Points`),'Avg_Time_sec','Accuracy_pct','Best_Streak'];
-  const rows = sorted.map((s,i)=>{
-    const answers  = s.answers || [];
-    const times    = Object.values(s.times||{});
-    const correct  = qs.map((_,qi)=>answers[qi]?.correct?1:0);
-    const points   = qs.map((_,qi)=>answers[qi]?.points||0);
-    const avgT     = times.length ? (times.reduce((a,b)=>a+b,0)/times.length).toFixed(2) : 0;
-    const ans      = answers.filter(Boolean).length;
-    const acc      = ans ? Math.round(answers.filter(a=>a?.correct).length/ans*100) : 0;
-    return [i+1,s.name,s.score||0,...correct,...points,avgT,acc,s.bestStreak||0];
+  const students=getStudents(),sorted=Object.values(students).sort((a,b)=>(b.score||0)-(a.score||0)),qs=state.questions;
+  const saIdxs=qs.map((q,i)=>q.type==='sa'?i:-1).filter(i=>i>=0);
+  const headers=['Rank','Name','Total_Score',...qs.map((_,i)=>`Q${i+1}_Correct`),...qs.map((_,i)=>`Q${i+1}_Points`),'Avg_Time_sec','Accuracy_pct','Best_Streak',...saIdxs.map(i=>`Q${i+1}_SA_Text`)];
+  const rows=sorted.map((s,rank)=>{
+    const answers=s.answers||[];
+    const times=Object.values(s.times||{});
+    const correct=qs.map((_,qi)=>answers[qi]?.correct?1:0);
+    const points=qs.map((_,qi)=>answers[qi]?.points||0);
+    const avgT=times.length?(times.reduce((a,b)=>a+b,0)/times.length).toFixed(2):0;
+    const ans=answers.filter(Boolean).length;
+    const acc=ans?Math.round(answers.filter(a=>a?.correct).length/ans*100):0;
+    const saTexts=saIdxs.map(i=>`"${(answers[i]?.text||'').replace(/"/g,"'")}"`);
+    return [rank+1,s.name,s.score||0,...correct,...points,avgT,acc,s.bestStreak||0,...saTexts];
   });
-  const content = [headers,...rows].map(r=>r.join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([content],{type:'text/csv'}));
-  a.download = 'solar_quiz_results.csv';
+  const content=[headers,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:'text/csv'}));
+  a.download='solar_quiz_results.csv';
   a.click();
 }
 
